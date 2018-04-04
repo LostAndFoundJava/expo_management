@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honger.expo.dao.ExhibitionCategoryDao" >
+
+    <!--查询展会及行业信息-->
+    <select id="queryHotCatExhibition" resultType="com.honger.expo.pojo.ExhibitionCategory">
+        select  a.country, b.id, b.parent_id as parentId,b.name
+        from exhibition as a, category as b
+        where a.hot = 1
+        <if test="start_time != null and start_time != ''">
+            <![CDATA[ AND a.start_time <= TO_DATE(TO_CHAR(sysdate,'YYYY-MM-DD hh:MM:ss'),'YYYY-MM-DD hh:MM:ss')]]>
+        </if>
+
+        <if test="end_time != null and end_time != ''">
+            <![CDATA[ AND a.end_time >= TO_DATE(TO_CHAR(sysdate,'YYYY-MM-DD hh:MM:ss'),'YYYY-MM-DD hh:MM:ss')]]>
+        </if>
+        and a.`delete` = 0 and b.`delete` = 0 and a.category_id = b.id;
+    </select>
+
+
+</mapper>

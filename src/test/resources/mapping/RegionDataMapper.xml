@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honger.expo.dao.RegionDataDao" >
+  <resultMap id="BaseResultMap" type="com.honger.expo.pojo.RegionData" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="name_en" property="nameEn" jdbcType="VARCHAR" />
+    <result column="name_pinyin" property="namePinyin" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, pid, path, `level`, `name`, name_en, name_pinyin, code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from region_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!--查询全部地区信息-->
+  <select id="selectAll" resultType="com.honger.expo.pojo.RegionData">
+    select
+    <include refid="Base_Column_List" />
+    from region_data;
+  </select>
+
+</mapper>
