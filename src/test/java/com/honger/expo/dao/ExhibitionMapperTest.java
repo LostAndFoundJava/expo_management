@@ -1,5 +1,7 @@
 package com.honger.expo.dao;
 
+import com.github.pagehelper.PageHelper;
+import com.honger.expo.pojo.Exhibition;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +20,15 @@ public class ExhibitionMapperTest {
     private ExhibitionMapper exhibitionMapper;
 
     @Test
-    public void selectByPrimaryKey() {
+    public void getExhibitonByCondition() {
+        PageHelper.startPage(1,3);
+        List<Exhibition> exhibitionByCondition = exhibitionMapper.getExhibitionByCondition("", "", "");
+        System.out.println(exhibitionByCondition);
     }
 
     @Test
-    public void selectHotCategory() {
-
-        List<String> result = exhibitionMapper.selectHotCategory();
-
-        System.out.println(result);
-
+    public void searchExhibiton() {
+        List<Exhibition> title = exhibitionMapper.searchExhibition("title");
+        System.out.println(title);
     }
 }

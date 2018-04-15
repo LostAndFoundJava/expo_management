@@ -1,30 +1,17 @@
 package com.honger.expo.dao;
 
-import java.util.List;
-
 import com.honger.expo.pojo.Exhibition;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 
 public interface ExhibitionMapper {
+    //根据指定条件查询展会
+    List<Exhibition> getExhibitionByCondition(@Param("country") String country,
+                                              @Param("categories") String categories,
+                                              @Param("date") String date);
 
-    /**
-     * 根据展会的id获取展会基本信息
-     * @param id 展会的主键
-     * @return 展会信息
-     */
-    Exhibition selectByPrimaryKey(String id);
-
-    /**
-     * 获取今天有效的展会所属的分类列表
-     * @return 分类列表
-     */
-    List<String> selectHotCategory();
-
-    /**
-     * 获取放置到轮播图的内容
-     * @return 需要显示轮播图的展会列表
-     */
-    List<Exhibition> selectAllShuffles();
-
+    //搜索条件
+    List<Exhibition> searchExhibition(@Param("condition") String condition);
 }

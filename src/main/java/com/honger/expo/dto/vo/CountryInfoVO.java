@@ -1,15 +1,15 @@
 package com.honger.expo.dto.vo;
 
-public class CountryInfo {
+public class CountryInfoVO {
 
     private String name;
 
     private Integer id;
 
-    public CountryInfo() {
+    public CountryInfoVO() {
     }
 
-    public CountryInfo(String name, Integer id) {
+    public CountryInfoVO(String name, Integer id) {
         this.name = name;
         this.id = id;
     }

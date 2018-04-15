@@ -3,11 +3,20 @@ package com.honger.expo.dao;
 
 import java.util.List;
 
+import com.honger.expo.dto.response.home.CategoryListResponse;
+import com.honger.expo.dto.vo.CategoryExhibitonRegionVO;
 import com.honger.expo.pojo.Category;
 import org.apache.ibatis.annotations.Param;
 
 public interface CategoryMapper {
 
-    Category selectByPrimaryKey(String id);
+    //查询分类栏
+    List<CategoryExhibitonRegionVO> getHomePageCategory();
 
+    //获得所有的分类
+    List<Category> getAllCategory();
+
+    String getCategoryIdByName(@Param("category") String category);
+
+    Category getCategoryById(@Param("categoryId") String categoryId);
 }

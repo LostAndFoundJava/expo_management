@@ -1,76 +1,81 @@
 package com.honger.expo.service.impl;
 
-import com.honger.expo.dao.ExhibitionCategoryDao;
-import com.honger.expo.dao.ExhibitionMapper;
-import com.honger.expo.pojo.ExhibitionCategory;
+import com.honger.expo.dao.CategoryMapper;
+import com.honger.expo.dto.response.home.CategoryListResponse;
+import com.honger.expo.dto.vo.CategoryExhibitonRegionVO;
+import com.honger.expo.pojo.Category;
 import com.honger.expo.pojo.RegionData;
 import com.honger.expo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-
     @Autowired
-    private ExhibitionCategoryDao exhibitionCategoryDao;
-    @Autowired
-    private RegionCacheImpl regionCache;
-
+    private CategoryMapper categoryMapper;
 
     @Override
-    public Map<String, List<ExhibitionCategory>> getDataMapping() {
-        Map<String,List<ExhibitionCategory>> mapping = new HashMap<>();
-        List<ExhibitionCategory> list = exhibitionCategoryDao.queryHotCatExhibition();
-        if(null != list && !list.isEmpty()){
-            for(ExhibitionCategory item : list){
-                if(mapping.containsKey(item.getParentId())){
-                    mapping.get(item.getParentId()).add(item);
-                }else {
-                    List<ExhibitionCategory> init = new ArrayList<>();
-                    init.add(item);
-                    mapping.put(item.getParentId(),init);
+    public List<CategoryListResponse> getHomePageCategory() {
+        List<CategoryExhibitonRegionVO> homePageCategory = categoryMapper.getHomePageCategory();
+        List<CategoryListResponse> list = transform(homePageCategory);
+        return list;
+    }
+
+    @Override
+    public List<Category> getAllCategory() {
+        return categoryMapper.getAllCategory();
+    }
+
+    @Override
+    public String getCategoryIdByName(String category) {
+        return categoryMapper.getCategoryIdByName(category);
+    }
+
+    @Override
+    public Category getCategoryById(String categoryId) {
+        return categoryMapper.getCategoryById(categoryId);
+    }
+
+    private List<CategoryListResponse> transform(List<CategoryExhibitonRegionVO> homePageCategory) {
+        List<CategoryListResponse> list = new ArrayList<CategoryListResponse>();
+        //数据库返回的数据
+        for(CategoryExhibitonRegionVO i :homePageCategory){
+            boolean flag = false;
+            //返回前端的数据
+            for(CategoryListResponse j : list){
+                if(j.getId().equals(i.getId())){
+                    //多次添加
+                    flag = true;
+                    RegionData r = new RegionData();
+                    r.setId(i.getrId());
+                    r.setName(i.getrName());
+                    r.setNamePinyin(i.getNamePinyin());
+                    r.setNameEn(i.getNameEn());
+                    j.getCountry().add(r);
+                    break;
                 }
             }
-        }
-        return mapping;
-    }
 
-    @Override
-    public Map<String, Map<String, Map<String, Object>>> parseCategoryData(Map<String, List<ExhibitionCategory>> mapping) {
-
-        Map<String, Map<String, Map<String, Object>>> result = new HashMap<>();
-
-        Set<String> keys = mapping.keySet();
-        if(!keys.isEmpty()){
-            for(String key : keys){
-                result.put(key,parseParentCat(mapping.get(key)));
-            }
-        }
-        return result;
-    }
-
-
-    private Map<String, Map<String, Object>> parseParentCat(List<ExhibitionCategory> list){
-        Map<String,Map<String,Object>> result = new HashMap<>();
-
-        Map<String,Object> categories = new HashMap<>();
-        Map<String,Object> regions = new HashMap<>();
-
-        for(ExhibitionCategory item : list){
-            categories.put(item.getName(),item.getId());
-            RegionData regionData = regionCache.getRegionDataByPk(item.getCountry());
-            if(null != regionData){
-                regions.put(regionData.getName(),item.getCountry());
+            //首次添加
+            if(flag == false){
+                CategoryListResponse categoryListResponse = new CategoryListResponse();
+                categoryListResponse.setId(i.getId());
+                categoryListResponse.setSubCategory("");
+                categoryListResponse.setTitle(i.getName());
+                RegionData r = new RegionData();
+                r.setId(i.getrId());
+                r.setName(i.getrName());
+                r.setNamePinyin(i.getNamePinyin());
+                r.setNameEn(i.getNameEn());
+                Set<RegionData> country = new HashSet<>();
+                country.add(r);
+                categoryListResponse.setCountry(country);
+                list.add(categoryListResponse);
             }
 
         }
-        result.put("categories",categories);
-        result.put("regions",regions);
-
-        return result;
-
+        return list;
     }
 }

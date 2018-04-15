@@ -21,6 +21,8 @@ public class Exhibition {
 
     private Integer city;
 
+    private Integer country;
+
     private Boolean hot;
 
     private Boolean hasCarousel;
@@ -157,6 +159,14 @@ public class Exhibition {
         this.updateTime = updateTime;
     }
 
+    public Integer getCountry() {
+        return country;
+    }
+
+    public void setCountry(Integer country) {
+        this.country = country;
+    }
+
     @Override
     public String toString() {
         return "Exhibition{" +
@@ -169,6 +179,7 @@ public class Exhibition {
                 ", location='" + location + '\'' +
                 ", categoryId='" + categoryId + '\'' +
                 ", city=" + city +
+                ", country=" + country +
                 ", hot=" + hot +
                 ", hasCarousel=" + hasCarousel +
                 ", tag='" + tag + '\'' +

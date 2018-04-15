@@ -16,6 +16,7 @@ public class ShuffleServiceImpl implements ShuffleService {
 
     @Override
     public List<Exhibition> getShuffles() {
-        return exhibitionMapper.selectAllShuffles();
+//        return exhibitionMapper.selectAllShuffles();
+        return null;
     }
 }

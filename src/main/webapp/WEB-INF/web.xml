@@ -24,6 +24,17 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+  <!--过滤器，跨域访问-->
+  <filter>
+    <filter-name>cors</filter-name>
+    <filter-class>com.honger.expo.filter.CorsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>cors</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- CORS过滤器 end -->
+
   <!-- Spring监听器 -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

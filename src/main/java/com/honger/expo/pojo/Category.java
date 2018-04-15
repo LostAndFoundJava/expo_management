@@ -1,5 +1,7 @@
 package com.honger.expo.pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class Category {
@@ -7,6 +9,7 @@ public class Category {
 
     private String parentId;
 
+    @JsonProperty("title")
     private String name;
 
     private Boolean delete;
