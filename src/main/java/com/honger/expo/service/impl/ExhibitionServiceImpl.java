@@ -9,6 +9,7 @@ import com.honger.expo.pojo.RegionData;
 import com.honger.expo.service.CategoryService;
 import com.honger.expo.service.ExhibitionService;
 import com.honger.expo.service.RegionService;
+import com.honger.expo.utils.DateTransform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +27,25 @@ public class ExhibitionServiceImpl implements ExhibitionService{
     private RegionService regionService;
 
     @Override
-    public List<Exhibition> getExhibitionByCondition(String country, String categories, String date) {
-        return exhibitionMapper.getExhibitionByCondition(country,categories,date);
+    public List<ExhibitionSearchVO> getExhibitionByCondition(String country, String categories, String date) {
+        String maxYmdFromYM = "";
+        String minYmdFromYM = "";
+        if(!date.equals("")){
+            maxYmdFromYM = DateTransform.getMaxYmdFromYM(date);
+            minYmdFromYM = DateTransform.getMinYmdFromYM(date);
+        }
+        List<Exhibition> exhibitionByCondition = exhibitionMapper.getExhibitionByCondition(country, categories, maxYmdFromYM,minYmdFromYM);
+        return getExhibitionSearchVOS(exhibitionByCondition);
     }
 
     @Override
     public List<ExhibitionSearchVO> searchExhibition(String condition) {
-        List<ExhibitionSearchVO> list = new ArrayList<>();
         List<Exhibition> exhibitions = exhibitionMapper.searchExhibition(condition);
+        return getExhibitionSearchVOS(exhibitions);
+    }
+
+    private List<ExhibitionSearchVO> getExhibitionSearchVOS(List<Exhibition> exhibitions) {
+        List<ExhibitionSearchVO> list = new ArrayList<>();
         for(Exhibition e : exhibitions){
             ExhibitionSearchVO evo = new ExhibitionSearchVO();
             Category c = categoryService.getCategoryById(e.getCategoryId());
@@ -45,9 +57,9 @@ public class ExhibitionServiceImpl implements ExhibitionService{
             evo.setCityEnName(rCity.getNameEn());
             evo.setCityName(rCity.getName());
             evo.setCityPinyin(rCity.getNamePinyin());
-            evo.setCityEnName(rCountry.getNameEn());
-            evo.setCityName(rCountry.getName());
-            evo.setCityPinyin(rCountry.getNamePinyin());
+            evo.setCountryEnName(rCountry.getNameEn());
+            evo.setCountryName(rCountry.getName());
+            evo.setCountryPinyin(rCountry.getNamePinyin());
 
             list.add(evo);
         }

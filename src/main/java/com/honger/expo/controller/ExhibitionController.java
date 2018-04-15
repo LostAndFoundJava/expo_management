@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/expos")
 public class ExhibitionController {
-    final static private int pageSize = 1;
+    final static private int pageSize = 3;
 
     @Autowired
     private ExhibitionService exhibitionService;
@@ -41,8 +41,8 @@ public class ExhibitionController {
             @RequestParam(value = "country",required = false,defaultValue = "") String country,
             @RequestParam(value = "categories",required = false,defaultValue = "")String categories,
             @RequestParam(value = "date",required = false,defaultValue = "")String date,
-            @RequestParam(value = "page",required = false,defaultValue = "")String page) {
-        List<Exhibition> exhibitionByCondition = null;
+            @RequestParam(value = "page",required = false,defaultValue = "1")String page) {
+        List<ExhibitionSearchVO> exhibitions = null;
         try{
             if(!country.equals(""))
                 country = regionService.getRegionIdByCountryName(country);
@@ -51,23 +51,25 @@ public class ExhibitionController {
                 categories = categoryService.getCategoryIdByName(categories);
 
             PageHelper.startPage(Integer.valueOf(page),pageSize);
-            exhibitionByCondition = exhibitionService.getExhibitionByCondition(country, categories, date);
+            exhibitions = exhibitionService.getExhibitionByCondition(country, categories, date);
         }catch (Exception e){
             return ResponseJSON.error();
         }
 
-        return ResponseJSON.ok(exhibitionByCondition);
+        return ResponseJSON.ok(exhibitions);
     }
 
     @ResponseBody
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ResponseJSON searchExhibitionByCondition(
-            @RequestParam(value = "query",required = false,defaultValue = "") String query){
+            @RequestParam(value = "query",required = false,defaultValue = "") String query,
+            @RequestParam(value = "page",required = false,defaultValue = "1")String page){
         List<ExhibitionSearchVO> exhibitions = null;
         try{
             if(query.equals(""))
                 return ResponseJSON.error("no input search");
 
+            PageHelper.startPage(Integer.valueOf(page),pageSize);
             exhibitions = exhibitionService.searchExhibition(query);
         }catch (Exception e){
             return ResponseJSON.error();

@@ -28,13 +28,16 @@ public class CountryController {
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseJSON categories(@RequestParam(value = "continent", required = false, defaultValue = "")
-                                                             String continent) {
+                                               String continent) {
+        String start =  "controller=="+System.currentTimeMillis();
+
         List<RegionData> regionDatas = null;
         try{
             regionDatas = regionService.selectCondition(continent);
         }catch (Exception e){
             return ResponseJSON.error();
         }
+        String end =  "controller=="+System.currentTimeMillis();
         return ResponseJSON.ok(regionDatas);
     }
 

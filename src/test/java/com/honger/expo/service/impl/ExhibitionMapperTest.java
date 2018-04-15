@@ -1,7 +1,10 @@
-package com.honger.expo.dao;
+package com.honger.expo.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.honger.expo.dao.ExhibitionMapper;
+import com.honger.expo.dto.vo.ExhibitionSearchVO;
 import com.honger.expo.pojo.Exhibition;
+import com.honger.expo.service.ExhibitionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,25 +13,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
 public class ExhibitionMapperTest {
 
     @Autowired
-    private ExhibitionMapper exhibitionMapper;
+    private ExhibitionService exhibitionService;
 
     @Test
     public void getExhibitonByCondition() {
         PageHelper.startPage(1,3);
-        List<Exhibition> exhibitionByCondition = exhibitionMapper.getExhibitionByCondition("", "", "2018-11-31","2018-11-01");
+        List<ExhibitionSearchVO> exhibitionByCondition = exhibitionService.getExhibitionByCondition("", "", "2018/11");
         System.out.println(exhibitionByCondition);
     }
 
     @Test
     public void searchExhibiton() {
-        List<Exhibition> title = exhibitionMapper.searchExhibition("title");
+        List<ExhibitionSearchVO> title = exhibitionService.searchExhibition("title");
         System.out.println(title);
     }
 }

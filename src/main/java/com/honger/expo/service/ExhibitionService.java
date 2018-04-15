@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ExhibitionService {
-    List<Exhibition> getExhibitionByCondition(String country, String categories, String date);
+    List<ExhibitionSearchVO> getExhibitionByCondition(String country, String categories, String date);
 
     List<ExhibitionSearchVO> searchExhibition(String condition);
 }

@@ -18,6 +18,7 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     public List<RegionData> selectCondition(String continent) {
+        String start =  "service=="+System.currentTimeMillis();
         return regionDataMapper.selectCondition(continent);
     }
 

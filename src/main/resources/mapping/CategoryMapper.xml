@@ -9,35 +9,32 @@
         <!--<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>-->
         <!--<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>-->
     <!--</resultMap>-->
-
     <!--<sql id="Base_Column_List">-->
     <!--id, parent_id, name,delete, create_time, update_time-->
     <!--</sql>-->
-
-
     <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">-->
         <!--select-->
         <!--<include refid="Base_Column_List"/>-->
         <!--from category-->
         <!--where id = #{id,jdbcType=VARCHAR}-->
     <!--</select>-->
-
     <select id="getHomePageCategory" resultType="com.honger.expo.dto.vo.CategoryExhibitonRegionVO">
       select DISTINCT A.id,A.name,C.`id` as rId,C.name as rName,C.name_pinyin,C.name_en from category A
       left join `exhibition` B on A.`id` = B.`category_id`
       left join `region_data` C on B.`country` = C.`id`
+      where A.`delete` = 0 and B.`delete` = 0
   </select>
 
     <select id="getAllCategory" resultType="com.honger.expo.pojo.Category">
-        select id,name from category
+        select id,name from category where `delete` = 0
     </select>
 
     <select id="getCategoryIdByName" resultType="java.lang.String">
-        select id from category where name = #{category}
+        select id from category where name = #{category} and `delete` = 0
     </select>
 
     <select id="getCategoryById" resultType="com.honger.expo.pojo.Category">
-        select name from category where id = #{categoryId}
+        select name from category where id = #{categoryId} and `delete` = 0
     </select>
 </mapper>
 

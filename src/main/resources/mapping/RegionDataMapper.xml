@@ -31,9 +31,9 @@
     <select id="selectCondition" resultType="com.honger.expo.pojo.RegionData">
       select A.`name_en`,A.id,A.`name_pinyin`,A.`name_en` from `region_data`  A
       left join `region_data` B on
-      A.pid = B.id
+      A.pid = B.id where 1=1 and A.level = 2
       <if test="continent!=''">
-          where B.`name_en` = #{continent}
+          and B.`name_en` = #{continent}
       </if>
   </select>
 
