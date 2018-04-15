@@ -44,11 +44,11 @@ public class ExhibitionController {
             @RequestParam(value = "page",required = false,defaultValue = "1")String page) {
         List<ExhibitionSearchVO> exhibitions = null;
         try{
-            if(!country.equals(""))
-                country = regionService.getRegionIdByCountryName(country);
-
-            if(!categories.equals(""))
-                categories = categoryService.getCategoryIdByName(categories);
+//            if(!country.equals(""))
+//                country = regionService.getRegionIdByCountryName(country);
+//
+//            if(!categories.equals(""))
+//                categories = categoryService.getCategoryIdByName(categories);
 
             PageHelper.startPage(Integer.valueOf(page),pageSize);
             exhibitions = exhibitionService.getExhibitionByCondition(country, categories, date);
