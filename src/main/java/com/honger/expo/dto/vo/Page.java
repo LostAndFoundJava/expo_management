@@ -5,8 +5,8 @@ package com.honger.expo.dto.vo;
  */
 public class Page<T> {
     private int pageNum;
-    private String pageSize;
-    private boolean isLats;
+    private int pageSize;
+    private boolean isLast;
     private int totalNum;
     private T content;
 
@@ -18,20 +18,20 @@ public class Page<T> {
         this.pageNum = pageNum;
     }
 
-    public String getPageSize() {
+    public int getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(String pageSize) {
+    public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
 
-    public boolean isLats() {
-        return isLats;
+    public boolean isLast() {
+        return isLast;
     }
 
-    public void setLats(boolean lats) {
-        isLats = lats;
+    public void setLast(boolean last) {
+        isLast = last;
     }
 
     public int getTotalNum() {

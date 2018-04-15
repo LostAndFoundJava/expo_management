@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.honger.expo.dto.response.home.CategoryListResponse;
 import com.honger.expo.dto.response.status.ResponseJSON;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
+import com.honger.expo.dto.vo.Page;
 import com.honger.expo.pojo.Exhibition;
 import com.honger.expo.service.CategoryService;
 import com.honger.expo.service.ExhibitionService;
@@ -43,6 +44,7 @@ public class ExhibitionController {
             @RequestParam(value = "date",required = false,defaultValue = "")String date,
             @RequestParam(value = "page",required = false,defaultValue = "1")String page) {
         List<ExhibitionSearchVO> exhibitions = null;
+        Page<List<ExhibitionSearchVO>> rPage = null;
         try{
 //            if(!country.equals(""))
 //                country = regionService.getRegionIdByCountryName(country);
@@ -52,11 +54,22 @@ public class ExhibitionController {
 
             PageHelper.startPage(Integer.valueOf(page),pageSize);
             exhibitions = exhibitionService.getExhibitionByCondition(country, categories, date);
+            Integer totalNum = exhibitionService.getTotalNum();
+            rPage = new Page<List<ExhibitionSearchVO>>();
+            rPage.setContent(exhibitions);
+            rPage.setPageSize(pageSize);
+            rPage.setTotalNum(totalNum);
+            rPage.setPageNum(Integer.valueOf(page));
+            if(totalNum - pageSize*Integer.valueOf(page) <= 0){
+                rPage.setLast(true);
+            }else {
+                rPage.setLast(false);
+            }
         }catch (Exception e){
             return ResponseJSON.error();
         }
 
-        return ResponseJSON.ok(exhibitions);
+        return ResponseJSON.ok(rPage);
     }
 
     @ResponseBody

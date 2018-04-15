@@ -73,4 +73,8 @@
         or B.`description` like CONCAT('%',#{condition},'%'))
         and A.`delete` = 0 and B.`delete` = 0 order by start_time
     </select>
+
+    <select id="getTotalNum" resultType="java.lang.Integer">
+        select count(*) from exhibition
+    </select>
 </mapper>

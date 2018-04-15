@@ -11,4 +11,6 @@ public interface ExhibitionService {
     List<ExhibitionSearchVO> getExhibitionByCondition(String country, String categories, String date);
 
     List<ExhibitionSearchVO> searchExhibition(String condition);
+
+    Integer getTotalNum ();
 }

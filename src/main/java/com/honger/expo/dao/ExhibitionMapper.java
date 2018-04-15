@@ -15,4 +15,6 @@ public interface ExhibitionMapper {
 
     //搜索条件
     List<Exhibition> searchExhibition(@Param("condition") String condition);
+
+    Integer getTotalNum();
 }
