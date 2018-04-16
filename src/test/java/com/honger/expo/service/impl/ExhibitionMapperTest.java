@@ -2,6 +2,8 @@ package com.honger.expo.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.honger.expo.dao.ExhibitionMapper;
+import com.honger.expo.dto.response.exhibition.ExhibitionDetailResponse;
+import com.honger.expo.dto.vo.ExhibitionAndDetailVO;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
 import com.honger.expo.pojo.Exhibition;
 import com.honger.expo.service.ExhibitionService;
@@ -31,5 +33,11 @@ public class ExhibitionMapperTest {
     public void searchExhibiton() {
         List<ExhibitionSearchVO> title = exhibitionService.searchExhibition("title");
         System.out.println(title);
+    }
+
+    @Test
+    public void getExhibitonDetail() {
+        ExhibitionDetailResponse detail = exhibitionService.getDetail("8a5aec9585b24b4ea575bd319f6aec1b");
+        System.out.println(detail);
     }
 }

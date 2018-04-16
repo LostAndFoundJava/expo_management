@@ -7,6 +7,24 @@ public class ExhibitionDetailWithBLOBs extends ExhibitionDetail {
 
     private String fileId;
 
+    private String briefInfo;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     public String getFileId() {
         return fileId;
     }
@@ -15,19 +33,11 @@ public class ExhibitionDetailWithBLOBs extends ExhibitionDetail {
         this.fileId = fileId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getBriefInfo() {
+        return briefInfo;
     }
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture == null ? null : picture.trim();
+    public void setBriefInfo(String briefInfo) {
+        this.briefInfo = briefInfo;
     }
 }

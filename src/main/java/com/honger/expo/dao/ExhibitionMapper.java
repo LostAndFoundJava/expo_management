@@ -1,5 +1,6 @@
 package com.honger.expo.dao;
 
+import com.honger.expo.dto.vo.ExhibitionAndDetailVO;
 import com.honger.expo.pojo.Exhibition;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,5 +17,9 @@ public interface ExhibitionMapper {
     //搜索条件
     List<Exhibition> searchExhibition(@Param("condition") String condition);
 
+    //获得所有的展会数量
     Integer getTotalNum();
+
+    //获取展会列表页和详情页
+    List<ExhibitionAndDetailVO>  getDetial(@Param("exhibitionId") String exhibitionId);
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="SYS_LOG_DIR" value="loghome" />
+    <!--日志文件的保存路径,首先查找系统属性-Dlog.dir,如果存在就使用其；否则，在当前目录下创建名为logs目录做日志存放的目录 -->
+    <property name="LOG_HOME" value="/Users/chenjian/IdeaProjects/expo/log/expo_log" />
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -10,12 +11,14 @@
         </encoder>
     </appender>
     <!-- 按照每天生成日志文件 -->
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${SYS_LOG_DIR}/exemple.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/info.log.%d{yyyy-MM-dd}.log</FileNamePattern>
             <!--日志文件保留天数-->
-            <MaxHistory>30</MaxHistory>
+            <MaxHistory>14</MaxHistory>
+            <minIndex>1</minIndex>
+            <maxIndex>3</maxIndex>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
@@ -27,9 +30,81 @@
         </triggeringPolicy>
     </appender>
 
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/error.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>14</MaxHistory>
+            <minIndex>1</minIndex>
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <!--日志文件最大的大小-->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>5MB</MaxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--  邮件 -->
+    <!-- SMTP server的地址，必需指定。如网易的SMTP服务器地址是： smtp.163.com -->
+    <property name="smtpHost" value="smtp.mxhichina.com"/><!--填入要发送邮件的smtp服务器地址(问DBA或者经理啥的就知道)-->
+    <!-- SMTP server的端口地址。默认值：25 -->
+    <property name="smtpPort" value="25"/>
+    <!-- 发送邮件账号，默认为null -->
+    <property name="username" value="postmaster@hongerzl.com"/><!--发件人账号-->
+    <!-- 发送邮件密码，默认为null -->
+    <property name="password" value="123qwe456ASD"/><!--发件人密码-->
+    <!-- 如果设置为true，appender将会使用SSL连接到日志服务器。默认值：false -->
+    <property name="SSL" value="false"/>
+    <!-- 指定发送到那个邮箱，可设置多个<to>属性，指定多个目的邮箱 -->
+    <property name="email_to" value="779187545@qq.com"/><!--收件人账号多个可以逗号隔开-->
+    <!-- 指定发件人名称。如果设置成“&lt;ADMIN&gt; ”，则邮件发件人将会是“<ADMIN> ” -->
+    <property name="email_from" value="postmaster@hongerzl.com" />
+    <!-- 指定emial的标题，它需要满足PatternLayout中的格式要求。如果设置成“Log: %logger - %msg ”，就案例来讲，则发送邮件时，标题为“【Error】: com.foo.Bar - Hello World ”。 默认值："%logger{20} - %m". -->
+    <property name="email_subject" value="【Error】: %logger" />
+    <!-- ERROR邮件发送 -->
+    <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+        <smtpHost>${smtpHost}</smtpHost>
+        <smtpPort>${smtpPort}</smtpPort>
+        <username>${username}</username>
+        <password>${password}</password>
+        <asynchronousSending>true</asynchronousSending>
+        <SSL>${SSL}</SSL>
+        <to>${email_to}</to>
+        <from>${email_from}</from>
+        <subject>${email_subject}</subject>
+        　　　　 <!-- html格式-->
+        <layout class="ch.qos.logback.classic.html.HTMLLayout">
+            <Pattern>%date%level%thread%logger{0}%line%message</Pattern>
+        </layout>
+        　　　　 <!-- 这里采用等级过滤器 指定等级相符才发送 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <cyclicBufferTracker class="ch.qos.logback.core.spi.CyclicBufferTracker">
+            <!-- 每个电子邮件只发送一个日志条目 -->
+            <bufferSize>1</bufferSize>
+        </cyclicBufferTracker>
+    </appender>
+
     <!-- 日志输出级别 -->
     <root level="INFO">
         <appender-ref ref="STDOUT" />
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE_INFO"/>
+        <appender-ref ref="FILE_ERROR"/>
+        <appender-ref ref="EMAIL"/>
     </root>
+
+
 </configuration>

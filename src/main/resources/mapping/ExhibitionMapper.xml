@@ -77,4 +77,12 @@
     <select id="getTotalNum" resultType="java.lang.Integer">
         select count(*) from exhibition
     </select>
+
+    <select id="getDetial" resultType="com.honger.expo.dto.vo.ExhibitionAndDetailVO">
+        select A.*,B.id,description,brief_info,C.file_url,C.file_name from exhibition A
+        left join exhibition_detail B
+        on A.id = B.`exhibition_id`
+        left join file C
+        on B.id = C.`type_id` where A.id = #{exhibitionId}
+    </select>
 </mapper>
