@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
@@ -39,5 +40,11 @@ public class ExhibitionMapperTest {
     public void getExhibitonDetail() {
         ExhibitionDetailResponse detail = exhibitionService.getDetail("8a5aec9585b24b4ea575bd319f6aec1b");
         System.out.println(detail);
+    }
+
+    @Test
+    public void getHomeExhibiton() {
+        Map<String, List<ExhibitionSearchVO>> homePage = exhibitionService.getHomePage();
+        System.out.println(homePage);
     }
 }

@@ -2,6 +2,7 @@ package com.honger.expo.dao;
 
 import com.github.pagehelper.PageHelper;
 import com.honger.expo.dto.vo.ExhibitionAndDetailVO;
+import com.honger.expo.dto.vo.ExhibitionHomePage;
 import com.honger.expo.pojo.Exhibition;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,5 +38,11 @@ public class ExhibitionMapperTest {
     public void getExhibitonDetail() {
         List<ExhibitionAndDetailVO> detial = exhibitionMapper.getDetial("8a5aec9585b24b4ea575bd319f6aec1b");
         System.out.println(detial);
+    }
+
+    @Test
+    public void getHomepage() {
+        List<ExhibitionHomePage> homePage = exhibitionMapper.getHomePage();
+        System.out.println(homePage);
     }
 }

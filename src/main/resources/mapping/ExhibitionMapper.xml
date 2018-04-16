@@ -86,8 +86,8 @@
         on B.id = C.`type_id` where A.id = #{exhibitionId}
     </select>
 
-    <select id="">
-        select C.*,B.`is_carousel`,B.`is_choice`,B.`is_choice` from homepage_hot_config A
+    <select id="getHomePage" resultType="com.honger.expo.dto.vo.ExhibitionHomePage">
+        select C.*,B.`is_carousel`,B.`is_choice`,B.`is_hot` from homepage_hot_config A
         left join tb_category_exhibition B
         on A.id = B.`homepage_id`
         left join exhibition C

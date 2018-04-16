@@ -1,6 +1,7 @@
 package com.honger.expo.dao;
 
 import com.honger.expo.dto.vo.ExhibitionAndDetailVO;
+import com.honger.expo.dto.vo.ExhibitionHomePage;
 import com.honger.expo.pojo.Exhibition;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,5 +25,5 @@ public interface ExhibitionMapper {
     List<ExhibitionAndDetailVO>  getDetial(@Param("exhibitionId") String exhibitionId);
 
     //首页设置
-    List
+    List<ExhibitionHomePage> getHomePage();
 }

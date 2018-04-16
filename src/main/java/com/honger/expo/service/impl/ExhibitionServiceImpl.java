@@ -3,6 +3,7 @@ package com.honger.expo.service.impl;
 import com.honger.expo.dao.ExhibitionMapper;
 import com.honger.expo.dto.response.exhibition.ExhibitionDetailResponse;
 import com.honger.expo.dto.vo.ExhibitionAndDetailVO;
+import com.honger.expo.dto.vo.ExhibitionHomePage;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
 import com.honger.expo.pojo.*;
 import com.honger.expo.service.CategoryService;
@@ -13,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class ExhibitionServiceImpl implements ExhibitionService{
     @Autowired
@@ -95,6 +99,48 @@ public class ExhibitionServiceImpl implements ExhibitionService{
         edr.setFileResource(fr);
 
         return edr;
+    }
+
+    @Override
+    public Map<String,List<ExhibitionSearchVO>> getHomePage() {
+        Map<String,List<ExhibitionSearchVO>> hp = new HashMap<>();
+        List<ExhibitionHomePage> homePage = exhibitionMapper.getHomePage();
+        List<Exhibition> isHot = new ArrayList<>();
+        List<Exhibition> isChoice = new ArrayList<>();
+        List<Exhibition> isCarousal = new ArrayList<>();
+        for(ExhibitionHomePage eh : homePage){
+            Exhibition e = new Exhibition();
+            e.setId(eh.getId());
+            e.setCreateTime(eh.getCreateTime());
+            e.setLocation(eh.getLocation());
+            e.setEndTime(eh.getEndTime());
+            e.setStartTime(eh.getStartTime());
+            e.setCategoryId(eh.getCategoryId());
+            e.setCity(eh.getCity());
+            e.setCountry(eh.getCountry());
+            e.setUpdateTime(eh.getUpdateTime());
+            e.setSubtitle(eh.getSubtitle());
+            e.setTag(eh.getTag());
+            e.setThumbnail(eh.getThumbnail());
+            e.setTitle(eh.getTitle());
+            if(eh.getIsHot().equals("1")){
+                isHot.add(e);
+            }
+            if(eh.getIsChoice().equals("1")){
+                isChoice.add(e);
+            }
+            if(eh.getIsCarousel().equals("1")){
+                isCarousal.add(e);
+            }
+        }
+        List<ExhibitionSearchVO> exhibitionSearchVOS = getExhibitionSearchVOS(isHot);
+        List<ExhibitionSearchVO> exhibitionSearchVOS1 = getExhibitionSearchVOS(isChoice);
+        List<ExhibitionSearchVO> exhibitionSearchVOS2 = getExhibitionSearchVOS(isCarousal);
+        hp.put("hot",exhibitionSearchVOS);
+        hp.put("choice",exhibitionSearchVOS1);
+        hp.put("carousal",exhibitionSearchVOS2);
+
+        return hp;
     }
 
     private List<ExhibitionSearchVO> getExhibitionSearchVOS(List<Exhibition> exhibitions) {
