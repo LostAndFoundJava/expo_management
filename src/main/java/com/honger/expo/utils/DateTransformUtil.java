@@ -7,7 +7,7 @@ import java.util.Calendar;
 /**
  * Created by chenjian on 2018/4/15.
  */
-public class DateTransform {
+public class DateTransformUtil {
     //Ym的格式为YYYY/MM
     public static String getMaxYmdFromYM(String ym){
         if(!ym.contains("/"))

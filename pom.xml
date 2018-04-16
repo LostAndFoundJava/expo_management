@@ -10,9 +10,9 @@
 
     <properties>
         <!-- spring版本号 -->
-        <spring.version>5.0.0.RELEASE</spring.version>
+        <spring.version>4.3.9.RELEASE</spring.version>
         <!-- mybatis版本号 -->
-        <mybatis.version>3.4.6</mybatis.version>
+        <mybatis.version>3.4.2</mybatis.version>
         <!-- log4j日志文件管理包版本 -->
         <slf4j.version>1.7.7</slf4j.version>
         <lombok.version>1.16.14</lombok.version>
@@ -95,13 +95,13 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.6</version>
+            <version>5.1.38</version>
         </dependency>
         <!-- Druid是Java语言中最好的数据库连接池。Druid能够提供强大的监控和扩展功能 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.6</version>
+            <version>1.0.28</version>
         </dependency>
         <!-- 日志文件管理包 -->
         <!-- log start -->

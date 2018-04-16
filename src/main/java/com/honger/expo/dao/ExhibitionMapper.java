@@ -22,4 +22,7 @@ public interface ExhibitionMapper {
 
     //获取展会列表页和详情页
     List<ExhibitionAndDetailVO>  getDetial(@Param("exhibitionId") String exhibitionId);
+
+    //首页设置
+    List
 }

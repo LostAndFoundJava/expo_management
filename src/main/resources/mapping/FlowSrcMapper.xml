@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honger.expo.dao.FlowSrcMapper">
+    <insert id="insert" parameterType="com.honger.expo.pojo.FlowSrc">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into flow_src (`id`, `src`, `uid`, `create_time`, `update_time`, `company`,
+        `client_name`, `address`, `qq_no`, `email`, `mobile_no`)
+        values
+        (#{id},#{src},#{uid},#{createTime},#{updateTime},#{company},#{clientName},
+        #{address},#{qqNo},#{email},#{mobileNo})
+    </insert>
+</mapper>
+

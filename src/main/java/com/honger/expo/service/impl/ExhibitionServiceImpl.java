@@ -1,6 +1,5 @@
 package com.honger.expo.service.impl;
 
-import com.honger.expo.dao.CategoryMapper;
 import com.honger.expo.dao.ExhibitionMapper;
 import com.honger.expo.dto.response.exhibition.ExhibitionDetailResponse;
 import com.honger.expo.dto.vo.ExhibitionAndDetailVO;
@@ -9,7 +8,7 @@ import com.honger.expo.pojo.*;
 import com.honger.expo.service.CategoryService;
 import com.honger.expo.service.ExhibitionService;
 import com.honger.expo.service.RegionService;
-import com.honger.expo.utils.DateTransform;
+import com.honger.expo.utils.DateTransformUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +31,8 @@ public class ExhibitionServiceImpl implements ExhibitionService{
         String minYmdFromYM = "";
 
         if(!date.equals("")){
-            maxYmdFromYM = DateTransform.getMaxYmdFromYM(date);
-            minYmdFromYM = DateTransform.getMinYmdFromYM(date);
+            maxYmdFromYM = DateTransformUtil.getMaxYmdFromYM(date);
+            minYmdFromYM = DateTransformUtil.getMinYmdFromYM(date);
         }
         List<Exhibition> exhibitionByCondition = exhibitionMapper.getExhibitionByCondition(country, categories, maxYmdFromYM,minYmdFromYM);
         return getExhibitionSearchVOS(exhibitionByCondition);
@@ -70,6 +69,8 @@ public class ExhibitionServiceImpl implements ExhibitionService{
         e.setHot(exhibitionAndDetailVO.getHot());
         e.setHasCarousel(exhibitionAndDetailVO.getHasCarousel());
         e.setStartTime(exhibitionAndDetailVO.getStartTime());
+        e.setEndTime(exhibitionAndDetailVO.getEndTime());
+        e.setLocation(exhibitionAndDetailVO.getLocation());
 
         exhibitions.add(e);
 
