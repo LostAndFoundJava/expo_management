@@ -19,8 +19,34 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryListResponse> getHomePageCategory() {
         List<CategoryExhibitonRegionVO> homePageCategory = categoryMapper.getHomePageCategory();
+        List<Category> allCategory = categoryMapper.getAllCategory();
+        getNoExhibitionCategory(homePageCategory,allCategory);
         List<CategoryListResponse> list = transform(homePageCategory);
         return list;
+    }
+
+    private void getNoExhibitionCategory(List<CategoryExhibitonRegionVO> homePageCategory, List<Category> allCategory) {
+        List<Category> notInCategroyExhibiton = new ArrayList<>();
+        boolean flag = false;
+        for(Category c : allCategory){
+            for(CategoryExhibitonRegionVO cer : homePageCategory){
+                if(c.getId().equals(cer.getId())){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                notInCategroyExhibiton.add(c);
+            }
+            flag = false;
+        }
+
+        for(Category c : notInCategroyExhibiton){
+            CategoryExhibitonRegionVO cer = new CategoryExhibitonRegionVO();
+            cer.setId(c.getId());
+            cer.setName(c.getName());
+            homePageCategory.add(cer);
+        }
     }
 
     @Override
@@ -59,18 +85,20 @@ public class CategoryServiceImpl implements CategoryService {
             }
 
             //首次添加
-            if(flag == false){
+            if(!flag){
                 CategoryListResponse categoryListResponse = new CategoryListResponse();
                 categoryListResponse.setId(i.getId());
                 categoryListResponse.setSubCategory("");
                 categoryListResponse.setTitle(i.getName());
                 RegionData r = new RegionData();
-                r.setId(i.getrId());
-                r.setName(i.getrName());
-                r.setNamePinyin(i.getNamePinyin());
-                r.setNameEn(i.getNameEn());
                 Set<RegionData> country = new HashSet<>();
-                country.add(r);
+                if(i.getrId()!=null){
+                    r.setId(i.getrId());
+                    r.setName(i.getrName());
+                    r.setNamePinyin(i.getNamePinyin());
+                    r.setNameEn(i.getNameEn());
+                    country.add(r);
+                }
                 categoryListResponse.setCountry(country);
                 list.add(categoryListResponse);
             }

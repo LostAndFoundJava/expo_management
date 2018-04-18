@@ -20,7 +20,7 @@ public class NewsDaoTest {
 
     @Test
     public void getAllNews(){
-        News allNews = newsMapper.getAllNews();
+        List<News> allNews = newsMapper.getAllNews();
         System.out.println(allNews);
     }
 }

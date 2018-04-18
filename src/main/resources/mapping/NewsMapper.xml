@@ -4,8 +4,7 @@
     <select id="getAllNews" resultType="com.honger.expo.pojo.News">
         select A.*,B.name from news A
         left join category B
-        on A.`category_id` = B.id and `delete` = 0
+        on A.`category_id` = B.id and A.`delete` = 0
     </select>
-
 </mapper>
 
