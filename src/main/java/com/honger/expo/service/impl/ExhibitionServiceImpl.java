@@ -52,7 +52,14 @@ public class ExhibitionServiceImpl implements ExhibitionService{
 
     @Override
     public Integer getTotalNumByConditon(String country,String categories,String  date) {
-        return exhibitionMapper.getTotalNumByConditon(country, categories, date);
+        String maxYmdFromYM = "";
+        String minYmdFromYM = "";
+
+        if(!date.equals("")){
+            maxYmdFromYM = DateTransformUtil.getMaxYmdFromYM(date);
+            minYmdFromYM = DateTransformUtil.getMinYmdFromYM(date);
+        }
+        return exhibitionMapper.getTotalNumByConditon(country, categories, maxYmdFromYM,minYmdFromYM);
     }
 
     @Override
