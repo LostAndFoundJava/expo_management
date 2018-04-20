@@ -18,4 +18,6 @@ public interface NewService {
     List<ExhibitionSearchVO> getRelationExhibitionByNewsId(String id);
 
     int getTotalNum();
+
+    int getNewsCategoryNum(String newsCategory);
 }

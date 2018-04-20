@@ -34,5 +34,9 @@
     <select id="getTotalNum" resultType="java.lang.Integer">
         select count(*) from news A where A.`delete` = 0
     </select>
+
+    <select id="getNewsCategoryNum" resultType="java.lang.Integer">
+        select count(*) from news A where A.`delete` = 0 and A.news_category=#{newsCategory}
+    </select>
 </mapper>
 

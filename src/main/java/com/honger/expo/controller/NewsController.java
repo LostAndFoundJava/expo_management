@@ -53,19 +53,47 @@ public class NewsController {
 
     @ResponseBody
     @RequestMapping(value = "/sortedNews", method = RequestMethod.GET)
-    public ResponseJSON newsCategory(@RequestParam("newsCategory") String newsCategory) {
+    public ResponseJSON newsCategory(@RequestParam("newsCategory") String newsCategory,
+            @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
         if(newsCategory==null || newsCategory.equals("")){
             return ResponseJSON.error("请输入新闻分类参数");
         }
         List<NewsCategoryResponse> mapping = null;
+        Page<List<NewsCategoryResponse>> rPage = null;
+
         try{
+            PageHelper.startPage(Integer.valueOf(page), pageSize);
             mapping = newService.newsCategory(newsCategory);
+
+            int totalNum = newService.getNewsCategoryNum(newsCategory);
+
+            rPage = new Page<List<NewsCategoryResponse>>();
+            rPage.setContent(mapping);
+            rPage.setPageSize(pageSize);
+            rPage.setTotalNum(totalNum);
+            rPage.setPageNum(Integer.valueOf(page));
+            if (totalNum - pageSize * Integer.valueOf(page) <= 0) {
+                rPage.setLast(true);
+            } else {
+                rPage.setLast(false);
+            }
+        }catch (Exception e){
+            return ResponseJSON.error();
+        }
+        return ResponseJSON.ok(rPage);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    public ResponseJSON allNewsCategory() {
+        List<String> mapping = null;
+        try{
+            mapping = newService.allNewsCategory();
         }catch (Exception e){
             return ResponseJSON.error();
         }
         return ResponseJSON.ok(mapping);
     }
-
 
     @ResponseBody
     @RequestMapping(value = "/newsRelatedExpos/{id}", method = RequestMethod.GET)
@@ -91,18 +119,6 @@ public class NewsController {
         List<NewsCategoryResponse> mapping = null;
         try{
             mapping = newService.newsById(id);
-        }catch (Exception e){
-            return ResponseJSON.error();
-        }
-        return ResponseJSON.ok(mapping);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/categories", method = RequestMethod.GET)
-    public ResponseJSON allNewsCategory() {
-        List<String> mapping = null;
-        try{
-            mapping = newService.allNewsCategory();
         }catch (Exception e){
             return ResponseJSON.error();
         }

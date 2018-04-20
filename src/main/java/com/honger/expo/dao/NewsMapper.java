@@ -22,4 +22,6 @@ public interface NewsMapper {
     List<Exhibition> getRelationExhibitionByNewsId(@Param("id") String id);
 
     int getTotalNum();
+
+    int getNewsCategoryNum(@Param("newsCategory") String newsCategory);
 }

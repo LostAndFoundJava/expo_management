@@ -91,4 +91,9 @@ public class NewsServiceImpl implements NewService {
     public int getTotalNum() {
         return newsMapper.getTotalNum();
     }
+
+    @Override
+    public int getNewsCategoryNum(String newsCategory) {
+        return newsMapper.getNewsCategoryNum(newsCategory);
+    }
 }
