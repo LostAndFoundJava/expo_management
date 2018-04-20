@@ -8,7 +8,6 @@ import com.honger.expo.pojo.Exhibition;
 import com.honger.expo.service.CategoryService;
 import com.honger.expo.service.ExhibitionService;
 import com.honger.expo.service.impl.CategoryServiceImpl;
-import com.honger.expo.service.impl.ShuffleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,17 +24,15 @@ public class HomeController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private ShuffleServiceImpl shuffleService;
-    @Autowired
     private ExhibitionService exhibitionService;
 
     @ResponseBody
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public ResponseJSON categories() {
         List<CategoryListResponse> mapping = null;
-        try{
+        try {
             mapping = categoryService.getHomePageCategory();
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseJSON.error();
         }
         return ResponseJSON.ok(mapping);
@@ -44,18 +41,12 @@ public class HomeController {
     @ResponseBody
     @RequestMapping(value = "/exhibition", method = RequestMethod.GET)
     public ResponseJSON getHomePageExhibtion() {
-        Map<String,List<ExhibitionSearchVO>> map = null;
-        try{
+        Map<String, List<ExhibitionSearchVO>> map = null;
+        try {
             map = exhibitionService.getHomePage();
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseJSON.error();
         }
         return ResponseJSON.ok(map);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/shuffle", method = RequestMethod.GET)
-    public List<Exhibition> shuffle() {
-        return shuffleService.getShuffles();
     }
 }

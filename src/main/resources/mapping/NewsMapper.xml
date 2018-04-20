@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.honger.expo.dao.NewsMapper">
-    <select id="getAllNews" resultType="com.honger.expo.pojo.News">
-        select A.*,B.name from news A
+    <select id="getAllNews" resultType="com.honger.expo.dto.vo.NewsCategoryVO">
+        select A.id,A.title,A.update_time,A.create_time,A.news_category,A.origin,B.name,B.name from news A
         left join category B
-        on A.`category_id` = B.id and A.`delete` = 0
+        on A.`category_id` = B.id WHERE A.`delete` = 0 and B.`delete`=0 order by A.update_time DESC
+    </select>
+
+    <select id="getAllNewsCategory" resultType="java.lang.String">
+        select DISTINCT `news_category` from news where `delete` = 0
+    </select>
+
+    <select id="getNewsCategory" resultType="com.honger.expo.dto.vo.NewsCategoryVO">
+        select A.id,A.title,A.update_time,A.create_time,A.news_category,A.origin,B.name from news A
+        left join category B
+        on A.`category_id` = B.id WHERE A.news_category=#{newsCategory} and A.`delete` = 0 order by A.update_time DESC
+    </select>
+
+    <select id="getNewsById" resultType="com.honger.expo.dto.vo.NewsCategoryVO">
+        select A.*,B.name,B.name from news A
+        left join category B
+        on A.`category_id` = B.id WHERE A.id = #{id} and A.`delete` = 0 order by A.update_time DESC
+    </select>
+
+    <select id="getRelationExhibitionByNewsId" resultType="com.honger.expo.pojo.Exhibition">
+        select B.* from news A
+        left join exhibition B
+        on A.`category_id` = B.`category_id`
+        where A.id = #{id} and A.`delete` = 0 and
+        B.`delete` = 0 order by B.`update_time` desc
+    </select>
+
+    <select id="getTotalNum" resultType="java.lang.Integer">
+        select count(*) from news A where A.`delete` = 0
     </select>
 </mapper>
 

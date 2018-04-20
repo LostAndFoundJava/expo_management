@@ -13,12 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
-public class ExhibitionMapperTest {
+public class ExhibitionServiceTest {
 
     @Autowired
     private ExhibitionService exhibitionService;
@@ -37,13 +38,13 @@ public class ExhibitionMapperTest {
     }
 
     @Test
-    public void getExhibitonDetail() {
+    public void getExhibitonDetail() throws InvocationTargetException, IllegalAccessException {
         ExhibitionDetailResponse detail = exhibitionService.getDetail("8a5aec9585b24b4ea575bd319f6aec1b");
         System.out.println(detail);
     }
 
     @Test
-    public void getHomeExhibiton() {
+    public void getHomeExhibiton() throws InvocationTargetException, IllegalAccessException {
         Map<String, List<ExhibitionSearchVO>> homePage = exhibitionService.getHomePage();
         System.out.println(homePage);
     }

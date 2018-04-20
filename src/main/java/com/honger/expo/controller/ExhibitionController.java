@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/expos")
@@ -33,10 +34,9 @@ public class ExhibitionController {
         List<ExhibitionSearchVO> exhibitions = null;
         Page<List<ExhibitionSearchVO>> rPage = null;
         try {
-            log.info("===========");
             PageHelper.startPage(Integer.valueOf(page), pageSize);
             exhibitions = exhibitionService.getExhibitionByCondition(country, categories, date);
-            Integer totalNum = exhibitionService.getTotalNum();
+            Integer totalNum = exhibitionService.getTotalNumByConditon(country, categories, date);
             rPage = new Page<List<ExhibitionSearchVO>>();
             rPage.setContent(exhibitions);
             rPage.setPageSize(pageSize);
@@ -62,16 +62,28 @@ public class ExhibitionController {
             @RequestParam(value = "query", required = false, defaultValue = "") String query,
             @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
         List<ExhibitionSearchVO> exhibitions = null;
+        Page<List<ExhibitionSearchVO>> rPage = null;
         try {
             if (query.equals(""))
                 return ResponseJSON.error("no input search");
 
             PageHelper.startPage(Integer.valueOf(page), pageSize);
             exhibitions = exhibitionService.searchExhibition(query);
+            Integer totalNum = exhibitionService.getTotalNumBySearch(query);
+            rPage = new Page<List<ExhibitionSearchVO>>();
+            rPage.setContent(exhibitions);
+            rPage.setPageSize(pageSize);
+            rPage.setTotalNum(totalNum);
+            rPage.setPageNum(Integer.valueOf(page));
+            if (totalNum - pageSize * Integer.valueOf(page) <= 0) {
+                rPage.setLast(true);
+            } else {
+                rPage.setLast(false);
+            }
         } catch (Exception e) {
             return ResponseJSON.error();
         }
-        return ResponseJSON.ok(exhibitions);
+        return ResponseJSON.ok(rPage);
     }
 
     @ResponseBody
@@ -84,5 +96,32 @@ public class ExhibitionController {
             return ResponseJSON.error();
         }
         return ResponseJSON.ok(detail);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/hot", method = RequestMethod.GET)
+    public ResponseJSON getHotAndCarsoulExhibition() {
+        Map<String, List<ExhibitionSearchVO>> map = null;
+        try {
+            map = exhibitionService.getHomePage();
+            map.remove("choice");
+        } catch (Exception e) {
+            return ResponseJSON.error();
+        }
+        return ResponseJSON.ok(map);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/choices", method = RequestMethod.GET)
+    public ResponseJSON getChoiceExhibition() {
+        Map<String, List<ExhibitionSearchVO>> map = null;
+        try {
+            map = exhibitionService.getHomePage();
+            map.remove("hot");
+            map.remove("carousal");
+        } catch (Exception e) {
+            return ResponseJSON.error();
+        }
+        return ResponseJSON.ok(map);
     }
 }

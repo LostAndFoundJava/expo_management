@@ -13,7 +13,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
-public class CategoryHomepageTest {
+public class CategoryHomepageImplTest {
 
     @Autowired
     private CategoryService categoryService;

@@ -18,12 +18,18 @@ public interface ExhibitionMapper {
     //搜索条件
     List<Exhibition> searchExhibition(@Param("condition") String condition);
 
-    //获得所有的展会数量
-    Integer getTotalNum();
+    //获得所有的筛选条件下展会数量
+    Integer getTotalNumByConditon(String country,String categories,String  date);
 
     //获取展会列表页和详情页
     List<ExhibitionAndDetailVO>  getDetial(@Param("exhibitionId") String exhibitionId);
 
     //首页设置
     List<ExhibitionHomePage> getHomePage();
+
+    //根据搜索条件查询展会数量
+    Integer getTotalNumBySearch(String query);
+
+    //查询行业精选展会
+    List<Exhibition> getExhibitonByIsChoice();
 }

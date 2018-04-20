@@ -9,10 +9,12 @@ import com.honger.expo.pojo.*;
 import com.honger.expo.service.CategoryService;
 import com.honger.expo.service.ExhibitionService;
 import com.honger.expo.service.RegionService;
+import com.honger.expo.utils.BeanReflectUtil;
 import com.honger.expo.utils.DateTransformUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,12 +51,12 @@ public class ExhibitionServiceImpl implements ExhibitionService{
     }
 
     @Override
-    public Integer getTotalNum() {
-        return exhibitionMapper.getTotalNum();
+    public Integer getTotalNumByConditon(String country,String categories,String  date) {
+        return exhibitionMapper.getTotalNumByConditon(country, categories, date);
     }
 
     @Override
-    public ExhibitionDetailResponse getDetail(String exhibitionId) {
+    public ExhibitionDetailResponse getDetail(String exhibitionId) throws InvocationTargetException, IllegalAccessException {
         List<ExhibitionAndDetailVO> detial = exhibitionMapper.getDetial(exhibitionId);
         ExhibitionAndDetailVO exhibitionAndDetailVO = detial.get(0);
         ExhibitionDetailResponse edr = new ExhibitionDetailResponse();
@@ -62,19 +64,8 @@ public class ExhibitionServiceImpl implements ExhibitionService{
         //转换展会列表页，只有一个
         List<Exhibition> exhibitions = new ArrayList<>();
         Exhibition e = new Exhibition();
-        e.setId(exhibitionAndDetailVO.getId());
-        e.setTitle(exhibitionAndDetailVO.getTitle());
-        e.setCategoryId(exhibitionAndDetailVO.getCategoryId());
-        e.setCity(exhibitionAndDetailVO.getCity());
-        e.setCountry(exhibitionAndDetailVO.getCountry());
-        e.setThumbnail(exhibitionAndDetailVO.getThumbnail());
-        e.setTag(exhibitionAndDetailVO.getTag());
-        e.setSubtitle(exhibitionAndDetailVO.getSubtitle());
-        e.setHot(exhibitionAndDetailVO.getHot());
-        e.setHasCarousel(exhibitionAndDetailVO.getHasCarousel());
-        e.setStartTime(exhibitionAndDetailVO.getStartTime());
-        e.setEndTime(exhibitionAndDetailVO.getEndTime());
-        e.setLocation(exhibitionAndDetailVO.getLocation());
+
+        BeanReflectUtil.beanSet(exhibitionAndDetailVO,e);
 
         exhibitions.add(e);
 
@@ -102,7 +93,7 @@ public class ExhibitionServiceImpl implements ExhibitionService{
     }
 
     @Override
-    public Map<String,List<ExhibitionSearchVO>> getHomePage() {
+    public Map<String,List<ExhibitionSearchVO>> getHomePage() throws InvocationTargetException, IllegalAccessException {
         Map<String,List<ExhibitionSearchVO>> hp = new HashMap<>();
         List<ExhibitionHomePage> homePage = exhibitionMapper.getHomePage();
         List<Exhibition> isHot = new ArrayList<>();
@@ -110,19 +101,9 @@ public class ExhibitionServiceImpl implements ExhibitionService{
         List<Exhibition> isCarousal = new ArrayList<>();
         for(ExhibitionHomePage eh : homePage){
             Exhibition e = new Exhibition();
-            e.setId(eh.getId());
-            e.setCreateTime(eh.getCreateTime());
-            e.setLocation(eh.getLocation());
-            e.setEndTime(eh.getEndTime());
-            e.setStartTime(eh.getStartTime());
-            e.setCategoryId(eh.getCategoryId());
-            e.setCity(eh.getCity());
-            e.setCountry(eh.getCountry());
-            e.setUpdateTime(eh.getUpdateTime());
-            e.setSubtitle(eh.getSubtitle());
-            e.setTag(eh.getTag());
-            e.setThumbnail(eh.getThumbnail());
-            e.setTitle(eh.getTitle());
+
+            BeanReflectUtil.beanSet(eh,e);
+
             if(eh.getIsHot().equals("1")){
                 isHot.add(e);
             }
@@ -143,7 +124,12 @@ public class ExhibitionServiceImpl implements ExhibitionService{
         return hp;
     }
 
-    private List<ExhibitionSearchVO> getExhibitionSearchVOS(List<Exhibition> exhibitions) {
+    @Override
+    public Integer getTotalNumBySearch(String query) {
+        return exhibitionMapper.getTotalNumBySearch(query);
+    }
+
+    public List<ExhibitionSearchVO> getExhibitionSearchVOS(List<Exhibition> exhibitions) {
         List<ExhibitionSearchVO> list = new ArrayList<>();
         for(Exhibition e : exhibitions){
             ExhibitionSearchVO evo = new ExhibitionSearchVO();
@@ -152,6 +138,7 @@ public class ExhibitionServiceImpl implements ExhibitionService{
             RegionData rCountry = regionService.getRegionCountryById(e.getCountry());
 
             evo.setExhibition(e);
+
             evo.setCategroy(c.getName());
             evo.setCityEnName(rCity.getNameEn());
             evo.setCityName(rCity.getName());
