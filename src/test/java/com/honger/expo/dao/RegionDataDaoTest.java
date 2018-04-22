@@ -30,4 +30,10 @@ public class RegionDataDaoTest {
         RegionData regionCityById = regionDataDao.getRegionCityById(1);
         System.out.println(regionCityById);
     }
+
+    @Test
+    public void getRegionCountryByContinent() {
+        List<RegionData> regionCountryByContinent = regionDataDao.getRegionCountryByContinent("1");
+        System.out.println(regionCountryByContinent);
+    }
 }

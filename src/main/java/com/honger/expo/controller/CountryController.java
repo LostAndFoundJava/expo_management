@@ -1,13 +1,9 @@
 package com.honger.expo.controller;
 
 
-import com.honger.expo.dto.response.home.CategoryListResponse;
 import com.honger.expo.dto.response.status.ResponseJSON;
-import com.honger.expo.pojo.Exhibition;
 import com.honger.expo.pojo.RegionData;
 import com.honger.expo.service.RegionService;
-import com.honger.expo.service.impl.CategoryServiceImpl;
-import com.honger.expo.service.impl.ShuffleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

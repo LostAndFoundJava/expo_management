@@ -18,4 +18,6 @@ public interface RegionDataMapper {
     RegionData getRegionCityById(@Param("city") Integer city);
 
     RegionData getRegionCountryById(@Param("country") Integer country);
+
+    List<RegionData> getRegionCountryByContinent(@Param("continent") String continent);
 }

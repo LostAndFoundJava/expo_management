@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honger.expo.dao.VisaMapper">
+    <select id="getVisaByCountryId" resultType="com.honger.expo.dto.vo.VisaVO">
+        select A.*,B.`file_url`,B.`file_name`,C.id as cityId,C.`name` as cityName,C.`name_en` as cityNameEn,
+        C.`name_pinyin` as cityNamePinyin,D.id as cId,D.`name` as cName,D.`name_en` as cNameEn,D.`name_pinyin` as cNamePinyin
+        from visa A
+        left join file B
+        on A.`id` = B.type_id
+        left join region_data C
+        on A.`country` = C.`id`
+        left join `region_data` D
+        on A.`continent` = D.id
+        where A.`delete` = 0 and B.`delete` = 0 and A.country = #{countryId}
+    </select>
+</mapper>
