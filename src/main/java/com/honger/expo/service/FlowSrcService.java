@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface FlowSrcService {
 
-    void insert(FlowSrc flowSrc);
+    String insert(FlowSrc flowSrc);
 
+    void update(FlowSrc flowSrc);
 }

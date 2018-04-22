@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -21,12 +22,30 @@ public class FlowSrcController {
 
     @ResponseBody
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public ResponseJSON categories(@RequestBody FlowSrc flowSrc) {
+    public ResponseJSON insert(@RequestBody FlowSrc flowSrc) {
+        HashMap<String,String> result = new HashMap<>();
+        String s = "";
         try{
-            flowSrcService.insert(flowSrc);
+            s = flowSrcService.insert(flowSrc);
         }catch (Exception e){
             return ResponseJSON.error();
         }
-        return ResponseJSON.ok();
+        if(s.equals(""))
+            return ResponseJSON.error("插入失败！！");
+        else{
+            result.put("id",s);
+            return ResponseJSON.ok(result);
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseJSON update(@RequestBody FlowSrc flowSrc) {
+        try{
+            flowSrcService.update(flowSrc);
+        }catch (Exception e){
+            return ResponseJSON.error("更新失败！！");
+        }
+            return ResponseJSON.ok();
     }
 }

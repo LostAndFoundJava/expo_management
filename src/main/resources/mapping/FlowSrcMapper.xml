@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.honger.expo.dao.FlowSrcMapper">
-    <insert id="insert" parameterType="com.honger.expo.pojo.FlowSrc">
-        <selectKey keyProperty="id" resultType="String" order="BEFORE">
-            select replace(uuid(),'-','') from dual
-        </selectKey>
+    <insert id="insert" parameterType="com.honger.expo.pojo.FlowSrc" >
         insert into flow_src (`id`, `src`, `uid`, `create_time`, `update_time`, `company`,
         `client_name`, `address`, `qq_no`, `email`, `mobile_no`)
         values
         (#{id},#{src},#{uid},#{createTime},#{updateTime},#{company},#{clientName},
         #{address},#{qqNo},#{email},#{mobileNo})
     </insert>
+
+    <update id="update" parameterType="com.honger.expo.pojo.FlowSrc">
+        UPDATE flow_src SET
+        <if test="company!=null">
+            company = #{company},
+        </if>
+        <if test="clientName!=null">
+            client_name = #{clientName},
+        </if>
+        <if test="address!=null">
+            address = #{address},
+        </if>
+        <if test="qqNo!=null">
+            qq_no = #{qqNo},
+        </if>
+        <if test="email!=null">
+            email = #{email},
+        </if>
+        <if test="mobileNo!=null">
+            mobile_no = #{mobileNo},
+        </if>
+        update_time = #{updateTime}
+        where id = #{id}
+    </update>
 </mapper>
 
