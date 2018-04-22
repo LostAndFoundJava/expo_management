@@ -25,4 +25,5 @@ public interface ExhibitionService {
     Map<String,List<ExhibitionSearchVO>> getHomePage() throws InvocationTargetException, IllegalAccessException;
 
     Integer getTotalNumBySearch(String query);
+
 }
