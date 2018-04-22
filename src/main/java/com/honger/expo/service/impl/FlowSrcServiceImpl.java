@@ -21,6 +21,7 @@ public class FlowSrcServiceImpl implements FlowSrcService{
         flowSrc.setId(s);
         flowSrc.setCreateTime(new Date());
         flowSrc.setUpdateTime(new Date());
+        flowSrc.setSrcType("0");
         Integer insert = flowSrcMapper.insert(flowSrc);
         if(insert.equals(1))
             return s;

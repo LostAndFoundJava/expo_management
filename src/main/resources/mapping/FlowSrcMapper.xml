@@ -3,10 +3,10 @@
 <mapper namespace="com.honger.expo.dao.FlowSrcMapper">
     <insert id="insert" parameterType="com.honger.expo.pojo.FlowSrc" >
         insert into flow_src (`id`, `src`, `uid`, `create_time`, `update_time`, `company`,
-        `client_name`, `address`, `qq_no`, `email`, `mobile_no`)
+        `client_name`, `address`, `qq_no`, `email`, `mobile_no`,`exhibition`,`application_type`,`src_type`)
         values
         (#{id},#{src},#{uid},#{createTime},#{updateTime},#{company},#{clientName},
-        #{address},#{qqNo},#{email},#{mobileNo})
+        #{address},#{qqNo},#{email},#{mobileNo},,#{exhibition},#{applicationType},#{srcType})
     </insert>
 
     <update id="update" parameterType="com.honger.expo.pojo.FlowSrc">
@@ -28,6 +28,9 @@
         </if>
         <if test="mobileNo!=null">
             mobile_no = #{mobileNo},
+        </if>
+        <if test="applicationType!=null">
+            application_type = #{applicationType},
         </if>
         update_time = #{updateTime}
         where id = #{id}

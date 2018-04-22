@@ -19,6 +19,33 @@ public class FlowSrc {
     private String qqNo;
     private String email;
     private String mobileNo;
+    private String srcType;
+    private String applicationType;
+    private String exhibition;
+
+    public String getSrcType() {
+        return srcType;
+    }
+
+    public void setSrcType(String srcType) {
+        this.srcType = srcType;
+    }
+
+    public String getApplicationType() {
+        return applicationType;
+    }
+
+    public void setApplicationType(String applicationType) {
+        this.applicationType = applicationType;
+    }
+
+    public String getExhibition() {
+        return exhibition;
+    }
+
+    public void setExhibition(String exhibition) {
+        this.exhibition = exhibition;
+    }
 
     public String getId() {
         return id;
