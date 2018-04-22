@@ -22,7 +22,7 @@ public class FlowSrcController {
 
     @ResponseBody
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public ResponseJSON insert(@RequestBody FlowSrc flowSrc) {
+    public ResponseJSON insert(FlowSrc flowSrc) {
         HashMap<String,String> result = new HashMap<>();
         String s = "";
         try{

@@ -6,7 +6,7 @@
         `client_name`, `address`, `qq_no`, `email`, `mobile_no`,`exhibition`,`application_type`,`src_type`)
         values
         (#{id},#{src},#{uid},#{createTime},#{updateTime},#{company},#{clientName},
-        #{address},#{qqNo},#{email},#{mobileNo},,#{exhibition},#{applicationType},#{srcType})
+        #{address},#{qqNo},#{email},#{mobileNo},#{exhibition},#{applicationType},#{srcType})
     </insert>
 
     <update id="update" parameterType="com.honger.expo.pojo.FlowSrc">
