@@ -13,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/expos")
@@ -102,26 +101,49 @@ public class ExhibitionController {
     @RequestMapping(value = "/hot", method = RequestMethod.GET)
     public ResponseJSON getHotAndCarsoulExhibition() {
         Map<String, List<ExhibitionSearchVO>> map = null;
+        Page<Set<ExhibitionSearchVO>> hotPage = null;
         try {
             map = exhibitionService.getHomePage();
             map.remove("choice");
+            hotPage = addSearchToPage(map);
+            hotPage.setLast(true);
         } catch (Exception e) {
             return ResponseJSON.error();
         }
-        return ResponseJSON.ok(map);
+        return ResponseJSON.ok(hotPage);
     }
 
     @ResponseBody
     @RequestMapping(value = "/choices", method = RequestMethod.GET)
     public ResponseJSON getChoiceExhibition() {
         Map<String, List<ExhibitionSearchVO>> map = null;
+        Page<Set<ExhibitionSearchVO>> hotPage = null;
+
         try {
             map = exhibitionService.getHomePage();
             map.remove("hot");
             map.remove("carousal");
+            hotPage = addSearchToPage(map);
+            hotPage.setLast(true);
+
+
+
         } catch (Exception e) {
             return ResponseJSON.error();
         }
-        return ResponseJSON.ok(map);
+        return ResponseJSON.ok(hotPage);
+    }
+
+    private Page<Set<ExhibitionSearchVO>> addSearchToPage(Map<String, List<ExhibitionSearchVO>> map) {
+        Set<ExhibitionSearchVO> exhibitionSearchVOS = new HashSet<>();
+        for (Map.Entry<String, List<ExhibitionSearchVO>> m : map.entrySet()) {
+            exhibitionSearchVOS.addAll(m.getValue());
+
+        }
+        Page<Set<ExhibitionSearchVO>> page = new Page<>();
+        page.setContent(exhibitionSearchVOS);
+        page.setPageNum(1);
+        page.setTotalNum(exhibitionSearchVOS.size());
+        return page;
     }
 }

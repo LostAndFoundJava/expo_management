@@ -79,4 +79,19 @@ public class ExhibitionSearchVO{
     public void setCityName(String cityName) {
         this.cityName = cityName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ExhibitionSearchVO)) return false;
+
+        ExhibitionSearchVO that = (ExhibitionSearchVO) o;
+
+        return exhibition.equals(that.exhibition);
+    }
+
+    @Override
+    public int hashCode() {
+        return exhibition.hashCode();
+    }
 }
