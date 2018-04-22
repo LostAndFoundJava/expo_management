@@ -1,20 +1,20 @@
 package com.honger.expo.controller;
 
-
 import com.github.pagehelper.PageHelper;
 import com.honger.expo.dto.response.exhibition.ExhibitionDetailResponse;
 import com.honger.expo.dto.response.status.ResponseJSON;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
 import com.honger.expo.dto.vo.Page;
 import com.honger.expo.myexception.MyDateFormatException;
+import com.honger.expo.pojo.Category;
+import com.honger.expo.service.CategoryService;
 import com.honger.expo.service.ExhibitionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/expos")
@@ -23,6 +23,9 @@ public class ExhibitionController {
     final static private int pageSize = 3;
     @Autowired
     private ExhibitionService exhibitionService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -123,5 +126,96 @@ public class ExhibitionController {
             return ResponseJSON.error();
         }
         return ResponseJSON.ok(map);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/hotExpos", method = RequestMethod.GET)
+    public ResponseJSON getCategoryHotExhibition(
+            @RequestParam(value = "categoryId", required = false, defaultValue = "") String categoryId) {
+        Map<String, List<ExhibitionSearchVO>> map = new HashMap<>();
+        int totalSize = 3;
+        try {
+            Map<String, List<ExhibitionSearchVO>> stringListMap = exhibitionService.getHomePage();
+
+            List<ExhibitionSearchVO> carousalList = new ArrayList<>();
+            List<ExhibitionSearchVO> hotList = new ArrayList<>();
+            List<ExhibitionSearchVO> choiceList = new ArrayList<>();
+
+
+            for (Map.Entry<String, List<ExhibitionSearchVO>> entry : stringListMap.entrySet()){
+                if(entry.getKey().equals("carousal"))
+                    carousalList.addAll(entry.getValue());
+                if(entry.getKey().equals("hot"))
+                    hotList.addAll(entry.getValue());
+                if(entry.getKey().equals("choice"))
+                    choiceList.addAll(entry.getValue());
+            }
+
+            Category category = categoryService.getCategoryById(categoryId);
+            category.setId(categoryId);
+            int carousalSize = 0;
+            int hotSize = 0;
+            int choiceSize = 0;
+
+            carousalSize = getNeedSize(carousalList, category, carousalSize);
+
+            hotSize = getNeedSize(hotList, category, hotSize);
+
+            choiceSize = getNeedSize(choiceList, category, choiceSize);
+
+            int first = totalSize - carousalSize;
+            if(first > 0){
+                map.put("carousal",carousalList);
+                int second = first - hotSize;
+                if(second > 0){
+                    map.put("hot",hotList);
+                    int third = second - choiceSize;
+                    if(third > 0){
+                        map.put("choice",choiceList);
+                    }else{
+                        List<ExhibitionSearchVO> tmpChoiceList = new ArrayList<>();
+                        for(int i = 0;i < choiceList.size();i++){
+                            if(i == second)
+                                break;
+                            tmpChoiceList.add(choiceList.get(i));
+                        }
+                        map.put("choice",tmpChoiceList);
+                    }
+                }else{
+                    List<ExhibitionSearchVO> tmpHotList = new ArrayList<>();
+                    for(int i = 0;i < hotList.size();i++){
+                        if(i == first)
+                            break;
+                        tmpHotList.add(hotList.get(i));
+                    }
+                    map.put("hot",tmpHotList);
+                }
+            }else{
+                List<ExhibitionSearchVO> tmpCarousalList = new ArrayList<>();
+                for(int i = 0;i < carousalList.size();i++){
+                    if(i == totalSize)
+                        break;
+                    tmpCarousalList.add(carousalList.get(i));
+                }
+                map.put("carousal",tmpCarousalList);
+            }
+
+        } catch (Exception e) {
+            return ResponseJSON.error();
+        }
+        return ResponseJSON.ok(map);
+    }
+
+    private int getNeedSize(List<ExhibitionSearchVO> choiceList, Category category, int choiceSize) {
+        ListIterator<ExhibitionSearchVO> exhibitionSearchVOListIterator2 = choiceList.listIterator();
+        while(exhibitionSearchVOListIterator2.hasNext()) {
+            ExhibitionSearchVO next = exhibitionSearchVOListIterator2.next();
+            if (next.getExhibition().getCategoryId().equals(category.getId())) {
+                choiceSize++;
+            }else {
+                exhibitionSearchVOListIterator2.remove();
+            }
+        }
+        return choiceSize;
     }
 }
