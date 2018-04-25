@@ -2,15 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.honger.expo.dao.VisaMapper">
     <select id="getVisaByCountryId" resultType="com.honger.expo.dto.vo.VisaVO">
-        select A.*,B.`file_url`,B.`file_name`,C.id as cityId,C.`name` as cityName,C.`name_en` as cityNameEn,
-        C.`name_pinyin` as cityNamePinyin,D.id as cId,D.`name` as cName,D.`name_en` as cNameEn,D.`name_pinyin` as cNamePinyin
-        from visa A
-        left join file B
-        on A.`id` = B.type_id
-        left join region_data C
-        on A.`country` = C.`id`
-        left join `region_data` D
-        on A.`continent` = D.id
-        where A.`delete` = 0 and B.`delete` = 0 and A.country = #{countryId}
+      select C.*,D.id as cityId,D.`name` as cityName,D.`name_en` as cityNameEn,
+        D.`name_pinyin` as cityNamePinyin,E.id as cId,E.`name` as cName,E.`name_en` as cNameEn,E.`name_pinyin` as cNamePinyin from
+      (
+     	select A.*,B.`file_url`,B.`file_name` from visa A
+      	left join  file B
+      	on A.id = B.type_id
+      ) C
+      left join  region_data D
+      ON C.country = D.id
+      left join region_data E
+      on C.continent = E.id where C.country = #{countryId}
     </select>
 </mapper>
