@@ -11,6 +11,6 @@
         on A.`country` = C.`id`
         left join `region_data` D
         on A.`continent` = D.id
-        where A.`delete` = 0 and B.`delete` = 0 and A.country = #{countryId}
+        where A.`delete` = 0 and A.country = #{countryId}
     </select>
 </mapper>
