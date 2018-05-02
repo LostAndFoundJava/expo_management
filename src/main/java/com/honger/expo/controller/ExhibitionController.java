@@ -1,6 +1,7 @@
 package com.honger.expo.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.honger.expo.annotation.CountAnnotation;
 import com.honger.expo.dto.response.exhibition.ExhibitionDetailResponse;
 import com.honger.expo.dto.response.status.ResponseJSON;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
@@ -8,9 +9,11 @@ import com.honger.expo.dto.vo.Page;
 import com.honger.expo.myexception.MyDateFormatException;
 import com.honger.expo.pojo.Category;
 import com.honger.expo.service.CategoryService;
+import com.honger.expo.service.ExhibitionCountService;
 import com.honger.expo.service.ExhibitionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +29,9 @@ public class ExhibitionController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ExhibitionCountService exhibitionCountService;
 
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -89,6 +95,7 @@ public class ExhibitionController {
         return ResponseJSON.ok(rPage);
     }
 
+    @CountAnnotation
     @ResponseBody
     @RequestMapping(value = "/detail/{exhibitionId}", method = RequestMethod.GET)
     public ResponseJSON getExhibitonDetail(@PathVariable("exhibitionId") String exhibitionId) {
@@ -99,6 +106,18 @@ public class ExhibitionController {
             return ResponseJSON.error();
         }
         return ResponseJSON.ok(detail);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/count/{exhibitionId}", method = RequestMethod.GET)
+    public ResponseJSON getExhibitionCount(@PathVariable("exhibitionId") String exhibitionId) {
+        HashMap<String,Integer> num = new HashMap<>();
+        try {
+            num.put("count",exhibitionCountService.selectCountByExhibitionId(exhibitionId));
+        } catch (Exception e) {
+            return ResponseJSON.error();
+        }
+        return ResponseJSON.ok(num);
     }
 
     @ResponseBody

@@ -2,12 +2,15 @@ package com.honger.expo.pojo;
 
 import java.util.Date;
 
-public class AboutUs {
+public class ExhibitionCount {
     private String id;
     private Integer delete;
-    private String detail;
     private Date createTime;
     private Date updateTime;
+    //关联展会详情
+    private String exhibitionId;
+    //展会访问次数
+    private Integer count;
 
     public String getId() {
         return id;
@@ -25,14 +28,6 @@ public class AboutUs {
         this.delete = delete;
     }
 
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -47,5 +42,21 @@ public class AboutUs {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getExhibitionId() {
+        return exhibitionId;
+    }
+
+    public void setExhibitionId(String exhibitionId) {
+        this.exhibitionId = exhibitionId;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

@@ -1,17 +1,16 @@
 package com.honger.expo.controller;
 
-
 import com.honger.expo.dto.response.status.ResponseJSON;
-import com.honger.expo.pojo.Category;
 import com.honger.expo.pojo.FlowSrc;
-import com.honger.expo.service.CategoryService;
 import com.honger.expo.service.FlowSrcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/flowSrc")

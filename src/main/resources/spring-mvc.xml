@@ -36,14 +36,14 @@
         <property name="messageConverters">
             <list>
                 <!-- 设置返回字符串编码 -->
-                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                    <property name = "supportedMediaTypes">
-                        <list>
-                            <value>text/html;charset=UTF-8</value>
-                            <value>application/json;charset=UTF-8</value>
-                        </list>
-                    </property>
-                </bean>
+                <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
+                    <!--<property name = "supportedMediaTypes">-->
+                        <!--<list>-->
+                            <!--<value>text/html;charset=UTF-8</value>-->
+                            <!--<value>application/json;charset=UTF-8</value>-->
+                        <!--</list>-->
+                    <!--</property>-->
+                <!--</bean>-->
                 <!-- json转换器 -->
                 <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                     <property name="supportedMediaTypes">
@@ -68,7 +68,7 @@
     <!--拦截器，分析跳转来源-->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**" />
+            <mvc:mapping path="/aboutUs" />
             <bean class="com.honger.expo.intercepter.URLSourceIntercepter"/>
         </mvc:interceptor>
     </mvc:interceptors>

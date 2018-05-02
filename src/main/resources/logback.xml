@@ -103,7 +103,7 @@
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE_INFO"/>
         <appender-ref ref="FILE_ERROR"/>
-        <appender-ref ref="EMAIL"/>
+        <!--<appender-ref ref="EMAIL"/>-->ProceedingJoinPoint
     </root>
 
 

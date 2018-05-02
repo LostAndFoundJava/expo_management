@@ -3,6 +3,7 @@ package com.honger.expo.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.honger.expo.annotation.CountAnnotation;
 import com.honger.expo.dao.AboutUsMapper;
 import com.honger.expo.dao.RegionDataMapper;
 import com.honger.expo.dao.VisaMapper;
@@ -26,7 +27,6 @@ public class AboutUsServiceImpl implements AboutUsService{
     @Autowired
     private AboutUsMapper aboutUsMapper;
 
-    @Override
     public List<AboutUsResponse> getAboutUs() {
         List<AboutUs> aboutUs = aboutUsMapper.getAboutUs();
         AboutUs au = aboutUs.get(0);
