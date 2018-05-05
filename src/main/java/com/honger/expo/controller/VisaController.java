@@ -46,7 +46,8 @@ public class VisaController {
 
         URL url = new URL(fileUrl);
         URLConnection urlConnection = url.openConnection();
-        urlConnection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
+        urlConnection.setRequestProperty("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) " +
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36)");
         InputStream inputStream = urlConnection.getInputStream();
         byte[] bytes = IOUtils.toByteArray(inputStream);
 
@@ -56,6 +57,7 @@ public class VisaController {
 
         headers.setContentDispositionFormData("attachment", fileName);
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
         return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.CREATED);
     }
 
