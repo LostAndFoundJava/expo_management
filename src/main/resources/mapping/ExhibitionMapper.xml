@@ -74,6 +74,6 @@
     </select>
 
     <select id="selectExhibtionById" resultType="com.honger.expo.pojo.Exhibition">
-        select * from exhibiton where id = #{exhibitionId} and `delete` = 0
+        select * from exhibition where id = #{exhibitionId} and `delete` = 0
     </select>
 </mapper>
