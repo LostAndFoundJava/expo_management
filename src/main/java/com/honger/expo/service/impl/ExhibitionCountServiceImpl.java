@@ -1,13 +1,10 @@
 package com.honger.expo.service.impl;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.honger.expo.dao.AboutUsMapper;
 import com.honger.expo.dao.ExhibitionCountMapper;
-import com.honger.expo.dto.response.aboutUs.AboutUsResponse;
-import com.honger.expo.pojo.AboutUs;
-import com.honger.expo.pojo.ExhibitionCount;
-import com.honger.expo.service.AboutUsService;
+import com.honger.expo.dao.ExhibitionMapper;
+import com.honger.expo.dto.vo.ClickCountExhibition;
+import com.honger.expo.pojo.ClickCount;
+import com.honger.expo.pojo.Exhibition;
 import com.honger.expo.service.ExhibitionCountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,17 +19,21 @@ public class ExhibitionCountServiceImpl implements ExhibitionCountService{
     @Autowired
     private ExhibitionCountMapper exhibitionCountMapper;
 
+    @Autowired
+    private ExhibitionMapper exhibitionMapper;
+
     @Override
     public void insertOrUpdateExhibitionCount(String exhibitionId) {
         Integer integer = exhibitionCountMapper.selectExistByExhibitionId(exhibitionId);
         if(integer.equals(0)){
-            ExhibitionCount ec = new ExhibitionCount();
+            ClickCount ec = new ClickCount();
             UUID uuid = UUID.randomUUID();
             String s = uuid.toString().replace("-","");
             ec.setCreateTime(new Date());
             ec.setUpdateTime(new Date());
             ec.setId(s);
-            ec.setExhibitionId(exhibitionId);
+            ec.setClickedId(exhibitionId);
+            ec.setClickType(0);
             exhibitionCountMapper.insertExhibitonIdCount(ec);
         }else{
             exhibitionCountMapper.updateExhibitionIdCount(exhibitionId);
@@ -43,5 +44,20 @@ public class ExhibitionCountServiceImpl implements ExhibitionCountService{
     public Integer selectCountByExhibitionId(String exhibitionId) {
         Integer integer = exhibitionCountMapper.selectCountByExhibitonId(exhibitionId);
         return  integer;
+    }
+
+    @Override
+    public List<ClickCountExhibition> getTopClickExhibiton(String top) {
+        List<ClickCount> topClickExhibiton = exhibitionCountMapper.getTopClickExhibiton(new Integer(top));
+
+        List<ClickCountExhibition> list = new ArrayList<>();
+        for(ClickCount cc : topClickExhibiton){
+            ClickCountExhibition clickCountExhibition = new ClickCountExhibition();
+            Exhibition exhibition = exhibitionMapper.selectExhibtionById(cc.getClickedId());
+            clickCountExhibition.setClickCount(cc);
+            clickCountExhibition.setExhibition(exhibition);
+            list.add(clickCountExhibition);
+        }
+        return list;
     }
 }

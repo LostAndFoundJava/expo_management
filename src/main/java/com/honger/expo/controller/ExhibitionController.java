@@ -4,10 +4,12 @@ import com.github.pagehelper.PageHelper;
 import com.honger.expo.annotation.CountAnnotation;
 import com.honger.expo.dto.response.exhibition.ExhibitionDetailResponse;
 import com.honger.expo.dto.response.status.ResponseJSON;
+import com.honger.expo.dto.vo.ClickCountExhibition;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
 import com.honger.expo.dto.vo.Page;
 import com.honger.expo.myexception.MyDateFormatException;
 import com.honger.expo.pojo.Category;
+import com.honger.expo.pojo.ClickCount;
 import com.honger.expo.service.CategoryService;
 import com.honger.expo.service.ExhibitionCountService;
 import com.honger.expo.service.ExhibitionService;
@@ -118,6 +120,20 @@ public class ExhibitionController {
             return ResponseJSON.error();
         }
         return ResponseJSON.ok(num);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/clicks", method = RequestMethod.GET)
+    public ResponseJSON getTopClickExhibiton(@RequestParam("top") String top) {
+        List<ClickCountExhibition> list = null;
+        if(top==null || top.trim().equals(""))
+            top = "0";
+        try {
+            list = exhibitionCountService.getTopClickExhibiton(top);
+        } catch (Exception e) {
+            return ResponseJSON.error();
+        }
+        return ResponseJSON.ok(list);
     }
 
     @ResponseBody

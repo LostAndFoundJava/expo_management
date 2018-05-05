@@ -37,7 +37,7 @@ public class VisaController {
     private FileResourceService fileResourceService;
 
     @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
-    public ResponseEntity<String> download(@PathVariable("id") String id) throws IOException {
+    public ResponseEntity<byte[]> download(@PathVariable("id") String id) throws IOException {
         FileResource fileResourceById = fileResourceService.getFileResourceById(id);
         String fileUrl = fileResourceById.getFileUrl();
 
@@ -47,7 +47,7 @@ public class VisaController {
         URL url = new URL(fileUrl);
         URLConnection urlConnection = url.openConnection();
         InputStream inputStream = urlConnection.getInputStream();
-        String s = IOUtils.toString(inputStream);
+        byte[] bytes = IOUtils.toByteArray(inputStream);
 
         HttpHeaders headers = new HttpHeaders();
         fileName=new String(fileName.getBytes("UTF-8"),
@@ -55,8 +55,7 @@ public class VisaController {
 
         headers.setContentDispositionFormData("attachment", fileName);
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        return new ResponseEntity<String>(new String(s.getBytes("UTF-8"),"iso-8859-1"),
-                headers, HttpStatus.CREATED);
+        return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.CREATED);
     }
 
     @ResponseBody

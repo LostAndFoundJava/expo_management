@@ -1,6 +1,6 @@
 package com.honger.expo.dao;
 
-import com.honger.expo.pojo.ExhibitionCount;
+import com.honger.expo.pojo.ClickCount;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ public class ExhibitionCountDaoTest {
     public void getVisaByCountryId(){
         Integer integer = exhibitionCountMapper.selectExistByExhibitionId("163ca4e3993745c084ccec33917b6b94");
         if(integer.equals(0)){
-            ExhibitionCount ec = new ExhibitionCount();
+            ClickCount ec = new ClickCount();
             UUID uuid = UUID.randomUUID();
             String s = uuid.toString().replace("-","");
             ec.setCreateTime(new Date());
             ec.setUpdateTime(new Date());
             ec.setId(s);
-            ec.setExhibitionId("163ca4e3993745c084ccec33917b6b94");
+            ec.setClickedId("163ca4e3993745c084ccec33917b6b94");
             exhibitionCountMapper.insertExhibitonIdCount(ec);
         }else{
             exhibitionCountMapper.updateExhibitionIdCount("163ca4e3993745c084ccec33917b6b94");

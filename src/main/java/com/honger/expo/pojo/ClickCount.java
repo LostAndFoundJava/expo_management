@@ -2,15 +2,17 @@ package com.honger.expo.pojo;
 
 import java.util.Date;
 
-public class ExhibitionCount {
+public class ClickCount {
     private String id;
     private Integer delete;
     private Date createTime;
     private Date updateTime;
-    //关联展会详情
-    private String exhibitionId;
-    //展会访问次数
+    //关联点击id（展会，新闻）
+    private String clickedId;
+    //访问次数
     private Integer count;
+    //被点击类型
+    private Integer clickType;
 
     public String getId() {
         return id;
@@ -44,19 +46,27 @@ public class ExhibitionCount {
         this.updateTime = updateTime;
     }
 
-    public String getExhibitionId() {
-        return exhibitionId;
-    }
-
-    public void setExhibitionId(String exhibitionId) {
-        this.exhibitionId = exhibitionId;
-    }
-
     public Integer getCount() {
         return count;
     }
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public String getClickedId() {
+        return clickedId;
+    }
+
+    public void setClickedId(String clickedId) {
+        this.clickedId = clickedId;
+    }
+
+    public Integer getClickType() {
+        return clickType;
+    }
+
+    public void setClickType(Integer clickType) {
+        this.clickType = clickType;
     }
 }

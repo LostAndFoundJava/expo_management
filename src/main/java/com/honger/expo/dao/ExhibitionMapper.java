@@ -35,4 +35,6 @@ public interface ExhibitionMapper {
 
     //查询行业精选展会
     List<Exhibition> getExhibitonByIsChoice();
+
+    Exhibition selectExhibtionById(@Param("exhibitionId")String clickedId);
 }

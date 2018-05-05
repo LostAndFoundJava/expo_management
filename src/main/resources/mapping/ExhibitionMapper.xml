@@ -72,4 +72,8 @@
         left join `tb_category_exhibition` B
         on A.id = B.`exhibition_id` where B.`is_choice` = 1 and A.`delete` = 0 and B.`delete` = 0
     </select>
+
+    <select id="selectExhibtionById" resultType="com.honger.expo.pojo.Exhibition">
+        select * from exhibiton where id = #{exhibitionId} and `delete` = 0
+    </select>
 </mapper>
