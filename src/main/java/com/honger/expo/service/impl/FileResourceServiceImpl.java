@@ -1,5 +1,6 @@
 package com.honger.expo.service.impl;
 
+import com.honger.expo.dao.FileResourceMapper;
 import com.honger.expo.dao.RegionDataMapper;
 import com.honger.expo.dao.VisaMapper;
 import com.honger.expo.dto.response.visa.VisaResponse;
@@ -18,8 +19,11 @@ import java.util.Map;
 
 @Service
 public class FileResourceServiceImpl implements FileResourceService {
+    @Autowired
+    private FileResourceMapper fileResourceMapper;
+
     @Override
     public FileResource getFileResourceById(String id) {
-        return null;
+        return fileResourceMapper.getFileResourceById(id);
     }
 }

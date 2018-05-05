@@ -7,6 +7,7 @@ import com.honger.expo.pojo.RegionData;
 import com.honger.expo.service.FileResourceService;
 import com.honger.expo.service.VisaService;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 @Controller
@@ -34,14 +39,23 @@ public class VisaController {
     @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
     public ResponseEntity<String> download(@PathVariable("id") String id) throws IOException {
         FileResource fileResourceById = fileResourceService.getFileResourceById(id);
-        File file=new File(fileResourceById.getFileUrl());
+        String fileUrl = fileResourceById.getFileUrl();
+
+        String[] split = fileUrl.split("/");
+        String fileName = split[split.length-1];
+
+        URL url = new URL(fileUrl);
+        URLConnection urlConnection = url.openConnection();
+        InputStream inputStream = urlConnection.getInputStream();
+        String s = IOUtils.toString(inputStream);
+
         HttpHeaders headers = new HttpHeaders();
-        String fileName=new String(fileResourceById.getFileName().getBytes("UTF-8"),
+        fileName=new String(fileName.getBytes("UTF-8"),
                 "iso-8859-1");//为了解决中文名称乱码问题
 
         headers.setContentDispositionFormData("attachment", fileName);
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        return new ResponseEntity<String>(FileUtils.readFileToString(file,"iso-8859-1"),
+        return new ResponseEntity<String>(new String(s.getBytes("UTF-8"),"iso-8859-1"),
                 headers, HttpStatus.CREATED);
     }
 
