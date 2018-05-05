@@ -2,7 +2,9 @@ package com.honger.expo.controller;
 
 import com.honger.expo.dto.response.status.ResponseJSON;
 import com.honger.expo.dto.response.visa.VisaResponse;
+import com.honger.expo.pojo.FileResource;
 import com.honger.expo.pojo.RegionData;
+import com.honger.expo.service.FileResourceService;
 import com.honger.expo.service.VisaService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,15 @@ public class VisaController {
     @Autowired
     private VisaService visaService;
 
-    @RequestMapping(value = "/excel", method = RequestMethod.GET)
-    public ResponseEntity<String> download() throws IOException {
-        String path="/Users/chenjian/Desktop/集团简介.doc";
-        File file=new File(path);
+    @Autowired
+    private FileResourceService fileResourceService;
+
+    @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
+    public ResponseEntity<String> download(@PathVariable("id") String id) throws IOException {
+        FileResource fileResourceById = fileResourceService.getFileResourceById(id);
+        File file=new File(fileResourceById.getFileUrl());
         HttpHeaders headers = new HttpHeaders();
-        String fileName=new String("集团简介.doc".getBytes("UTF-8"),
+        String fileName=new String(fileResourceById.getFileName().getBytes("UTF-8"),
                 "iso-8859-1");//为了解决中文名称乱码问题
 
         headers.setContentDispositionFormData("attachment", fileName);

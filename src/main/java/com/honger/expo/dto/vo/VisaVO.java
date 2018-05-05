@@ -16,8 +16,17 @@ public class VisaVO extends Visa{
     private String cNamePinyin;
     private String cNameEn;
 
+    private String fId;
     private String fileName;
     private String fileUrl;
+
+    public String getfId() {
+        return fId;
+    }
+
+    public void setfId(String fId) {
+        this.fId = fId;
+    }
 
     public String getCityId() {
         return cityId;

@@ -51,10 +51,13 @@ public class VisaServiceImpl implements VisaService {
         contitent.setName(vv.getcName());
         contitent.setNamePinyin(vv.getCityNamePinyin());
         for(VisaVO vvo : visaByCountryId){
-            Map<String,String> map = new HashMap<>();
-            map.put("visaUrl",vvo.getFileUrl());
-            map.put("visaName",vvo.getFileName());
-            list.add(map);
+            if(vvo.getFileUrl()!=null){
+                Map<String,String> map = new HashMap<>();
+                map.put("visaUrl",vvo.getFileUrl());
+                map.put("visaName",vvo.getFileName());
+                map.put("visaFileId",vvo.getfId());
+                list.add(map);
+            }
         }
         vr.setCreateTime(vv.getCreateTime());
         vr.setUpdateTime(vv.getUpdateTime());

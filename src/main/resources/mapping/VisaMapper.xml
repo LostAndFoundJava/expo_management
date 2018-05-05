@@ -5,7 +5,7 @@
       select C.*,D.id as cityId,D.`name` as cityName,D.`name_en` as cityNameEn,
         D.`name_pinyin` as cityNamePinyin,E.id as cId,E.`name` as cName,E.`name_en` as cNameEn,E.`name_pinyin` as cNamePinyin from
       (
-     	select A.*,B.`file_url`,B.`file_name` from visa A
+     	select A.*,B.`id` as fId,B.`file_url`,B.`file_name` from visa A
       	left join  file B
       	on A.id = B.type_id
       ) C
@@ -13,6 +13,5 @@
       ON C.country = D.id
       left join region_data E
       on C.continent = E.id where C.country = #{countryId}
-
     </select>
 </mapper>

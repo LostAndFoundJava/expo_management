@@ -1,6 +1,7 @@
 package com.honger.expo.controller;
 
 import com.honger.expo.dto.response.status.ResponseJSON;
+import com.honger.expo.message.MessageEventPublisher;
 import com.honger.expo.pojo.FlowSrc;
 import com.honger.expo.service.FlowSrcService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class FlowSrcController {
     @Autowired
     private FlowSrcService flowSrcService;
 
+    @Autowired
+    private MessageEventPublisher mep;
+
     @ResponseBody
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public ResponseJSON insert(@RequestBody FlowSrc flowSrc) {
@@ -33,6 +37,7 @@ public class FlowSrcController {
             return ResponseJSON.error("插入失败！！");
         else{
             result.put("id",s);
+            mep.publish();
             return ResponseJSON.ok(result);
         }
     }
