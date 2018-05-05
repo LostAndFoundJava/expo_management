@@ -46,6 +46,7 @@ public class VisaController {
 
         URL url = new URL(fileUrl);
         URLConnection urlConnection = url.openConnection();
+        urlConnection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
         InputStream inputStream = urlConnection.getInputStream();
         byte[] bytes = IOUtils.toByteArray(inputStream);
 
