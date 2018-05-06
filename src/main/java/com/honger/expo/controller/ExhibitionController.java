@@ -160,11 +160,19 @@ public class ExhibitionController {
     @ResponseBody
     @RequestMapping(value = "/clicks", method = RequestMethod.GET)
     public ResponseJSON getTopClickExhibition(@RequestParam("top") String top) {
-        List<ClickCountVO> list = null;
+        List<ClickCountVO> list = new ArrayList<>();
         if(top==null || top.trim().equals(""))
             top = "0";
         try {
-            list = clickCountService.getTopClickExhibition(top, CountType.exhibition);
+            List<ClickCountVO> topClickExhibition = clickCountService.getTopClickExhibition(top, CountType.exhibition);
+            for(ClickCountVO ccv : topClickExhibition){
+                Exhibition clicked = (Exhibition)ccv.getClicked();
+                ExhibitionSearchVO esv = new ExhibitionSearchVO();
+                esv.setExhibition(clicked);
+                dealWithStatus(esv);
+                ccv.setClicked(esv);
+                list.add(ccv);
+            }
         } catch (Exception e) {
             return ResponseJSON.error();
         }
