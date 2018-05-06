@@ -1,0 +1,17 @@
+@media screen and (max-width: 767px) {
+    .body-small  visa-no-padding {
+        padding: 0px;
+    }
+}
+
+.visa-file {
+    text-align: center;
+}
+
+.visa-content img {
+    max-width: 100%;
+    height: auto;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}

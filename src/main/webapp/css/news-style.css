@@ -1,0 +1,182 @@
+slick .slick-dots {
+    position: absolute;
+    bottom: -9px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    font-size: 10px;
+}
+
+.news-item {
+    padding: 20px 25px;
+    background: #ffffff;
+    border-top: 1px solid #e7eaec;
+    cursor: pointer;
+}
+.news-item:last-child {
+    border-bottom: 1px solid #e7eaec;
+}
+.news-item:hover {
+    background: #fbfbfb;
+}
+
+.news-title {
+    display: block;
+    color: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+.news-title:hover,
+.news-title:focus {
+    color: inherit;
+}
+.news-info,
+.news-title {
+    margin-left: 45px;
+}
+.news-info,
+.news-info a {
+    color: #b4b6b8;
+    font-size: 12px;
+}
+.news-info a {
+    margin-right: 10px;
+}
+.news-info a:hover {
+    color: #1c84c6;
+}
+.news-icon {
+    text-align: right;
+    font-size: 38px;
+    display: block;
+    color: #e8e9ea;
+}
+.news-icon.active {
+    color: #1c84c6;
+}
+body.body-small .news-icon {
+    display: none;
+}
+
+.title-switch {
+    border: 1px solid #c4c6c8;
+    border-radius: 15px;
+    padding: 5px;
+    margin-right: 20px;
+}
+
+.title-switch:hover {
+    background-color: #c4c6c8;
+    cursor: pointer;
+}
+
+.title-selected {
+    background-color: #c4c6c8;
+    cursor: pointer;
+}
+
+.news-area {
+    padding-bottom: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+}
+
+.hot-news .ibox{
+    box-shadow: none;
+}
+
+.hot-news>dd {
+    padding: 0;
+    margin: 0;
+}
+
+.hot-news ul {
+    padding: 0;
+    margin: 0;
+}
+
+.hot-news ul li {
+    list-style: none;
+    margin-bottom: 22px;
+}
+
+.hot-news ul li .hot-news-title {
+    margin: 0 0 5px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.hot-news .ibox-content {
+    padding: 0px 20px 20px 20px;
+}
+
+.hot-news h3 {
+    font-size: 14px;
+}
+.hot-news a {
+    color: #686b6d;
+}
+
+.hot-news a:hover {
+    color: #1d83c7;
+}
+
+.news-info span, .hot-new-etc span {
+    padding-right: 5px;
+    color: #999;
+}
+
+@media screen and (max-width: 767px) {
+    .body-small .hot-news {
+        display: none;
+    }
+
+    .body-small .news-web-nav  {
+        display: none;
+    }
+
+    .body-small .news-nav {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        background: #f5f5f5;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -wekbit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+        box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+
+    .body-small .news-nav .item {
+        display: block;
+        position: relative;
+        font-weight: 700;
+        line-height: 40px;
+        color: #5d5d5d;
+        text-align: center;
+    }
+
+    .body-small .layout-box {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .body-small .layout-box .box-col {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        width: 100%;
+    }
+
+    .news-nav a:hover {
+        border-bottom: 2px solid #1d83c7;
+
+    }
+}

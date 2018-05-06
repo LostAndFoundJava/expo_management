@@ -1,0 +1,202 @@
+<!--<div scroll hide-element-id="reservation" show-status="detail.showTicketBar">-->
+
+<!--</div>-->
+<div class="ibox" style="margin-top: 40px; margin-bottom: 0px;">
+    <div class="ibox-title hot-title">
+        {{detail.content.exhibition.exhibition.title}}
+    </div>
+    <div class="ibox-content" style="padding-bottom: 5px; padding-top: 0px">
+        <div class="hot-info">
+            <div class="hot-info-brief hot-date" ng-repeat="brief in detail.briefInfo">
+                <span>{{brief.key}}： {{brief.value}} </span>
+
+            </div>
+
+            <!--<div class="hot-info-brief hot-date">-->
+
+                <!--<span>{{detail.content.exhibition.exhibition.startTime | date : "yyyy/MM/dd" }}-->
+                     <!-- -{{detail.content.exhibition.exhibition.endTime | date : "yyyy/MM/dd" }}</span>-->
+
+            <!--</div>-->
+            <!--<div class="hot-info-brief hot-city">-->
+                <!--<span> <i class="fas fa-globe"></i> 举办地点：</span>-->
+                <!--{{detail.content.exhibition.countryName}} - {{detail.content.exhibition.cityName}}-->
+            <!--</div>-->
+            <!--<div class="hot-info-brief hot-location">-->
+                <!--<span><i class="fas fa-bars"></i> 所属行业：</span>-->
+                <!--{{detail.content.exhibition.categroy}}-->
+            <!--</div>-->
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="section hot-bg img-responsive">
+    <img class="hot-bg-img img-responsive" ng-src="{{imgUrl(detail.content.fileResource[0].fileUrl)}}" alt="">
+    <!--<div class="hot-detail-mask">-->
+        <!--<div class="hot-detail-bg-title">-->
+            <!--{{detail.content.exhibition.exhibition.title}}-->
+        <!--</div>-->
+        <!--<div class="hot-detail-bg-info" style="    font-size: 27px;-->
+    <!--color: #fff;-->
+    <!--font-style: italic;">-->
+            <!--{{detail.content.exhibition.exhibition.subtitle}}-->
+        <!--</div>-->
+        <!--<div class="hot-detail-bg-info" style="    font-size: 35px;-->
+    <!--color: #fff;">-->
+            <!--<span>{{detail.content.exhibition.exhibition.startTime | date : "yyyy/MM/dd" }}-->
+                     <!-- -{{detail.content.exhibition.exhibition.endTime | date : "yyyy/MM/dd" }}</span>-->
+        <!--</div>-->
+        <!--<div class="hot-detail-bg-info" style="    font-size: 35px;-->
+    <!--color: #fff;">-->
+            <!--{{detail.content.exhibition.exhibition.location }}-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+
+<div id="reservation" class="section mobile">
+
+        <span class="btnn">
+
+                <label ng-click="changeTicketType(0)">
+                    <input type="radio" icheck value="0" ng-model="detail.form.applicationType"><i></i>
+                    个人
+                </label>
+                <label ng-click="changeTicketType(1)">
+                    <input type="radio" icheck value="1" ng-model="detail.form.applicationType"><i></i>
+                    企业
+                </label>
+        </span>
+
+</div>
+
+
+<section class="detail-3 l-content full-bleed-section mobile">
+
+    <div class="grid-fluid l-max-width-standard">
+
+        <div class="c4">
+            <div class="hover-card">
+                <h3 class="text-headline">联系人</h3>
+                <input type="text" ng-model="detail.form.clientName"
+                       ng-class="{'has-error' : detail.form.clientName == '' || !detail.form.clientName}"
+                       placeholder="请输入联系人姓名"
+                       class="inputCls">
+            </div>
+        </div>
+        <div class="c4">
+            <div class="hover-card">
+                <h3 class="text-headline">联系电话</h3>
+                <input type="text" ng-model="detail.form.mobileNo"
+                       ng-keyup="checkPhoneNumber(detail.form.mobileNo)"
+                       ng-class="{'has-error' : detail.form.mobileNo == '' || detail.formStatus.numberInvalid}"
+                       placeholder="请输入联系人电话"
+                       class="inputCls">
+            </div>
+        </div>
+        <div class="c4" ng-if="detail.form.applicationType == 1">
+            <div class="hover-card">
+                <h3 class="text-headline">公司名称</h3>
+                <input type="text" ng-model="detail.form.company"
+                       ng-class="{'has-error' : detail.form.company == ''}"
+                       placeholder="请输入公司名称"
+                       class="inputCls">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="ticket-button-pos detail-3 mobile" ><a
+        ng-click="detail.ticketStatus && getTicket()" class="hover-card" ng-class="!detail.ticketStatus ? 'ticket-danger' : ''">
+    <span class="hot-ticket-error" ng-show="!detail.ticketStatus"> <i class="far fa-times-circle"></i></span>
+    <span ng-show="!detail.ticketStatus" ng-if="!detail.formStatus.msg || detail.formStatus.msg == ''">预约失败</span>
+    <span ng-show="!detail.ticketStatus" ng-if="detail.formStatus.msg != ''">{{ detail.formStatus.msg}}</span>
+    <span ng-show="detail.ticketStatus">立即预约</span>
+</a></div>
+
+<div class="section ">
+    <div class="detail-container detail-1">
+        <div class="itemss" ng-repeat="desc in detail.desc">
+            <h2 >
+                {{desc.detailTitle}}
+            </h2>
+            <div class="hot-detail-content">
+                <div ng-bind-html="desc.detailContent | trust"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="hot-detail-bar hot-fixed pc">
+    <div class="hot-grid">
+        <div class="hot-detail-list">
+            <div class="hot-detail-form">
+                <div class="hot-detail-form-1">
+                    <div class="hot-detail-check">
+                        <label ng-click="changeTicketType(0)">
+                            <input type="radio" icheck value="0" ng-model="detail.form.applicationType"><i></i>
+                            个人
+                        </label>
+                        <label ng-click="changeTicketType(1)">
+                            <input type="radio" icheck value="1" ng-model="detail.form.applicationType"><i></i>
+                            企业
+                        </label>
+                    </div>
+
+                </div>
+                <div class="hot-detail-form-1">
+                    <span class="text-headline">联系人</span>
+                    <input type="text" ng-model="detail.form.clientName"
+                           ng-class="{'has-error' : detail.form.clientName == '' || !detail.form.clientName}"
+                           placeholder="请输入联系人姓名"
+                           class="inputCls">
+                </div>
+                <div class="hot-detail-form-1">
+                    <span class="text-headline">联系电话</span>
+                    <input type="text" ng-model="detail.form.mobileNo"
+                           ng-keyup="checkPhoneNumber(detail.form.mobileNo)"
+                           ng-class="{'has-error' : detail.form.mobileNo == '' || detail.formStatus.numberInvalid}"
+                           placeholder="请输入联系人电话"
+                           class="inputCls">
+                </div>
+                <div class="hot-detail-form-1" ng-if="detail.form.applicationType == 1">
+                    <span class="text-headline">公司名称</span>
+                    <input type="text" ng-model="detail.form.company"
+                           ng-class="{'has-error' : detail.form.company == ''}"
+                           placeholder="请输入公司名称"
+                           class="inputCls">
+                </div>
+
+
+
+            </div>
+
+
+            <div class="hot-detail-action">
+                <a class="hot-detail-link" ng-click="detail.ticketStatus && getTicket()">
+                    <div class="hot_item_link_skew" style="    color: #fff;
+    background-color: #F44336;">
+                        <div class="hot_item_link_skew_wrap">
+                            <i class="hot_item_link_skew_info">
+                                立即预约
+                            </i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<div ng-include="'view/detail/mobile-action-button.html'"></div>

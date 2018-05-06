@@ -1,0 +1,71 @@
+<div class="footer footer-container pc" ng-controller="FooterController">
+    <div class="footer-left">
+        <div class="footer-logo">
+            <a href="#"><img src="assets/img/logo.jpeg" alt=""></a>
+        </div>
+        <div class="footer-icon">
+            <div style="    padding-right: 20px;">
+                <span class="footer-weixin" popover-placement="bottom" popover-trigger="mouseenter" uib-popover-template="top.weChat">
+                    <span ><i class="fab fa-weixin"></i></span>
+                </span>
+            </div>
+            <div style="    padding-right: 20px;">
+                <span class="footer-weibo"><i class="fab fa-weibo"></i></span>
+            </div>
+        </div>
+        <div class="footer-contact">
+            服务热线：{{telephone}}
+        </div>
+        <div class="footer-text">
+
+            <strong>Copyright</strong> Example Company &copy; 2015-2018
+        </div>
+    </div>
+    <div class="footer-middle">
+        <h3><a ng-click="goLinks()">友情连接</a></h3>
+        <ul>
+            <li>
+                <a ng-repeat="link in footer.links" ng-href="{{link.url}}" target="_blank">
+                    <img ng-src="{{imgUrl(link.logo)}}" alt="" ng-if="link.logo">
+                    <span ng-if="!link.logo">{{link.title}}</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="nav-item footer-right">
+        <h3>关于我们</h3>
+        <ul>
+            <li>
+                <a href="">公司介绍</a>
+            </li>
+            <li>
+                <a href="">联系我们</a>
+            </li>
+            <li>
+                <a href="">后台管理</a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+<div class="mobile">
+    <!--<div class=" mobile-footer">-->
+        <!--<li>-->
+            <!--<a href="">公司介绍</a>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<a href="">联系我们</a>-->
+        <!--</li>-->
+    <!--</div>-->
+
+    <div class="footer-text">
+
+        <strong>Copyright</strong> Example Company &copy; 2015-2018
+    </div>
+    <div class="emty" style="padding-bottom: 70px">
+
+    </div>
+
+</div>

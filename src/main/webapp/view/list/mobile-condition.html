@@ -1,0 +1,74 @@
+<div class="list-mobile-filter mobile">
+    <div  class="search-box layout-box">
+        <div class="input-wrapper box-col">
+            <span id="input-hide" class="fl type"><i class="fas fa-search"></i></span>
+            <span id="input-remove" class="fr clear hid" ng-click="removeQuery()">✖</span>
+            <div class="input-box">
+                <input class="search forSearch"
+                       ng-click="inputQuery()"
+                       ng-model="mobile.query"
+                       type="text" placeholder="搜索">
+            </div>
+        </div>
+        <span class="btn-txt" ng-if="mobile.isReady" ng-click="search()">搜索</span>
+        <span class="btn-txt" ng-if="mobile.isCancel" ng-click="cancel()">取消</span>
+    </div>
+    <div class="condition-filter" ng-click="showFilterPanel()">按条件过滤
+        <i ng-class="{'fas fa-angle-up': mobile.filterPanel == true, 'fas fa-angle-down' : mobile.filterPanel == false}"></i>
+    </div>
+    <div id="filter-panel" class="filter-mask hid" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+        <div class="filter-body">
+            <ul class="classify">
+                <li class="classify-item" ng-class="{'active' : 'category' == mobile.selectedCondition}">
+                    <p class="shower" ng-click="switchCategory('category')">
+                        <span class="title">行业：</span>
+                        已选: <span ng-if="list.condition.category_id">{{list.condition.category_id.title}}</span>
+                    </p>
+                    <ul class="sub-classify">
+                        <li ng-click="removeOneCondition('category_id')"
+                            class="sub-item mobile-list-cancel">
+                            <a class="mobile-list-cancel" href="">清除已选  <i class="fa fa-times"></i></a>
+                        </li>
+                        <li ng-click="addCondition({category_id : {id : ct.id, title : ct.title}})"
+                            class="sub-item" ng-repeat="ct in list.category track by $index">
+                            <a href="">{{ct.title}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="classify-item" ng-class="{'active' : 'country' == mobile.selectedCondition}">
+                    <p class="shower" ng-click="switchCategory('country')">
+                        <span class="title">国家：</span>
+                        已选: <span ng-if="list.condition.country_id">{{list.condition.country_id.title}}</span>
+                    </p>
+                    <ul class="sub-classify">
+                        <li ng-click="removeOneCondition('country_id')"
+                            class="sub-item ">
+                            <a class="mobile-list-cancel" href="">清除已选  <i class="fa fa-times"></i></a>
+                        </li>
+                        <li ng-click="addCondition({country_id : {id : c.id, title : c.title}})"
+                            class="sub-item" ng-repeat="c in list.country | searchField: 'name': 'pinyin' | fuzzy: queryStr ">
+                            <a href="">{{c.title}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="classify-item" ng-class="{'active' : 'date' == mobile.selectedCondition}">
+                    <p class="shower" ng-click="switchCategory('date')">
+                        <span class="title">日期：</span>
+                        已选: <span ng-if="list.condition.date"class="mobile-list-selected">{{list.condition.date.title}}</span>
+                    </p>
+                    <ul class="sub-classify">
+                        <li ng-click="removeOneCondition('date')"
+                            class="sub-item mobile-list-cancel">
+                            <a class="mobile-list-cancel" href="">清除已选  <i class="fa fa-times"></i></a>
+                        </li>
+                        <li ng-click="addCondition({date : {id: dt.param, title : dt.title} })"
+                            class="sub-item" ng-repeat="dt in list.dateList track by $index">
+                            <a href="">{{dt.title}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="wrapper wrapper-content animated fadeIn" style="padding-top: 10px;">
+    <div class="row">
+        <div class="category-view mobile-category-ui">
+            <div class="mobile-category-tab">
+                <div class="mobile-category-tab-container">
+                    <ul style="transform: translateY(0px);">
+                        <li ng-click="selectCategory(cate.id)"
+                            ng-class="{'selected' : cate.id === category.selectedId}"
+                            ng-repeat="cate in category.categoryList">
+                            <a class="{{cate.id == category.selectedId ? 'selected' : false}}">
+                                {{cate.title}}</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+            <div class="mobile-category-content">
+                <div class="mobile-category-content-layout mobile-category-wrapper">
+                    <div class="mobile-category-content-ss">
+                        <div class="mobile-category-content-detail mobile-category-current">
+                            <uib-carousel interval="category.slideInterval" style="margin: auto">
+                                <uib-slide  ng-repeat="item in category.selectedCategoryHotExpos">
+                                    <!--<img class="carousel-img img-responsive" ng-src="{{imgUrl(item.exhibition.thumbnail, true)}}" alt="">-->
+                                    <img ng-src="{{imgUrl(item.exhibition.thumbnail)}}"
+                                         ng-click="getDetail(item, item.isCarousel)"
+                                         style="width: 100%; cursor: pointer"
+                                         class="img-responsive">
+                                    <div class="carousel-caption"
+                                         ng-click="getDetail(item, item.isCarousel)">
+                                        <h4 class="category-carousel-font">{{item.exhibition.title}}</h4>
+                                        <p>{{ item.exhibition.startTime  | date : "yyyy/MM/dd"}} - {{ item.exhibition.endTime  | date : "yyyy/MM/dd"}}</p>
+                                    </div>
+                                </uib-slide>
+                            </uib-carousel>
+                        </div>
+                        <div class="mobile-category-content-detail mobile-category-current">
+                            <h4>国家</h4>
+
+                            <a href="" ng-click="getListCondition({category_id :category.selectedCategory.id})" class="pull-right"> <h5 >更多</h5></a>
+                            <ul class="mobile-category-style">
+                                <li ng-click="getListCondition({category_id : category.selectedCategory.id,  country_id : coun.id})"
+                                    ng-repeat="coun in category.selectedCategory.country">
+                                    <a>
+                                        <img ng-src="{{imgPath(coun.en)}}" alt="">
+                                    </a>
+                                    <span>{{coun.title}}</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="mobile-category-content-detail mobile-category-current">
+                            <h4>日期</h4>
+                            <ul class="mobile-category-date">
+                                <li ng-repeat="x in category.dateList">
+
+                                    <a href=""
+                                       ng-click="getListCondition({category_id : category.selectedCategory.id, date :x.param})">
+                                        {{x.title}}
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

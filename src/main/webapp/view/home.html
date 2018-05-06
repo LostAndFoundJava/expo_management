@@ -1,0 +1,247 @@
+<link id="ng_load_plugins_before"/>
+<div ng-include="'view/common/topnavbar.html'"></div>
+<!--<div ng-include="'view/common/mobile-search-navbar.html'"></div>-->
+
+   <!--右侧导航栏-->
+   <div class="right-nav" scroll hide-element-id="top-nav" show-status="showJumpNav" ng-hide="!showJumpNav">
+      <div class="right-floating-layer min">
+         <div class="layer-box unfold-all" ng-show="home.showCategoryNav" ng-click="foldAllCategoryNav()">
+            <span><i class="fas fa-chevron-down"></i></span>
+         </div>
+         <div class="layer-box category-nav"
+              style="font-size: 16px"
+              ng-class="{'active' : home.navBarStatusActive[n.id]}"
+              ng-show="home.showCategoryNav"
+              ng-click="scrollToItem(n)"
+              ng-repeat="n in home.navBar">
+            <span>{{n.name}}</span>
+         </div>
+         <div class="layer-box unfold-all" ng-show="!home.showCategoryNav" ng-click="unfoldAllCategoryNav()">
+            <span><i class="fas fa-chevron-up"></i></span>
+         </div>
+         <div class="layer-box return-top" ng-click="jumpToHead('top-nav')">
+            <span><i class="fas fa-chevron-up"></i><br>顶部</span>
+         </div>
+      </div>
+   </div>
+   <div class="wrapper wrapper-content animated fadeInRight home-mobile-no-padding-margin">
+      <div id="category-bar" class="col-sm-3">
+         <div class="ibox pc_height home-no-box-shadow" style="border: 1px solid #1d83c7; background-color:#fff;" >
+            <div class="ibox-title category-title">
+               <strong>行业分类</strong>
+            </div>
+            <div class="ibox-content no-padding" id="menu" style="padding: 0px; margin: 0px;">
+               <li role="menuitem"
+                   style="text-overflow:ellipsis;"
+                   class="list-group-item category-mainmenu text-center"
+                   ng-mouseenter="showMenu(true , $index)"
+                   ng-mouseleave="showMenu(false , $index)"
+                   ng-repeat="category in home.category track by $index | limitTo: 7">
+                  <a href="javascript:void(0)" ng-click="getListCondition({category_id: category.id})">{{category.title}}</a>
+               </li>
+               <div class="category-footer"><a ui-sref="list.condition">查看全部</a></div>
+            </div>
+         </div>
+      </div>
+      <div class="col-sm-9 home-mobile-no-padding">
+         <div class="ibox home-no-box-shadow home-mobile-no-margin-bottom">
+            <div id="submenu" class="category-submenu" ng-show="home.showSubmenu"
+                 ng-mouseenter="showMenu(true)" ng-mouseleave="showMenu(false)">
+               <div class="ibox-title submenu-title">
+                  <h5><strong>国家</strong></h5>
+                  <small class="pull-right">
+                     <a ng-click="getListCondition({category_id :home.selectedCategory.id})"><span>更多<i class="fas fa-chevron-right"></i></span></a>
+                  </small>
+               </div>
+               <div class="submenu-content">
+                  <p>
+                     <a href="javascript:void(0)"
+                        ng-repeat="country in home.selectedCategory.country | limitTo: 36"
+                        ng-click="getListCondition({category_id : home.selectedCategory.id,  country_id : country.id})">
+                        <img ng-src="{{imgPath(country.en)}}" ng-if="country.title">{{country.title}}</a>
+                  </p>
+               </div>
+               <hr class="hr-line-solid submenu-delimiter">
+               <div class="ibox-title submenu-title">
+                  <h5><strong>日期</strong></h5>
+                  <!--<small class="pull-right">-->
+                     <!--<a ui-sref="list.condition"><span>更多<i class="fas fa-chevron-right"></i></span></a>-->
+                  <!--</small>-->
+               </div>
+               <div class="submenu-content">
+                  <p>
+                     <a href=""
+                        ng-click="getListCondition({category_id : home.selectedCategory.id, date :date.param})"
+                        ng-repeat="date in dateList">
+                        {{date.title}}
+                     </a>
+                  </p>
+               </div>
+            </div>
+<!--轮播图-->
+            <div class="ibox-content no-padding pc_height" >
+               <uib-carousel interval="home.slideInterval">
+                  <uib-slide  ng-repeat="item in home.list.carousal">
+                        <!--<img class="carousel-img img-responsive" ng-src="{{imgUrl(item.exhibition.thumbnail, true)}}" alt="">-->
+                     <img class="carousel-img" ng-src="{{imgUrl(item.exhibition.carousel, true)}}"
+                          style="margin:auto; cursor: pointer"
+                          ng-click="getDetails(item.exhibition.id, item.isCarousel)"
+                          class="img-responsive">
+                     <div class="carousel-caption" style="cursor: pointer"
+                          ng-click="getDetails(item.exhibition.id, item.isCarousel)">
+                        <h4 class="home-carousel-font">{{item.exhibition.title}}</h4>
+                        <p class="home-carousel-p">{{ item.exhibition.startTime  | date : "yyyy/MM/dd"}} - {{ item.exhibition.endTime  | date : "yyyy/MM/dd"}}</p>
+                     </div>
+                  </uib-slide>
+               </uib-carousel>
+            </div>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-md-12 mobile-left-no-padding">
+            <!--一层-->
+            <div id="hot" class="ibox sort-title-container home-no-margin" style="box-shadow: none" scroll
+                 main-element-id="hot"
+                 main-element-id-offset="100"
+                 main-element-id-minus-offset="180"
+                 main-element-status="home.navBarStatusActive.hot" >
+               <div class="ibox-content p-sm sort-title" >
+                  <span class="expo-floor-title" ><i class="fab fa-hotjar" style="color:#f44336 "></i> 热门推荐</span>
+                  <!--<a class="pull-right expo-floor-more" ng-click="getListCondition()">-->
+                     <!--更多-->
+                     <!--<span class="expo-floor-more-button"><i class="fas fa-chevron-right"></i></span>-->
+                  <!--</a>-->
+               </div>
+            </div>
+            <div>
+               <div ng-repeat="expo in home.list.hot">
+                  <div class="col-sm-3 col-xs-6 mobile-no-padding">
+                     <div class="ibox moblie-no-margin mobile-padding home-expo  ">
+                        <div class="ibox-content expo-box">
+                           <div class="expo-imitation">
+                              <img  ng-src="{{imgUrl(expo.exhibition.thumbnail, false)}}" ng-click="getDetails(expo.exhibition.id, expo.isCarousel)"
+                                    class="img-responsive cursor">
+                           </div>
+                           <div class="expo-info">
+                             <span class="expo-tag">
+                                 {{expo.exhibition.tag}}
+                             </span>
+                              <div class="expo-name expo-title">
+                                 <a ng-click="getDetails(expo.exhibition.id, expo.isCarousel)">
+                                    {{expo.exhibition.title}}
+                                 </a>
+                              </div>
+                              <div class="small m-t-xs home-date">
+                                 <i class="far fa-calendar-alt"></i> {{expo.exhibition.startTime | date : "yyyy/MM/dd" }}-{{expo.exhibition.endTime | date : "yyyy/MM/dd" }}
+                              </div>
+
+                              <div class="small m-t-xs home-address">
+
+                                 <i class="fas fa-map-marker"></i> {{expo.exhibition.location}}
+                              </div>
+
+                              <div class="m-t button-action action-row">
+                                 <div class="action-row-left action-day-loading" ng-show="home.expoDayStatus.loading">
+                                    <div><i class="fas fa-spinner fa-spin"></i></div>
+                                 </div>
+                                 <div ng-show="!home.expoDayStatus.loading">
+                                    <div class="action-row-left" ng-if="!home.expoDayStatus.details[expo.exhibition.id].start">
+                                       <i class="far fa-clock fa-spin"></i><span style="padding-left: 5px;">离展会开始还有 {{home.expoDayStatus.details[expo.exhibition.id].day}}</span>天
+                                    </div>
+                                    <div class="action-row-left" ng-if="home.expoDayStatus.details[expo.exhibition.id].start">
+                                       <i class="far fa-clock fa-spin"></i><span style="padding-left: 5px;">离展会结束还有 {{home.expoDayStatus.details[expo.exhibition.id].day}}</span>天
+                                    </div>
+                                    <div class="action-row-left" ng-if="home.expoDayStatus.details[expo.exhibition.id].end">
+                                       展会已结束
+                                    </div>
+
+                                 </div>
+                                 <div class="action-row-right">
+                                    <a ng-click="getTicket(expo)" title="预约">
+                                       <i class="fas fa-ticket-alt"></i>
+                                    </a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+            </div>
+
+            <div class="ibox sort-title-container home-no-margin" ng-repeat-start="(key,items) in home.choices" style="box-shadow: none">
+               <div id="{{key}}"
+                    class="ibox-content p-sm sort-title"
+                    main-element-id="{{key}}"
+                    main-element-id-offset="200"
+                    main-element-id-minus-offset="180"
+                    main-element-status="home.navBarStatusActive[key]" scroll >
+                  <span class="expo-floor-title" >{{items[0].categroy}}</span>
+                  <a class="pull-right expo-floor-more" ng-click="getListCondition({category_id : items[0].exhibition.categoryId })">
+                     更多
+                     <span class="expo-floor-more-button"><i class="fas fa-chevron-right"></i></span>
+                  </a>
+               </div>
+            </div>
+            <div ng-repeat-end ng-repeat="item in items">
+               <div class="col-md-3 col-xs-6 mobile-no-padding ">
+                  <div class="ibox moblie-no-margin mobile-padding home-expo">
+                     <div class="ibox-content expo-box">
+                        <div class="expo-imitation">
+                           <img  ng-src="{{imgUrl(item.exhibition.thumbnail, false)}}" ng-click="getDetails(item.exhibition.id, item.isCarousel)"
+                                 class="img-responsive cursor">
+                        </div>
+                        <div class="expo-info">
+                             <span class="expo-tag">
+                                 {{item.exhibition.tag}}
+                             </span>
+                           <div class="expo-name expo-title">
+                              <a ng-click="getDetails(item.exhibition.id, item.isCarousel)">
+                                 {{item.exhibition.title}}
+                              </a>
+                           </div>
+                           <div class="small m-t-xs home-date">
+                              <i class="far fa-calendar-alt"></i> {{item.exhibition.startTime | date : "yyyy/MM/dd" }}-{{item.exhibition.endTime | date : "yyyy/MM/dd" }}
+                           </div>
+
+                           <div class="small m-t-xs home-address">
+
+                              <i class="fas fa-map-marker"></i> {{item.exhibition.location}}
+                           </div>
+
+                           <div class="m-t button-action action-row">
+                              <div class="action-row-left action-day-loading" ng-show="home.expoDayStatus.loading">
+                                 <div><i class="fas fa-spinner fa-spin"></i></div>
+                              </div>
+                              <div ng-show="!home.expoDayStatus.loading">
+                                 <div class="action-row-left" ng-if="!home.expoDayStatus.details[item.exhibition.id].start">
+                                    <i class="far fa-clock fa-spin"></i><span style="padding-left: 5px;">离展会开始还有 {{home.expoDayStatus.details[item.exhibition.id].day}}</span>天
+                                 </div>
+                                 <div class="action-row-left" ng-if="home.expoDayStatus.details[item.exhibition.id].start">
+                                    <i class="far fa-clock fa-spin"></i><span style="padding-left: 5px;">离展会结束还有 {{home.expoDayStatus.details[item.exhibition.id].day}}</span>天
+                                 </div>
+                                 <div class="action-row-left" ng-if="home.expoDayStatus.details[item.exhibition.id].end">
+                                    展会已结束
+                                 </div>
+
+                              </div>
+                              <div class="action-row-right">
+                                 <a ng-click="getTicket(expo)" title="预约">
+                                    <i class="fas fa-ticket-alt"></i>
+                                 </a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+<div ng-include="'view/common/footer.html'"></div>
+
+<div ng-include="'view/common/mobile-nav.html'"></div>

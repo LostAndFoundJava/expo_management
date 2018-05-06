@@ -1,0 +1,88 @@
+.article h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2F4050;
+}
+.article p {
+    font-size: 15px;
+    line-height: 26px;
+}
+.article-title {
+    text-align: center;
+    margin: 20px 0 30px 0;
+    border-bottom: #f4f4f4 solid 2px;
+}
+
+.sub-info {
+    padding-bottom: 20px;
+}
+
+.sub-info span {
+    margin-right: 5px;
+}
+
+.news-detail-ex .ibox {
+    box-shadow: none;
+}
+
+
+.news-detail-ex>dd {
+    padding: 0;
+    margin: 0;
+}
+
+.news-detail-ex ul {
+    padding: 0;
+    margin: 0;
+}
+
+.news-detail-ex ul li {
+    list-style: none;
+    margin-bottom: 22px;
+}
+
+.news-detail-ex ul li .hot-news-title {
+    margin: 0 0 5px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.news-detail-ex .ibox-content {
+    padding: 0px 20px 20px 20px;
+}
+
+.news-detail-ex h3 {
+    font-size: 14px;
+}
+
+
+.news-detail-ex a {
+    color: #686b6d;
+}
+
+.news-detail-ex a:hover {
+    color: #1d83c7;
+}
+
+.news-detail-ex .hot-new-etc span {
+    padding-right: 5px;
+    color: #999;
+}
+
+.news-content img {
+    max-width: 100%;
+    height: auto;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 767px) {
+    .body-small .news-detail-ex {
+        display: none;
+    }
+
+    .body-small  news-no-padding {
+        padding: 0px;
+    }
+}

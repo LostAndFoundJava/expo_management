@@ -1,0 +1,182 @@
+.menu-list li:hover {
+    border-right: 2px solid #1d83c7;
+    border-left: 2px solid #1d83c7;
+    background-color: #eff0f1;
+    color: #1d83c7;
+    cursor: pointer;
+}
+
+.menu-list .selected {
+    background-color: #1d83c7;
+    pointer-events: none;
+    color: #ffff;
+}
+
+.country-index-bar {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+.country-nav {
+    border: 2px solid #1d83c7;
+    padding-left: 16px;
+    height: 50px;
+    line-height: 44px;
+    font-size: 12px;
+    font-weight: 700;
+    position: relative;
+    z-index: 100;
+    background-color: #fff;
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+
+.country-nav span {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.country-nav a {
+    display: inline-block;
+    padding: 0 7px;
+    text-align: center;
+    color: #1d83c7;
+    cursor: pointer;
+}
+
+.country-list {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+
+}
+
+.country-list dl {
+    position: relative;
+    border-top: 1px dotted #999;
+    padding: 20px 0;
+    margin-bottom: 0px;
+}
+
+.country-list dt {
+    position: absolute;
+    width: 130px;
+    text-align: center;
+    font-weight: 700;   
+    font-size: 16px;
+    top: 50%;
+    margin-top: -9px
+}
+
+.country-list dd {
+    margin-left: 130px
+}
+
+.country-list dd li {
+    float: left;
+    display: block;
+    width: 170px;
+    height: 18px
+}
+
+.country-list dd a {
+    color: #666;
+    line-height: 18px;
+    font-size: 12px;
+    position: relative
+}
+
+.country-list dd span {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block
+}
+
+.country-list dd span:hover {
+    text-decoration: underline
+}
+
+.clearfix {
+    list-style: none;
+}
+
+.index-fix {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    margin-top: 0!important;
+}
+
+.index-fixed-list {
+    margin-top: 50px;
+}
+
+#visaContinent .menu-list .selected {
+    background-color: #1d83c7;
+    pointer-events: none;
+    color: #ffff;
+}
+
+
+@media screen and (max-width: 767px) {
+
+
+    .body-small .menu-list, .country-nav{
+        display: none;
+    }
+
+    .body-small .visa-nav {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        background: #f5f5f5;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -wekbit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+        box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+
+    .body-small .visa-nav .item {
+        display: block;
+        position: relative;
+        font-weight: 700;
+        line-height: 40px;
+        color: #5d5d5d;
+        text-align: center;
+    }
+
+    .body-small .layout-box {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .body-small .layout-box .box-col {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        width: 100%;
+    }
+
+    .visa-nav a:hover {
+        border-bottom: 2px solid #1d83c7;
+
+    }
+
+    .body-small .country-list dd li {
+        width: 60px;
+
+    }
+}

@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="wrapper wrapper-content animated fadeInRight" style="padding-right: 0px;">
+        <div class="col-md-8 news-no-padding">
+
+            <div class="ibox float-e-margins news-no-padding">
+                <div class="ibox-title">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a ui-sref="home">首页</a>
+                        </li>
+                        <li>
+                            <a ui-sref="news.list">展会资讯</a>
+                        </li>
+                        <li class="active">
+                            <strong>资讯详情</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="ibox-content">
+                    <div class="text-center article-title">
+
+                        <h1>
+                            {{newDetail.content.title}}
+                        </h1>
+                        <div class="sub-info">
+                            <span>分类：{{newDetail.content.newsCategory}}</span>
+                            <span>|</span>
+                            <span class="text-muted"><i class="far fa-clock"></i>
+                                {{newDetail.content.updateTime | date : "yyyy/MM/dd HH:mm:ss"}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="news-content" ng-bind-html="newDetail.content.content |trust"></div>
+                    <hr>
+                </div>
+
+        </div>
+    </div>
+        <div class="col-md-4  news-detail-ex">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h3 style="border-bottom: 1px solid #e9e9ea; padding-bottom: 5px;">最热资讯</h3>
+                </div>
+                <div class="ibox-content">
+                    <dd>
+                        <ul>
+                            <li ng-repeat="n in newDetail.topNews" >
+                                <h5 class="hot-news-title">
+                                    <a ng-click="getNewsDetail(n.clicked)">{{n.clicked.title}}</a>
+                                </h5>
+                                <div class="hot-new-etc">
+                                    <span><i class="far fa-clock"></i>  {{n.clicked.updateTime | date : "yyyy/MM/dd"}}</span>
+                                    <span><i class="fas fa-bars"></i>  {{n.clicked.newsCategory}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </dd>
+                </div>
+            </div>
+        </div>
+</div>
+</div>

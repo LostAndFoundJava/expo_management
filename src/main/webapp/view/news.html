@@ -1,0 +1,111 @@
+
+    <!--<div class="wrapper wrapper-content animated fadeInRight hot-news" style="padding-bottom: 0px;">-->
+        <!--<div class="ibox float-e-margins no-padding">-->
+            <!--<div class="ibox-content pc-news-height no-padding">-->
+                <!--<slick dots="true" arrows="false" class="slider">-->
+                    <!--<div >-->
+                        <!--<img src="assets/test-img/home-expo-img/3.jpg" style="height: 300px" class="img-responsive">-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<img src="assets/test-img/home-expo-img/4.jpg" style="height: 300px" class="img-responsive">-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<img src="assets/test-img/home-expo-img/5.jpg" style="height: 300px" class="img-responsive">-->
+                    <!--</div>-->
+                <!--</slick>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+<div class="row">
+
+    <div class="wrapper wrapper-content animated fadeInRight" style="padding-right: 0px;">
+        <div class="col-md-8 ">
+            <div class="ibox float-e-margins no-padding">
+                <div class="ibox-title news-web-nav">
+                    <span class="title-switch"
+                          ng-repeat="newTitle in news.categories"
+                          ng-if="newTitle.name"
+                          ng-click="switchCategory(newTitle)">
+                        {{newTitle.name}}
+                    </span>
+                </div>
+                <div class="mobile news-nav layout-box">
+                    <a class="item box-col"
+                       ng-if="newTitle.name"
+                       ng-click="switchCategory(newTitle)"
+                       ng-repeat="newTitle in news.categories">
+                        {{newTitle.name}}
+                    </a>
+                    <a class="item box-col" ng-if="news.mobileCategories.length > 0">
+                        其他
+                    </a>
+                </div>
+                <div class="mobile news-nav layout-box" ng-if="news.mobileCategories.length > 0">
+                    <a class="item box-col"
+                       ng-click="switchCategory(newTitle)"
+                       ng-repeat="newTitle in news.mobileCategories | limitTo : 5">
+                        {{newTitle.name}}
+                    </a>
+                </div>
+                <div class="news-item"
+                     ng-repeat="news in news.allNews"
+                     ng-click="getNewsDetail(news)">
+                    <div class="row">
+                        <a ng-click="getNewsDetail(news)"
+                           class="news-title">
+                            {{news.title}}
+                        </a>
+                        <div class="news-info">
+                            <span><i class="far fa-clock"></i>{{news.updateTime | date : "yyyy/MM/dd HH:mm:ss"}}</span>
+                            <span><i class="fa fa-user"></i> {{news.origin}}</span>
+                            <span><i class="fas fa-bars"></i> {{news.newsCategory}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="javascript:;" ng-if="!news.pageInfo.last && !news.loadMoreLoading"
+                       ng-click="loadMore()"
+                       class="load-more">
+                        加载更多
+                    </a>
+                </div>
+                <div ng-if="news.loadMoreLoading">
+                    <div class="load-more">
+                        加载中...
+                    </div>
+                </div>
+                <div ng-if="news.pageInfo.last">
+                    <div class="load-more">
+                        没有更多展会
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4  hot-news">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h3 style="border-bottom: 1px solid #e9e9ea; padding-bottom: 5px;">最热资讯</h3>
+                </div>
+                <div class="ibox-content">
+                    <dd>
+                        <ul>
+                            <li ng-repeat="n in news.topNews" ng-click="getNewsDetail(n.clicked)">
+                                <h5 class="hot-news-title">
+                                    <a ng-click="getNewsDetail(n.clicked)">{{n.clicked.title}}</a>
+                                </h5>
+                                <div class="hot-new-etc">
+                                    <span><i class="far fa-clock"></i>  {{n.clicked.updateTime | date : "yyyy/MM/dd"}}</span>
+                                    <span><i class="fas fa-bars"></i>  {{n.clicked.newsCategory}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </dd>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

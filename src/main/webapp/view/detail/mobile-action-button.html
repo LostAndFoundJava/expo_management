@@ -1,0 +1,59 @@
+
+<div class="mobile button-list">
+    <div class="mobile-action-button">
+        <a ui-sref="list.condition" class="action-button-e"><i class="fas fa-arrow-left"></i>返回列表</a>
+        <a ui-sref="home" class="action-button-e"><i class="fas fa-home"></i>首页</a>
+        <a ng-href="tel:{{telephone}}" class="action-button-e"><i class="fas fa-phone"></i> 联系我们</a>
+        <a ng-click="goToTicket()" class="action-button-e get-ticket"><i class="fas fa-ticket-alt"></i>立即预约</a>
+    </div>
+</div>
+
+<style>
+
+
+    .button-list {
+        display: table;
+        overflow: hidden;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+        width: 100%;
+        height: 50px;
+        text-align: center;
+    }
+
+
+    .mobile-action-button {
+        float: left;
+        overflow: hidden;
+        height: 100%;
+        display: -webkit-box!important;
+        width: 100%;
+    }
+    .mobile-action-button a {
+        font-size: 15px;
+        -webkit-box-flex: 1!important;
+    }
+
+    .action-button-e {
+        width: 15%;
+        float: left;
+        overflow: hidden;
+        height: 100%;
+        color: #232326;
+        display: inline-block;
+        position: relative;
+        line-height: 50px;
+        background-color: hsla(0,0%,100%,.9);
+    }
+
+    .get-ticket {
+        color: #fff;
+        background-color: #1c84c6;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+</style>

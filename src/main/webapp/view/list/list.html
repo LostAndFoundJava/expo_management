@@ -1,0 +1,187 @@
+<div class="row">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div ng-include="'view/list/mobile-condition.html'" ng-init="mobile.selectedCondition='category'"></div>
+
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins small-margin filter-box">
+                <div class="ibox-title filter-section filter-title">
+                    <span class="title"><strong>已选条件：</strong></span>
+                    <div class="titel-content clearfix">
+                        <a class="tag"
+                           ng-click="removeOneCondition(condKey)"
+                           ng-repeat="(condKey, condVal) in list.condition">
+                            {{condVal.title}}
+                            <i class="fa fa-times"></i>
+                        </a>
+
+
+                        <a class="clear-checked" ng-click="removeCondition()">清空筛选条件</a>
+                    </div>
+                </div>
+                <div class="ibox-content filter-section">
+                    <span class="title"><strong>行业：</strong></span>
+                    <div class="attr-content">
+                        <ul class="defalut clearfix list-max">
+
+                            <li ng-click="addCondition({category_id : {id : ct.id, title : ct.title}})"
+                                class="attr" ng-repeat="ct in list.category track by $index">
+                                <a href="">{{ct.title}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ibox-content filter-section">
+                    <span class="title"><strong>国家或者地区：</strong></span>
+                    <div class="attr-content">
+                        <div class="index-bar" ng-hide="list.countryCollapse">
+                            <li class="index-attr" ng-repeat="index in indexBar ">
+                                <a ng-click="setQueryParam(index.params)">{{index.title}}</a>
+                            </li>
+                            <div class="key-search">
+                                <input type="text" ng-model="countryQuery" ng-click="inputClick()" ng-keyup="inputQuery()">
+                                <span class="key-btn">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <ul class="defalut clearfix list-max">
+
+                            <li ng-click="addCondition({country_id : {id : c.id, title : c.title}})"
+                                class="attr" ng-repeat="c in list.country |limitTo : 9">
+                                <a href="">{{c.title}}</a>
+                            </li>
+
+                            <div uib-collapse="list.countryCollapse">
+                                <li ng-click="addCondition({country_id : {id : c.id, title : c.title}})"
+                                    class="attr" ng-repeat="c in list.country.slice(9)">
+                                    <a href="">{{c.title}}</a>
+                                </li>
+                            </div>
+
+                        </ul>
+
+                    </div>
+                    <span ng-show="!list.countryCollapse" ng-click="changeCountryCollapse()" class="condition-collapse"><i class="fas fa-angle-double-up" ></i></span>
+                    <span ng-show="list.countryCollapse" ng-click="changeCountryCollapse()" class="condition-collapse"><i class="fas fa-angle-double-down"></i></span>
+
+                </div>
+                <div class="ibox-content filter-section" style="box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14);">
+                    <span class="title"><strong>日期：</strong></span>
+                    <div class="attr-content">
+                        <ul class="defalut clearfix list-max">
+
+                            <li ng-click="addCondition({date : {id: dt.param, title : dt.title} })"
+                                class="attr" ng-repeat="dt in list.dateList | limitTo : 8">
+                                <a href="">{{dt.title}}</a>
+                            </li>
+                            <div uib-collapse="list.dateCollapse">
+                                <li ng-click="addCondition({date : {id: dt.param, title : dt.title} })"
+                                    class="attr" ng-repeat="dt in list.dateList.slice(8)">
+                                    <a href="">{{dt.title}}</a>
+                                </li>
+                            </div>
+
+                        </ul>
+
+                    </div>
+
+                    <span ng-show="!list.dateCollapse" ng-click="changeDateCollapse()" class="condition-collapse"><i class="fas fa-angle-double-up" ></i></span>
+                    <span ng-show="list.dateCollapse" ng-click="changeDateCollapse()" class="condition-collapse"><i class="fas fa-angle-double-down"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    搜索结果
+                </div>
+                <div class="ibox-content no-padding">
+                    <div class="result-item" ng-repeat="expo in list.expoes">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <img  ng-src="{{expo.exhibition.thumbnail + '!357-201'}}"
+                                      class="img-responsive cursor">
+                            </div>
+                            <div class="col-xs-7 result-info">
+                                <div class="result-title">
+                                    <span> <a >{{expo.exhibition.title}}</a></span>
+                                    <div class="result-subtitle" ng-if="expo.exhibition.subtitle"><small>{{expo.exhibition.subtitle}}</small></div>
+                                </div>
+                                <div class="tags" ng-if="expo.tag">
+                                    <span class="result-tag"><a href=""><i class="fa fa-tag"></i> {{expo.tag}}</a></span>
+
+                                </div>
+                                <div class="result-text sub-detail">
+                                    <span class="col-xs-6 rt">举办时间 ：{{ expo.exhibition.startTime  | date : "yyyy/MM/dd"}} - {{ expo.exhibition.endTime  | date : "yyyy/MM/dd"}}</span>
+                                    <span class="col-xs-6 rt">举办国家 ：{{expo.countryName}}</span>
+                                    <span class="col-xs-6 rt">举办城市 ：{{expo.cityName}}</span>
+                                    <span class="col-xs-6 rt">行业分类 ：{{expo.categroy}}</span>
+                                </div>
+                                <div class="detail-button">
+                                    <div class="col-xs-6">
+                                        <button ng-click="getTicket(expo)" type="button" class="btn btn-block btn-success">预约</button>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button ng-click="getDetail(expo, expo.isCarousel)" type="button" class="btn btn-block btn-default" style="white-space: normal;">了解更多</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-xs-7 nlp mobile" ng-click="getDetail(expo, expo.isCarousel)">
+                                <div class="mobile-title-block"><a class="mobile-title">{{expo.exhibition.title}}</a></div>
+                                <div class="mobile-item-content">
+                                    <span class="category">{{expo.categroy}}</span>
+                                    <div class="time"><i class="far fa-calendar-alt"></i> {{ expo.exhibition.startTime  | date : "yyyy/MM/dd"}} - {{ expo.exhibition.endTime  | date : "yyyy/MM/dd"}}</div>
+                                    <div class="location"><i class="fas fa-map-marker"></i>{{expo.countryName}} - {{expo.cityName}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="javascript:;" ng-if="!list.pageInfo.last && !list.loadMoreLoading"
+                           ng-click="loadMore()"
+                           class="load-more">
+                            加载更多
+                        </a>
+                    </div>
+                    <div ng-if="list.loadMoreLoading">
+                        <div class="load-more">
+                            加载中...
+                        </div>
+                    </div>
+                    <div ng-if="list.pageInfo.last">
+                        <div class="load-more">
+                            没有更多展会
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 list-extension nlp">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h3 style="border-bottom: 1px solid #e9e9ea; padding-bottom: 5px;">展会排行榜</h3>
+                </div>
+                <div class="ibox-content top-expos">
+                    <dd>
+                        <a href="" class="top-card" ng-repeat="top in list.topExpos" ng-click="getDetail(top.clicked, top.clicked.isCarousel)">
+                            <img ng-src="{{imgUrl(top.clicked.exhibition.thumbnail)}}" alt="" class="top-expos-banner">
+                            <div class="top-expos-mask">
+                                <h4>
+                                    {{top.clicked.exhibition.title}}
+
+                                </h4>
+                                <span class="btn">
+                                    查看详情
+                                </span>
+                            </div>
+                        </a>
+                    </dd>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

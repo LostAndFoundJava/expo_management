@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="wrapper wrapper-content animated fadeInRight no-top-padding">
+
+        <div class="col-sm-3">
+            <div id="visaContinent" class="ibox float-e-margins small-margin menu-list">
+                <li class="list-group-item text-center"
+                    ng-class="{selected : menu.pathId === visa.selectedMenu.pathId}"
+                    ng-click="chooseContinent(menu)"
+                    ng-repeat="menu in visa.list track by $index">
+                    {{menu.title}}
+                </li>
+
+            </div>
+        </div>
+
+        <div class="col-sm-9 no-padding">
+            <div scroll class="ibox float-e-margins small-margin">
+                <div class="mobile visa-nav layout-box">
+                    <a class="item box-col"
+                       ng-click="chooseContinent(menu)"
+                       ng-repeat="menu in visa.list track by $index">
+                        {{menu.title}}
+                    </a>
+                </div>
+
+                <div class="ibox-title">
+                    <h5>{{visa.selectedMenu.title}}签证所需材料和费用</h5>
+                </div>
+                <div class="ibox-content no-padding">
+                    <div class="country-index-bar" id="index-bar-parent">
+                        <div id="indexBar" class="country-nav" style="text-overflow:ellipsis;">
+                            <span>国家 A-Z:</span>
+                            <a href
+                               ng-click="gotoAnchor(al.params)"
+                               ng-repeat="al in indexBar">{{al.title}}</a>
+                        </div>
+                        <div class="country-list">
+                            <dl id="anchor{{countries.letter}}" class="clearfix" name="A"
+                                ng-repeat="countries in visa.seletedContinentCountries">
+                                <dt>{{countries.letter}}</dt>
+                                <dd>
+                                    <ul class="clearfix" style="padding-left: 0px;">
+                                        <li ng-repeat="coun in countries.list">
+                                            <a ng-click="getVisaContent(coun)">
+                                                <span>
+                                                    {{coun.title}}
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

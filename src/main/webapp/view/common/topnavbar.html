@@ -1,0 +1,108 @@
+<div id="top-nav" class="row border-bottom white-bg" ng-controller="TopBarController" >
+    <div class="header pc">
+        <div class="header-top refresh-container">
+            <div class="logo">
+                <div class="imagesComponent">
+                    <a ui-sref="home">
+                        <img class="images" src="assets/img/logo.jpeg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="search-bar">
+                <div class="search-container">
+                    <div class="input-group">
+                        <input type="text" placeholder="搜索" name="search" class="form-control input-md">
+
+                        <div class="input-group-btn">
+                            <button class="btn btn-md btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="icon">
+                <div>
+                    <span class="weixin" popover-placement="bottom" popover-trigger="mouseenter" uib-popover-template="top.weChat">
+                        <span ><i class="fab fa-weixin"></i></span>
+                    </span>
+
+
+                </div>
+                <div>
+                    <span class="weibo"><i class="fab fa-weibo"></i></span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-static-top" role="navigation" >
+        <div class="navbar-header" >
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="btn btn-outline navbar-toggle collapsed" type="button">
+                <i class="fa fa-align-justify"></i>
+            </button>
+            <a href="#" class="navbar-brand mobile"><img src="assets/img/logo.jpeg" alt=""></a>
+        </div>
+        <div class="navbar-collapse collapse barss" id="navbar">
+            <ul class="nav navbar-nav">
+                <li ng-repeat="menu in homeList" class="dropdown" >
+                    <a aria-expanded="false"
+                       id="{{menu.firstMenu.link}}"
+                       role="button"
+                       href="#/{{menu.firstMenu.link}}"
+                       class="dropdown-toggle nav-title"
+                       data-toggle="dropdown"> {{menu.firstMenu.title}} </a>
+                    <ul role="menu"
+                        class="dropdown-menu"
+                        ng-if="menu.secondMenu && menu.secondMenu.length > 0">
+                        <li  ng-repeat="submenu in menu.secondMenu">
+                            <a ng-href="#/{{submenu.link}}">{{ submenu.title }}</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" >
+                    <a aria-expanded="false"
+                       id="{{visa.firstMenu.link}}"
+                       role="button"
+                       href="void:javascript(0)"
+                       class="dropdown-toggle nav-title"
+                       data-toggle="dropdown"> {{visa.firstMenu.title}} </a>
+                    <ul role="menu"
+                        class="dropdown-menu nav-sub-title"
+                        ng-if="visa.secondMenu && visa.secondMenu.length > 0">
+                        <li  ng-repeat="submenu in visa.secondMenu">
+                            <a ng-click="goToVisa(submenu)">{{ submenu.title }}</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" >
+                    <a aria-expanded="false"
+                       id="{{aboutus.firstMenu.id}}"
+                       role="button"
+                       href="void:javascript(0)"
+                       class="dropdown-toggle nav-title"
+                       data-toggle="dropdown"> {{aboutus.firstMenu.title}} </a>
+                    <ul role="menu"
+                        class="dropdown-menu nav-sub-title"
+                        ng-if="aboutus.secondMenu && aboutus.secondMenu.length > 0">
+                        <li  ng-repeat="submenu in aboutus.secondMenu">
+                            <a ng-click="goToAboutus(submenu)">{{ submenu.title }}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+</div>
+
+
+<script type="text/ng-template" id="weChat.html">
+    <div>
+        <img class="img-responsive" src="assets/img/QRCode.png" alt="">
+    </div>
+</script>
+

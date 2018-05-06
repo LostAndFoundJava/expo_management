@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="col-lg-12 mobile-no-padding">
+            <div class="ibox product-detail">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <uib-carousel interval="detail.slideInterval">
+                                <uib-slide  ng-repeat="img in detail.content.fileResource">
+                                    <!--<img class="carousel-img img-responsive" ng-src="{{imgUrl(item.exhibition.thumbnail, true)}}" alt="">-->
+                                    <img class="carousel-img" ng-src="{{imgUrl(img.fileUrl)}}"
+                                         style="margin:auto; cursor: pointer"
+                                         class="img-responsive">
+                                </uib-slide>
+                            </uib-carousel>
+                            <!--<slick dots="true"-->
+                                   <!--init-onload=true-->
+                                   <!--data="detail.content.fileResource">-->
+                                <!--<div ng-repeat="img in detail.content.fileResource | limitTo: 1">-->
+                                    <!--<div class="image-imitation">-->
+                                        <!--<img class="img-responsive" ng-src="{{imgUrl(img.fileUrl)}}">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</slick>-->
+                        </div>
+                        <div class="col-md-5">
+
+                            <h2 class="font-bold m-b-xs">
+                                {{detail.content.exhibition.exhibition.title}}
+                            </h2>
+                            <small>{{detail.content.exhibition.exhibition.subtitle}}</small>
+                            <hr>
+
+                            <div>
+                                <h3 class="expo-time text-danger">
+                                    <span><i class="far fa-calendar-alt"></i></span>
+                                    <span>{{detail.content.exhibition.exhibition.startTime | date : "yyyy/MM/dd" }}-{{detail.content.exhibition.exhibition.endTime | date : "yyyy/MM/dd" }}</span>
+                                </h3>
+                                <div ng-if="!detail.expoStatus.start">
+                                    离展会开始还有 <span>{{detail.expoStatus.day}}</span>天
+                                </div>
+                                <div ng-if="detail.expoStatus.start">
+                                    离展会结束还有 <span>{{detail.expoStatus.day}}</span>天
+                                </div>
+                                <div ng-if="detail.expoStatus.end">
+                                    展会已结束
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="brief-info-container">
+                                <div class="info-item">
+                                    <span class="info-item-title">
+                                        <i class="fas fa-bars"></i> 展会行业
+                                    </span>
+                                    <div class="info-item-content">
+                                        {{detail.content.exhibition.categroy}}
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-title">
+                                       <i class="fas fa-globe"></i> 展会城市
+                                    </span>
+                                    <div class="info-item-content">
+                                        {{detail.content.exhibition.countryName}} - {{detail.content.exhibition.cityName}}
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-title">
+                                       <i class="fas fa-map-marker"></i> 展会地点
+                                    </span>
+                                    <div class="info-item-content">
+                                        {{detail.content.exhibition.exhibition.location}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-button">
+                                <a class="action-button-1" ng-click="getTicket()" class=""> 立即预约</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 mobile-no-padding">
+
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h2>展会详情</h2>
+                </div>
+                <div class="expo-trivial" ng-if="detail.brief">
+                    <div class="row">
+                        <div class="col-md-6 m-b-xs" ng-repeat="brief in detail.brief">
+                            <li>{{brief.key}}： {{brief.value}} </li>
+
+                        </div>
+                    </div>
+                </div>
+                <div  ng-if="detail.desc" ng-repeat="desc in detail.desc">
+                    <div class="expo-detail-title">
+                        <h3>
+                            {{desc.detailTitle}}
+                        </h3>
+                    </div>
+                    <div class="detail-content" class="ibox-content">
+                        <div ng-bind-html="desc.detailContent |trust"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div ng-include="'view/detail/mobile-action-button.html'"></div>

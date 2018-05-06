@@ -45,9 +45,9 @@
         select count(*) from exhibition A
         left join exhibition_detail B
         on A.id = B.exhibition_id
-        where (A.title like CONCAT('%',#{condition},'%')
-        or B.`description` like CONCAT('%',#{condition},'%')
-        or B.`brief_info` like CONCAT('%',#{condition},'%'))
+        where (A.title like CONCAT('%',#{query},'%')
+        or B.`description` like CONCAT('%',#{query},'%')
+        or B.`brief_info` like CONCAT('%',#{query},'%'))
         and A.`delete` = 0 and B.`delete` = 0
     </select>
 

@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="wrapper wrapper-content animated fadeInRight no-top-padding">
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins small-margin menu-list">
+                <div class="list-group-item text-center"
+                    ng-click="seeDetail(key)"
+                    ng-class="{selected : key === aboutus.selected.id}"
+                    ng-repeat="(key, val) in aboutus.content">
+                    {{val.title}}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-9 no-padding">
+            <div class="ibox float-e-margins small-margin" >
+                <div class="mobile about-us-nav layout-box">
+                    <a class="item box-col"
+                       ng-click="seeDetail(key)"
+                       ng-repeat="(key, val) in aboutus.content">
+
+                        {{val.title}}
+                    </a>
+                </div>
+
+                <div class="ibox-title">
+                    <h5><strong>{{aboutus.selected.title}}
+                    </strong></h5>
+                </div>
+                <div class="ibox-content" >
+                    <div class="about-us-content" ng-bind-html="aboutus.selected.content |trust"></div>
+                    <ul class="friend-link" ng-if="aboutus.selected.title == '友情链接'">
+                        <li class="item" ng-repeat="link in aboutus.links">
+                            <a class="one-item" ng-href="{{link.url}}" target="_blank">
+                               <div class="name">
+                                   {{link.title}}
+                               </div>
+                                <div ng-if="link.logo"
+                                     class="logo" ng-style="{'background-image': 'url(' + imgUrl(link.logo) + ')'}">
+                                </div>
+                                <div ng-if="!link.logo" class="no-logo">
+                                    {{link.title}}
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

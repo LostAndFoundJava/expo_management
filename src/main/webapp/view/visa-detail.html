@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="wrapper wrapper-content animated fadeInRight" style="padding-right: 0px;">
+        <div class="col-md-8 visa-no-padding">
+            <div class="ibox float-e-margins visa-no-padding">
+                <div class="ibox-title">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a ui-sref="home">首页</a>
+                        </li>
+                        <li>
+                            <a ui-sref="visa.view">签证信息</a>
+                        </li>
+                        <li class="active">
+                            <strong>{{visaDetail.content.country.title}}</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="ibox-content">
+                    <div class="visa-content" ng-bind-html="visaDetail.content.visaInfo |trust"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 visa-no-padding">
+            <div class="ibox float-e-margins no-padding">
+                <div class="ibox-title">
+                    签证相关资料下载
+                </div>
+                <div class="ibox-content">
+                    <div class="list-group-item visa-file"
+                         ng-if="visaDetail.content.visa.length > 0"
+                         ng-repeat="file in visaDetail.content.visa">
+                        <a ng-click="downloadFile(file.visaUrl)">{{file.visaName}}</a>
+                    </div>
+                    <div class="list-group-item visa-file"
+                         ng-if="visaDetail.content.visa.length == 0">
+                        暂无文件
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
