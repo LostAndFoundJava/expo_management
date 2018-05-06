@@ -187,6 +187,10 @@ public class ExhibitionController {
         try {
             map = exhibitionService.getHomePage();
             map.remove("choice");
+            Set<Map.Entry<String, List<ExhibitionSearchVO>>> entries = map.entrySet();
+            for(Map.Entry<String, List<ExhibitionSearchVO>> entry : entries){
+                dealWithStatus(entry.getValue());
+            }
             hotPage = addSearchToPage(map);
             hotPage.setLast(true);
         } catch (Exception e) {
@@ -205,11 +209,12 @@ public class ExhibitionController {
             map = exhibitionService.getHomePage();
             map.remove("hot");
             map.remove("carousal");
+            Set<Map.Entry<String, List<ExhibitionSearchVO>>> entries = map.entrySet();
+            for(Map.Entry<String, List<ExhibitionSearchVO>> entry : entries){
+                dealWithStatus(entry.getValue());
+            }
             hotPage = addSearchToPage(map);
             hotPage.setLast(true);
-
-
-
         } catch (Exception e) {
             return ResponseJSON.error();
         }
@@ -300,7 +305,10 @@ public class ExhibitionController {
                 }
                 map.put("carousal",tmpCarousalList);
             }
-
+            Set<Map.Entry<String, List<ExhibitionSearchVO>>> entries = map.entrySet();
+            for(Map.Entry<String, List<ExhibitionSearchVO>> entry : entries){
+                dealWithStatus(entry.getValue());
+            }
         } catch (Exception e) {
             return ResponseJSON.error();
         }

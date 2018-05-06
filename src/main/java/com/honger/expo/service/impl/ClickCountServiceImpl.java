@@ -57,6 +57,7 @@ public class ClickCountServiceImpl implements ClickCountService {
         List<ClickCount> topClickExhibition = clickCountMapper.getTopClickExhibition(new Integer(top),
                 new Integer(countType.getType()));
 
+
         List<ClickCountVO> list = new ArrayList<>();
         for(ClickCount cc : topClickExhibition){
             ClickCountVO clickCountVO = new ClickCountVO();
