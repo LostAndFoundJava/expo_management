@@ -83,11 +83,11 @@ public class ExhibitionController {
     private void doSetStatus(ExhibitionSearchVO esv, List<HomePageConfig> homePageConfigList) {
         for(HomePageConfig hc : homePageConfigList){
             if(hc!=null){
-                if(hc.getIsCarousel()!="1")
+                if(!"1".equals(esv.getIsCarousel()))
                     esv.setIsCarousel(hc.getIsCarousel());
-                if(hc.getIsChoice()!="1")
+                if(!"1".equals(esv.getIsChoice()))
                     esv.setIsChoice(hc.getIsChoice());
-                if(hc.getIsHot()!="1")
+                if(!"1".equals(esv.getIsHot()))
                     esv.setIsHot(hc.getIsHot());
             }
         }
