@@ -7,7 +7,7 @@ import com.honger.expo.pojo.RegionData;
 /**
  * Created by chenjian on 2018/4/4.
  */
-public class CategoryExhibitonRegionVO {
+public class CategoryExhibitionRegionVO {
     private String name;
     private String id;
     private String rName;
@@ -65,7 +65,7 @@ public class CategoryExhibitonRegionVO {
 
     @Override
     public String toString() {
-        return "CategoryExhibitonRegionVO{" +
+        return "CategoryExhibitionRegionVO{" +
                 "name='" + name + '\'' +
                 ", id='" + id + '\'' +
                 ", rName='" + rName + '\'' +

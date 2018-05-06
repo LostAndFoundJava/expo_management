@@ -67,7 +67,7 @@
         on B.`exhibition_id` = C.id
     </select>
 
-    <select id="getExhibitonByIsChoice" resultType="com.honger.expo.pojo.Exhibition">
+    <select id="getExhibitionByIsChoice" resultType="com.honger.expo.pojo.Exhibition">
         select A.* from `exhibition` A
         left join `tb_category_exhibition` B
         on A.id = B.`exhibition_id` where B.`is_choice` = 1 and A.`delete` = 0 and B.`delete` = 0

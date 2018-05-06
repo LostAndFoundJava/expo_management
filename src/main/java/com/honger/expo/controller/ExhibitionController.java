@@ -2,20 +2,22 @@ package com.honger.expo.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.honger.expo.annotation.CountAnnotation;
+import com.honger.expo.dto.HomePageConfig;
 import com.honger.expo.dto.response.exhibition.ExhibitionDetailResponse;
 import com.honger.expo.dto.response.status.ResponseJSON;
-import com.honger.expo.dto.vo.ClickCountExhibition;
+import com.honger.expo.dto.vo.ClickCountVO;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
 import com.honger.expo.dto.vo.Page;
 import com.honger.expo.myexception.MyDateFormatException;
 import com.honger.expo.pojo.Category;
-import com.honger.expo.pojo.ClickCount;
+import com.honger.expo.pojo.Exhibition;
 import com.honger.expo.service.CategoryService;
-import com.honger.expo.service.ExhibitionCountService;
+import com.honger.expo.service.ClickCountService;
 import com.honger.expo.service.ExhibitionService;
+import com.honger.expo.service.HomePageConfigService;
+import com.honger.expo.utils.CountType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +35,10 @@ public class ExhibitionController {
     private CategoryService categoryService;
 
     @Autowired
-    private ExhibitionCountService exhibitionCountService;
+    private ClickCountService clickCountService;
+
+    @Autowired
+    private HomePageConfigService homePageConfigService;
 
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -47,6 +52,7 @@ public class ExhibitionController {
         try {
             PageHelper.startPage(Integer.valueOf(page), pageSize);
             exhibitions = exhibitionService.getExhibitionByCondition(country, categories, date);
+            dealWithStatus(exhibitions);
             Integer totalNum = exhibitionService.getTotalNumByConditon(country, categories, date);
             rPage = new Page<List<ExhibitionSearchVO>>();
             rPage.setContent(exhibitions);
@@ -67,6 +73,32 @@ public class ExhibitionController {
         return ResponseJSON.ok(rPage);
     }
 
+    private void dealWithStatus(List<ExhibitionSearchVO> exhibitions) {
+        for(ExhibitionSearchVO esv : exhibitions){
+            List<HomePageConfig> homePageConfigList = homePageConfigService.getHomePageConfig(esv.getExhibition().getId());
+            doSetStatus(esv, homePageConfigList);
+        }
+    }
+
+    private void doSetStatus(ExhibitionSearchVO esv, List<HomePageConfig> homePageConfigList) {
+        for(HomePageConfig hc : homePageConfigList){
+            if(hc!=null){
+                if(hc.getIsCarousel()!="1")
+                    esv.setIsCarousel(hc.getIsCarousel());
+                if(hc.getIsChoice()!="1")
+                    esv.setIsChoice(hc.getIsChoice());
+                if(hc.getIsHot()!="1")
+                    esv.setIsHot(hc.getIsHot());
+            }
+        }
+    }
+
+    private void dealWithStatus(ExhibitionSearchVO exhibition) {
+        List<HomePageConfig> homePageConfigList = homePageConfigService.getHomePageConfig(exhibition.getExhibition().getId());
+        doSetStatus(exhibition, homePageConfigList);
+    }
+
+
     @ResponseBody
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ResponseJSON searchExhibitionByCondition(
@@ -86,6 +118,8 @@ public class ExhibitionController {
             rPage.setPageSize(pageSize);
             rPage.setTotalNum(totalNum);
             rPage.setPageNum(Integer.valueOf(page));
+
+            dealWithStatus(exhibitions);
             if (totalNum - pageSize * Integer.valueOf(page) <= 0) {
                 rPage.setLast(true);
             } else {
@@ -100,10 +134,11 @@ public class ExhibitionController {
     @CountAnnotation
     @ResponseBody
     @RequestMapping(value = "/detail/{exhibitionId}", method = RequestMethod.GET)
-    public ResponseJSON getExhibitonDetail(@PathVariable("exhibitionId") String exhibitionId) {
+    public ResponseJSON getExhibitionDetail(@PathVariable("exhibitionId") String exhibitionId) {
         ExhibitionDetailResponse detail = null;
         try {
             detail = exhibitionService.getDetail(exhibitionId);
+            dealWithStatus(detail.getExhibition());
         } catch (Exception e) {
             return ResponseJSON.error();
         }
@@ -115,7 +150,7 @@ public class ExhibitionController {
     public ResponseJSON getExhibitionCount(@PathVariable("exhibitionId") String exhibitionId) {
         HashMap<String,Integer> num = new HashMap<>();
         try {
-            num.put("count",exhibitionCountService.selectCountByExhibitionId(exhibitionId));
+            num.put("count",clickCountService.selectCountByExhibitionId(exhibitionId));
         } catch (Exception e) {
             return ResponseJSON.error();
         }
@@ -124,12 +159,12 @@ public class ExhibitionController {
 
     @ResponseBody
     @RequestMapping(value = "/clicks", method = RequestMethod.GET)
-    public ResponseJSON getTopClickExhibiton(@RequestParam("top") String top) {
-        List<ClickCountExhibition> list = null;
+    public ResponseJSON getTopClickExhibition(@RequestParam("top") String top) {
+        List<ClickCountVO> list = null;
         if(top==null || top.trim().equals(""))
             top = "0";
         try {
-            list = exhibitionCountService.getTopClickExhibiton(top);
+            list = clickCountService.getTopClickExhibition(top, CountType.exhibition);
         } catch (Exception e) {
             return ResponseJSON.error();
         }

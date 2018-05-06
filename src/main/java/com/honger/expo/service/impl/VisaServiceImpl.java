@@ -5,7 +5,7 @@ import com.honger.expo.dao.RegionDataMapper;
 import com.honger.expo.dao.VisaMapper;
 import com.honger.expo.dto.response.home.CategoryListResponse;
 import com.honger.expo.dto.response.visa.VisaResponse;
-import com.honger.expo.dto.vo.CategoryExhibitonRegionVO;
+import com.honger.expo.dto.vo.CategoryExhibitionRegionVO;
 import com.honger.expo.dto.vo.VisaVO;
 import com.honger.expo.pojo.Category;
 import com.honger.expo.pojo.RegionData;

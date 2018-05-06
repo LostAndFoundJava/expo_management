@@ -16,11 +16,11 @@ import java.util.UUID;
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
 public class ExhibitionCountDaoTest {
     @Autowired
-    private ExhibitionCountMapper exhibitionCountMapper;
+    private ClickCountMapper clickCountMapper;
 
     @Test
     public void getVisaByCountryId(){
-        Integer integer = exhibitionCountMapper.selectExistByExhibitionId("163ca4e3993745c084ccec33917b6b94");
+        Integer integer = clickCountMapper.selectExistByExhibitionId("163ca4e3993745c084ccec33917b6b94",0);
         if(integer.equals(0)){
             ClickCount ec = new ClickCount();
             UUID uuid = UUID.randomUUID();
@@ -29,9 +29,9 @@ public class ExhibitionCountDaoTest {
             ec.setUpdateTime(new Date());
             ec.setId(s);
             ec.setClickedId("163ca4e3993745c084ccec33917b6b94");
-            exhibitionCountMapper.insertExhibitonIdCount(ec);
+            clickCountMapper.insertExhibitionIdCount(ec);
         }else{
-            exhibitionCountMapper.updateExhibitionIdCount("163ca4e3993745c084ccec33917b6b94");
+            clickCountMapper.updateExhibitionIdCount("163ca4e3993745c084ccec33917b6b94",0);
         }
     }
 }

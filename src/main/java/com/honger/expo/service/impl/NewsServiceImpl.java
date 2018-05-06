@@ -4,7 +4,7 @@ import com.honger.expo.dao.CategoryMapper;
 import com.honger.expo.dao.NewsMapper;
 import com.honger.expo.dto.response.home.CategoryListResponse;
 import com.honger.expo.dto.response.news.NewsCategoryResponse;
-import com.honger.expo.dto.vo.CategoryExhibitonRegionVO;
+import com.honger.expo.dto.vo.CategoryExhibitionRegionVO;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
 import com.honger.expo.dto.vo.NewsCategoryVO;
 import com.honger.expo.pojo.Category;

@@ -25,26 +25,26 @@ public class ExhibitionServiceTest {
     private ExhibitionService exhibitionService;
 
     @Test
-    public void getExhibitonByCondition() {
+    public void getExhibitionByCondition() {
         PageHelper.startPage(1,3);
         List<ExhibitionSearchVO> exhibitionByCondition = exhibitionService.getExhibitionByCondition("", "", "2018/11");
         System.out.println(exhibitionByCondition);
     }
 
     @Test
-    public void searchExhibiton() {
+    public void searchExhibition() {
         List<ExhibitionSearchVO> title = exhibitionService.searchExhibition("title");
         System.out.println(title);
     }
 
     @Test
-    public void getExhibitonDetail() throws InvocationTargetException, IllegalAccessException {
+    public void getExhibitionDetail() throws InvocationTargetException, IllegalAccessException {
         ExhibitionDetailResponse detail = exhibitionService.getDetail("8a5aec9585b24b4ea575bd319f6aec1b");
         System.out.println(detail);
     }
 
     @Test
-    public void getHomeExhibiton() throws InvocationTargetException, IllegalAccessException {
+    public void getHomeExhibition() throws InvocationTargetException, IllegalAccessException {
         Map<String, List<ExhibitionSearchVO>> homePage = exhibitionService.getHomePage();
         System.out.println(homePage);
     }

@@ -18,7 +18,7 @@
         <!--from category-->
         <!--where id = #{id,jdbcType=VARCHAR}-->
     <!--</select>-->
-    <select id="getHomePageCategory" resultType="com.honger.expo.dto.vo.CategoryExhibitonRegionVO">
+    <select id="getHomePageCategory" resultType="com.honger.expo.dto.vo.CategoryExhibitionRegionVO">
       select DISTINCT A.id,A.name,C.`id` as rId,C.name as rName,C.name_pinyin,C.name_en from category A
       left join `exhibition` B on A.`id` = B.`category_id`
       left join `region_data` C on B.`country` = C.`id`

@@ -1,11 +1,16 @@
 package com.honger.expo.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.honger.expo.annotation.CountAnnotation;
 import com.honger.expo.dto.response.news.NewsCategoryResponse;
 import com.honger.expo.dto.response.status.ResponseJSON;
+import com.honger.expo.dto.vo.ClickCountVO;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
 import com.honger.expo.dto.vo.Page;
+import com.honger.expo.pojo.Exhibition;
+import com.honger.expo.service.ClickCountService;
 import com.honger.expo.service.NewService;
+import com.honger.expo.utils.CountType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +24,9 @@ public class NewsController {
 
     @Autowired
     private NewService newService;
+
+    @Autowired
+    private ClickCountService clickCountService;
 
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -107,8 +115,10 @@ public class NewsController {
         return ResponseJSON.ok(relationExhibitionByNewsId);
     }
 
+
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @CountAnnotation
     public ResponseJSON newsById(@PathVariable("id") String id) {
         if(id==null || id.equals("")){
             return ResponseJSON.error("请输入新闻id");
@@ -120,5 +130,19 @@ public class NewsController {
             return ResponseJSON.error();
         }
         return ResponseJSON.ok(mapping);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/clicks", method = RequestMethod.GET)
+    public ResponseJSON getTopClickNews(@RequestParam("top") String top) {
+        List<ClickCountVO> list = null;
+        if(top==null || top.trim().equals(""))
+            top = "0";
+        try {
+            list = clickCountService.getTopClickExhibition(top, CountType.news);
+        } catch (Exception e) {
+            return ResponseJSON.error();
+        }
+        return ResponseJSON.ok(list);
     }
 }

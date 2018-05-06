@@ -2,7 +2,7 @@ package com.honger.expo.service.impl;
 
 import com.honger.expo.dao.CategoryMapper;
 import com.honger.expo.dto.response.home.CategoryListResponse;
-import com.honger.expo.dto.vo.CategoryExhibitonRegionVO;
+import com.honger.expo.dto.vo.CategoryExhibitionRegionVO;
 import com.honger.expo.pojo.Category;
 import com.honger.expo.pojo.RegionData;
 import com.honger.expo.service.CategoryService;
@@ -18,31 +18,31 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryListResponse> getHomePageCategory() {
-        List<CategoryExhibitonRegionVO> homePageCategory = categoryMapper.getHomePageCategory();
+        List<CategoryExhibitionRegionVO> homePageCategory = categoryMapper.getHomePageCategory();
         List<Category> allCategory = categoryMapper.getAllCategory();
         getNoExhibitionCategory(homePageCategory,allCategory);
         List<CategoryListResponse> list = transform(homePageCategory);
         return list;
     }
 
-    private void getNoExhibitionCategory(List<CategoryExhibitonRegionVO> homePageCategory, List<Category> allCategory) {
-        List<Category> notInCategroyExhibiton = new ArrayList<>();
+    private void getNoExhibitionCategory(List<CategoryExhibitionRegionVO> homePageCategory, List<Category> allCategory) {
+        List<Category> notInCategroyExhibition = new ArrayList<>();
         boolean flag = false;
         for(Category c : allCategory){
-            for(CategoryExhibitonRegionVO cer : homePageCategory){
+            for(CategoryExhibitionRegionVO cer : homePageCategory){
                 if(c.getId().equals(cer.getId())){
                     flag = true;
                     break;
                 }
             }
             if(!flag){
-                notInCategroyExhibiton.add(c);
+                notInCategroyExhibition.add(c);
             }
             flag = false;
         }
 
-        for(Category c : notInCategroyExhibiton){
-            CategoryExhibitonRegionVO cer = new CategoryExhibitonRegionVO();
+        for(Category c : notInCategroyExhibition){
+            CategoryExhibitionRegionVO cer = new CategoryExhibitionRegionVO();
             cer.setId(c.getId());
             cer.setName(c.getName());
             homePageCategory.add(cer);
@@ -64,10 +64,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.getCategoryById(categoryId);
     }
 
-    private List<CategoryListResponse> transform(List<CategoryExhibitonRegionVO> homePageCategory) {
+    private List<CategoryListResponse> transform(List<CategoryExhibitionRegionVO> homePageCategory) {
         List<CategoryListResponse> list = new ArrayList<CategoryListResponse>();
         //数据库返回的数据
-        for(CategoryExhibitonRegionVO i :homePageCategory){
+        for(CategoryExhibitionRegionVO i :homePageCategory){
             boolean flag = false;
             //返回前端的数据
             for(CategoryListResponse j : list){

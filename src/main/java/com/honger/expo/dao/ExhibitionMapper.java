@@ -34,7 +34,7 @@ public interface ExhibitionMapper {
     Integer getTotalNumBySearch(@Param("query") String query);
 
     //查询行业精选展会
-    List<Exhibition> getExhibitonByIsChoice();
+    List<Exhibition> getExhibitionByIsChoice();
 
     Exhibition selectExhibtionById(@Param("exhibitionId")String clickedId);
 }

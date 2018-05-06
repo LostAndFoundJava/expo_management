@@ -1,14 +1,15 @@
 package com.honger.expo.annotation;
 
-import com.honger.expo.pojo.Exhibition;
-import com.honger.expo.service.ExhibitionCountService;
-import com.honger.expo.service.ExhibitionService;
+import com.honger.expo.pojo.ClickCount;
+import com.honger.expo.service.ClickCountService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by chenjian on 2018/5/2.
@@ -18,7 +19,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class CountAnnotationAspect {
     @Autowired
-    private ExhibitionCountService exhibitionCountService;
+    private ApplicationContext applicationContext;
+
+    @Autowired
+    private ClickCountService clickCountService;
 
     //切入点
     @Pointcut(value = "@annotation(com.honger.expo.annotation.CountAnnotation)")
@@ -28,13 +32,33 @@ public class CountAnnotationAspect {
 
     @After(value = "pointcut()")
     public void after(JoinPoint joinPoint) {
-        String exhibitionId = "";
+        String clickedId = "";
         try {
             Object[] args = joinPoint.getArgs();
-            exhibitionId = (String) args[0];
-            exhibitionCountService.insertOrUpdateExhibitionCount(exhibitionId);
+            clickedId = (String) args[0];
+//            Method[] methods = joinPoint.getTarget().getClass().getDeclaredMethods();
+//            String name = joinPoint.getSignature().getName();
+//            String serviceName = "";
+//            for(Method m : methods){
+//                if(m.getName().equals(name)){
+//                    serviceName = m.getAnnotation(CountAnnotation.class).seriveName();
+//                    break;
+//                }
+//            }
+
+//            if(serviceName.equalsIgnoreCase("ClickCountService")){
+//                ClickCountService bean = (ClickCountService)applicationContext.getBean(
+//                        serviceName.substring(0,1).toLowerCase() +serviceName.substring(1)+"Impl");
+//
+//                bean.insertOrUpdateExhibitionCount(exhibitionId);
+//            }
+            String name = joinPoint.getSignature().getName();
+            if(name.contains("Exhibition") || name.contains("exhibition"))
+                clickCountService.insertOrUpdateExhibitionCount(clickedId,0);
+            else if(name.contains("News") || name.contains("news"))
+                clickCountService.insertOrUpdateExhibitionCount(clickedId,1);
         }catch (Exception e){
-            log.error(exhibitionId+":"+"增加访问次数失败！！！"+e.getMessage());
+            log.error(clickedId+":"+"增加访问次数失败！！！"+e.getMessage());
         }
     }
 

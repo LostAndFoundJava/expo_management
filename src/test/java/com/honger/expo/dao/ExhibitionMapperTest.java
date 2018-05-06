@@ -22,20 +22,20 @@ public class ExhibitionMapperTest {
     private ExhibitionMapper exhibitionMapper;
 
     @Test
-    public void getExhibitonByCondition() {
+    public void getExhibitionByCondition() {
         PageHelper.startPage(1,3);
         List<Exhibition> exhibitionByCondition = exhibitionMapper.getExhibitionByCondition("", "", "2018-11-31","2018-11-01");
         System.out.println(exhibitionByCondition);
     }
 
     @Test
-    public void searchExhibiton() {
+    public void searchExhibition() {
         List<Exhibition> title = exhibitionMapper.searchExhibition("title");
         System.out.println(title);
     }
 
     @Test
-    public void getExhibitonDetail() {
+    public void getExhibitionDetail() {
         List<ExhibitionAndDetailVO> detial = exhibitionMapper.getDetial("8a5aec9585b24b4ea575bd319f6aec1b");
         System.out.println(detial);
     }

@@ -6,9 +6,9 @@ import com.honger.expo.pojo.Exhibition;
 /**
  * Created by chenjian on 2018/5/5.
  */
-public class ClickCountExhibition{
+public class ClickCountVO{
     private ClickCount clickCount;
-    private Exhibition exhibition;
+    private Object clicked;
 
     public ClickCount getClickCount() {
         return clickCount;
@@ -18,11 +18,11 @@ public class ClickCountExhibition{
         this.clickCount = clickCount;
     }
 
-    public Exhibition getExhibition() {
-        return exhibition;
+    public Object getClicked() {
+        return clicked;
     }
 
-    public void setExhibition(Exhibition exhibition) {
-        this.exhibition = exhibition;
+    public void setClicked(Object clicked) {
+        this.clicked = clicked;
     }
 }

@@ -14,6 +14,34 @@ public class ExhibitionSearchVO{
     private String cityEnName;
     private String cityPinyin;
 
+    private String isChoice;
+    private String isCarousel;
+    private String isHot;
+
+    public String getIsChoice() {
+        return isChoice;
+    }
+
+    public void setIsChoice(String isChoice) {
+        this.isChoice = isChoice;
+    }
+
+    public String getIsCarousel() {
+        return isCarousel;
+    }
+
+    public void setIsCarousel(String isCarousel) {
+        this.isCarousel = isCarousel;
+    }
+
+    public String getIsHot() {
+        return isHot;
+    }
+
+    public void setIsHot(String isHot) {
+        this.isHot = isHot;
+    }
+
     private Exhibition exhibition;
 
     public Exhibition getExhibition() {
