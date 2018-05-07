@@ -16,7 +16,6 @@ import java.util.HashMap;
 @Controller
 @RequestMapping(value = "/flowSrc")
 public class FlowSrcController {
-
     @Autowired
     private FlowSrcService flowSrcService;
 
