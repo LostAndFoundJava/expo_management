@@ -1,6 +1,8 @@
 package com.honger.expo.dao;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.honger.expo.pojo.RegionData;
 import org.apache.ibatis.annotations.Param;
@@ -19,5 +21,5 @@ public interface RegionDataMapper {
 
     RegionData getRegionCountryById(@Param("country") Integer country);
 
-    List<RegionData> getRegionCountryByContinent(@Param("continent") String continent);
+    TreeSet<RegionData> getRegionCountryByContinent(@Param("continent") String continent);
 }

@@ -2,7 +2,7 @@ package com.honger.expo.pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RegionData {
+public class RegionData implements Comparable{
     private Integer id;
 
     private Integer pid;
@@ -128,5 +128,16 @@ public class RegionData {
         result = 31 * result + (namePinyin != null ? namePinyin.hashCode() : 0);
         result = 31 * result + (code != null ? code.hashCode() : 0);
         return result;
+    }
+
+    public int compareTo(Object j) {
+        RegionData o = (RegionData) j;
+        if (namePinyin != null) {
+            if (!(this.namePinyin.equals(o))) {
+                return this.namePinyin.compareTo(o.namePinyin);
+            } else
+                return Integer.signum(o.id - this.id) * -1;
+
+        } else return 0;
     }
 }

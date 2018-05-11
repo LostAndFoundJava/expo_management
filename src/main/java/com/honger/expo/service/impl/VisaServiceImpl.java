@@ -27,7 +27,8 @@ public class VisaServiceImpl implements VisaService {
 
     @Override
     public List<RegionData> getRegionCountryByContinent(String continent) {
-        return regionDataMapper.getRegionCountryByContinent(continent);
+        TreeSet<RegionData> countries = regionDataMapper.getRegionCountryByContinent(continent);
+        return new ArrayList<>(countries);
     }
 
     @Override

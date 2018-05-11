@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import java.util.TreeSet;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
@@ -33,7 +34,7 @@ public class RegionDataDaoTest {
 
     @Test
     public void getRegionCountryByContinent() {
-        List<RegionData> regionCountryByContinent = regionDataDao.getRegionCountryByContinent("1");
+        TreeSet<RegionData> regionCountryByContinent = regionDataDao.getRegionCountryByContinent("1");
         System.out.println(regionCountryByContinent);
     }
 }
