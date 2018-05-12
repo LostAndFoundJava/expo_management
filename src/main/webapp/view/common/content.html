@@ -11,13 +11,10 @@
 
         <!-- Main view  -->
         <div ui-view></div>
-        <!--<div class="to-top">-->
-            <!--<a href=""><i class="fas fa-chevron-up"></i><br>顶部</a>-->
-        <!--</div>-->
+
 
         <!-- Footer -->
-        <!--<div ng-include="'views/common/mobile-nav.html'" ></div>-->
-        <div class="right-nav" scroll hide-element-id="top-nav" show-status="showJumpNav" ng-hide="!showJumpNav">
+        <div class="right-nav" scroll hide-element-id="top-nav" show-status="showJumpNav" ng-hide="!showJumpNav || inhome">
             <div class="right-floating-layer min">
                 <div class="layer-box return-top" ng-click="jumpToHead('top-nav')">
                     <span><i class="fas fa-chevron-up"></i><br>顶部</span>
@@ -35,32 +32,4 @@
 
 </div>
 
-
-<style>
-    .to-top {
-        position: fixed;
-        left: 50%;
-        bottom: 20px;
-        margin-left: 595px;
-        z-index: 4;
-    }
-
-    .to-top a {
-        text-align: center;
-        line-height: 17px;
-        font-size: 13px;
-        display: block;
-        width: 43px;
-        padding-right: 6px;
-        color: #9c9c9c;
-        background-color: #f3f6fb;
-        border-bottom: 2px solid #efefef;
-    }
-
-    .to-top a:hover {
-        color: #ffffff;
-        background-color: #1d83c7;
-    }
-
-</style>
 <!-- End wrapper-->

@@ -8,6 +8,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.honger.expo.dto.response.status.ResponseJSON;
 
 /**
  * Created by chenjian on 2018/5/7.
@@ -17,7 +18,7 @@ public class MessageSendUtil {
 //    private final static String accessKeyID = "LTAIyJqsC2gc40RV";
 
     //单挑短信通知
-    public static boolean  sendMessage(String phoneNum,String contentJson) throws ClientException {
+    public static ResponseJSON sendMessage(String phoneNum, String contentJson) throws ClientException {
         //设置超时时间-可自行调整
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -41,7 +42,7 @@ public class MessageSendUtil {
         //必填:短信签名-可在短信控制台中找到
         request.setSignName("鸿尔国际展览");
         //必填:短信模板-可在短信控制台中找到
-        request.setTemplateCode("SMS_134250060");
+        request.setTemplateCode("SMS_134315722");
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
         //友情提示:如果JSON中需要带换行符,请参照标准的JSON协议对换行符的要求,比如短信内容中包含\r\n的情况在JSON中需要表示成\\r\\n,否则会导致JSON在服务端解析失败
         //request.setTemplateParam("{\"name\":\"Tom\", \"code\":\"123\"}");
@@ -53,17 +54,9 @@ public class MessageSendUtil {
         //请求失败这里会抛ClientException异常
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
-            return true;
-        }else
-            return false;
-    }
-
-    public static void main(String[] args) {
-        try {
-            boolean f = sendMessage("13022112368", "展会");
-        } catch (ClientException e) {
-            e.printStackTrace();
-            e.getErrCode();
+           return ResponseJSON.ok();
+        }else{
+            return ResponseJSON.error(sendSmsResponse.getCode());
         }
     }
 }

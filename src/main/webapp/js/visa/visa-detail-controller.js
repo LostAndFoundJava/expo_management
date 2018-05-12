@@ -9,7 +9,7 @@ controller('VisaDetailController',['$rootScope', '$scope', '$stateParams', '$sta
     function init() {
         const visaId = $stateParams.id;
         if (!visaId) {
-            $state.go('home')
+            $state.go('home.view')
         }
 
         VisaService.getVisaContent(visaId, function (data) {

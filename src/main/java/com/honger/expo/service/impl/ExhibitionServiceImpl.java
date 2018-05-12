@@ -136,6 +136,11 @@ public class ExhibitionServiceImpl implements ExhibitionService{
         return exhibitionMapper.getTotalNumBySearch(query);
     }
 
+    @Override
+    public Exhibition getExhibitionById(String exhibitionId) {
+        return exhibitionMapper.selectExhibtionById(exhibitionId);
+    }
+
     public List<ExhibitionSearchVO> getExhibitionSearchVOS(List<Exhibition> exhibitions) {
         List<ExhibitionSearchVO> list = new ArrayList<>();
         for(Exhibition e : exhibitions){

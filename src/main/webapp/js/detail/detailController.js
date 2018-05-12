@@ -10,7 +10,7 @@ angular.module('app').
 
     function init() {
         if (!$stateParams.id) {
-            $state.go('home')
+            $state.go('home.view')
         }
 
         $scope.ticket = { id : $stateParams.id};
@@ -39,7 +39,7 @@ angular.module('app').
                         //     }
                         // }
 
-                    } catch {
+                    } catch (e){
                         $scope.detail.desc = [{detailTitle : '展会介绍' , detailContent : $scope.detail.content.exhibitionDetail.description}];
 
 

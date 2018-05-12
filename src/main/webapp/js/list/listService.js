@@ -74,12 +74,23 @@ function ListService($resource) {
             })
         }
 
+        function getQueryExpos(param, callback) {
+            let expoUrl = basePath + '/expos/search';
+            let rest = $resource(expoUrl, {query : param.query, page : param.page});
+            rest.get(function (data) {
+                callback(data);
+            }, function (error) {
+                callback(errorData);
+            })
+        }
+
         return {
             getExpoes : getExpoes,
             getExpoesByCondition : getExpoesByCondition,
             getHotExpos : getHotExpos,
             getTopExpos : getTopExpos,
             getHotExposByCategoryId : getHotExposByCategoryId,
+            getQueryExpos :getQueryExpos,
         }
     };
 

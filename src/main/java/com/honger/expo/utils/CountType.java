@@ -11,7 +11,7 @@ public enum CountType {
 
     private String str;
 
-    private CountType(String str){
+    CountType(String str){
         this.str = str;
     }
 

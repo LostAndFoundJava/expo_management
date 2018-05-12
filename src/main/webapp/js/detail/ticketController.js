@@ -80,14 +80,14 @@ controller('TicketController',['$rootScope', '$scope', '$uibModal','$uibModalIns
         $scope.submitTicket = function () {
 
             if ($scope.ticket.form.applicationType === 0) {
-                if (!$scope.ticket.form.mobileNo || $scope.ticket.form.mobileNo == '' || $scope.formStatus.numberInvalid
+                if (!$scope.ticket.form.mobileNo || $scope.ticket.form.mobileNo == '' || $scope.ticket.formStatus.numberInvalid
                     || !$scope.ticket.form.name || $scope.ticket.form.name == '') {
                     $scope.ticket.showGetFailed = true;
                     $scope.ticket.formStatus.msg = '输入信息有误';
                     return;
                 }
             } else {
-                if (!$scope.ticket.form.mobileNo || $scope.ticket.form.mobileNo == '' || $scope.formStatus.numberInvalid
+                if (!$scope.ticket.form.mobileNo || $scope.ticket.form.mobileNo == '' || $scope.ticket.formStatus.numberInvalid
                     || !$scope.ticket.form.name || $scope.ticket.form.name == ''
                     || !$scope.ticket.form.company || $scope.ticket.form.company == '') {
                     $scope.ticket.showGetFailed = true;
@@ -170,7 +170,7 @@ controller('TicketController',['$rootScope', '$scope', '$uibModal','$uibModalIns
 
                 $state.go($rootScope.previousState.name, {id : $rootScope.previousStateParam});
             } else {
-                $state.go('home');
+                $state.go('home.view');
             }
         };
 

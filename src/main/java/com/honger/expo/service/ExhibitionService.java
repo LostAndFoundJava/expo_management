@@ -26,4 +26,5 @@ public interface ExhibitionService {
 
     Integer getTotalNumBySearch(String query);
 
+    Exhibition getExhibitionById(String exhibitionId);
 }

@@ -34,4 +34,13 @@ public class FlowSrcServiceImpl implements FlowSrcService{
         flowSrc.setUpdateTime(new Date());
         flowSrcMapper.update(flowSrc);
     }
+
+    @Override
+    public boolean isMobileUnique(String mobileNo,String exhibitionId) {
+        String mobileUnique = flowSrcMapper.isMobileUnique(mobileNo,exhibitionId);
+        if(mobileUnique==null || mobileUnique.equals("")){
+            return false;
+        }else
+            return true;
+    }
 }

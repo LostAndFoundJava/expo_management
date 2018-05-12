@@ -62,12 +62,12 @@ controller('AboutusController',['$rootScope', '$scope', '$state','AboutusService
                     }
                 })
             }
-        }
+        };
 
         $scope.imgUrl = function(url) {
             if (!url) {
                 return;
             }
-            return url + '!180-70'
+            return url + '!180-70' + '.jpeg'
         }
 }]);

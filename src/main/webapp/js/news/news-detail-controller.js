@@ -13,7 +13,7 @@ controller('NewsDetailController',['$rootScope', '$scope', '$state', 'NewsServic
             let id = $stateParams.id;
 
             if (!id) {
-                $state.go('home')
+                $state.go('home.view')
             }
 
             NewsService.getNewsContent(id, function (data) {

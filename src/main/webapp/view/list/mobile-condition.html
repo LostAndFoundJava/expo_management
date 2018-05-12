@@ -5,12 +5,12 @@
             <span id="input-remove" class="fr clear hid" ng-click="removeQuery()">✖</span>
             <div class="input-box">
                 <input class="search forSearch"
-                       ng-click="inputQuery()"
+                       ng-click="expoInputQuery()"
                        ng-model="mobile.query"
                        type="text" placeholder="搜索">
             </div>
         </div>
-        <span class="btn-txt" ng-if="mobile.isReady" ng-click="search()">搜索</span>
+        <span class="btn-txt" ng-if="mobile.isReady" ng-click="search(mobile.query)">搜索</span>
         <span class="btn-txt" ng-if="mobile.isCancel" ng-click="cancel()">取消</span>
     </div>
     <div class="condition-filter" ng-click="showFilterPanel()">按条件过滤

@@ -52,5 +52,13 @@ controller('TopBarController',['$rootScope', '$scope', '$state', 'TopbarService'
         }
     };
 
+    $scope.searchExpos = function (query) {
+        if ($state.is('list.condition.query')) {
+            $rootScope.$broadcast('querying', {query : query});
+        } else {
+            $state.go('list.condition.query', {query : query});
+        }
+    }
+
 
 }])

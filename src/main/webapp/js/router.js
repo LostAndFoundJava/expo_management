@@ -13,7 +13,12 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
 
     $stateProvider
         .state('home', {
+            abstract: true,
             url: "/home",
+            templateUrl: "view/common/content.html",
+        })
+        .state('home.view', {
+            url: "",
             templateUrl: "view/home.html",
             controller: "HomeController",
             resolve: {
@@ -142,6 +147,12 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('list.condition.hot', {
             url: "?hot",
+            templateUrl: "view/list/list.html",
+            controller: "ListController",
+
+        })
+        .state('list.condition.query', {
+            url: "?query",
             templateUrl: "view/list/list.html",
             controller: "ListController",
 
@@ -419,7 +430,9 @@ webapp.config(config)
         $rootScope.$state = $state;
         $rootScope.footerLink = footerLink;
         $rootScope.telephone = tele;
-
+        if ($state.is('home.view')) {
+            $rootScope.inhome = true;
+        }
         $rootScope.jumpToHead = function(x) {
             let newHash = 'top-nav';
             if ($location.hash() !== newHash) {
@@ -428,10 +441,11 @@ webapp.config(config)
                 $anchorScroll();
             }
 
-        }
+        };
 
 
         $rootScope.$on('scrolling', function (event, param) {
+
 
             if(param.hideElementId && param.hideElementId === 'top-nav') {
                 if (isScrolledIntoView('#' + param.hideElementId)) {

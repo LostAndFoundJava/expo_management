@@ -30,7 +30,7 @@ controller('HotDetailController',['$rootScope', '$scope','DetailService','$state
 
         function init() {
             if (!$stateParams.id) {
-                $state.go('home')
+                $state.go('home.view')
             }
 
             $scope.ticket = { id : $stateParams.id};
@@ -62,7 +62,7 @@ controller('HotDetailController',['$rootScope', '$scope','DetailService','$state
                             //     }
                             // }
 
-                        } catch {
+                        } catch(e) {
                             $scope.detail.desc = [{detailTitle : '展会介绍' , detailContent : $scope.detail.content.exhibitionDetail.description}];
 
                         }
@@ -204,14 +204,14 @@ controller('HotDetailController',['$rootScope', '$scope','DetailService','$state
             if (!angular.equals(newVal, oldVal)) {
                 $scope.detail.ticketStatus = true;
             }
-        }, true)
+        }, true);
 
 
         $scope.imgUrl = function(imgUrl){
             if (!imgUrl) {
                 return null;
             }
-            return imgUrl  + '!2590-1080' ;
+            return imgUrl  + '!2590-1080' + '.jpeg' ;
 
         };
 

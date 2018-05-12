@@ -184,9 +184,9 @@ angular.module('app').
                 return null;
             }
             if (isCarousel) {
-                return imgUrl  + '!' + imgSize.carousel.w + '-' + imgSize.carousel.h;
+                return imgUrl  + '!' + imgSize.carousel.w + '-' + imgSize.carousel.h + '.jpeg';
             } else {
-                return imgUrl  + '!' + imgSize.thumbnail.w + '-' + imgSize.thumbnail.h;
+                return imgUrl  + '!' + imgSize.thumbnail.w + '-' + imgSize.thumbnail.h + '.jpeg';
             }
 
         };
@@ -240,7 +240,7 @@ angular.module('app').
         };
 
         $scope.$on('scrolling', function (event, param) {
-            if (!$state.is('home')) {
+            if (!$state.is('home.view')) {
                 return;
             }
             if (param.mainElementId) {

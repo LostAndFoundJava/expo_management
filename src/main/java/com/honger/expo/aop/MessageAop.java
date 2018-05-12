@@ -27,12 +27,7 @@ public class MessageAop {
 
     @AfterReturning(value = "pointcut()")
     public void afterReturn(JoinPoint joinPoint) {
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("xxxxxxxxxxxx");
+
     }
 
 }

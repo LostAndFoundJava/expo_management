@@ -35,5 +35,9 @@
         update_time = #{updateTime}
         where id = #{id}
     </update>
+
+    <select id="isMobileUnique" resultType="java.lang.String">
+        select mobile_no from flow_src where mobile_no = #{mobileNo} and src_type = '0' and `exhibition` = #{exhibitionId};
+    </select>
 </mapper>
 

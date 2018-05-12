@@ -3,7 +3,7 @@
         <div class="header-top refresh-container">
             <div class="logo">
                 <div class="imagesComponent">
-                    <a ui-sref="home">
+                    <a ui-sref="home.view">
                         <img class="images" src="assets/img/logo.jpeg" alt="">
                     </a>
                 </div>
@@ -11,10 +11,10 @@
             <div class="search-bar">
                 <div class="search-container">
                     <div class="input-group">
-                        <input type="text" placeholder="搜索" name="search" class="form-control input-md">
+                        <input type="text" placeholder="搜索" name="search" ng-model="query" class="form-control input-md">
 
-                        <div class="input-group-btn">
-                            <button class="btn btn-md btn-primary" type="submit">
+                        <div class="input-group-btn" >
+                            <button class="btn btn-md btn-primary" type="submit" ng-click="searchExpos(query)">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>

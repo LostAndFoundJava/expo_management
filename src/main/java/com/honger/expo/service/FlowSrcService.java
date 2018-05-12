@@ -10,4 +10,6 @@ public interface FlowSrcService {
     String insert(FlowSrc flowSrc);
 
     void update(FlowSrc flowSrc);
+
+    boolean isMobileUnique(String mobileNo,String exhibitionId);
 }

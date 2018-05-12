@@ -106,7 +106,7 @@ controller('VisaController',['$rootScope', '$scope', '$anchorScroll', '$location
                     var parentEl = angular.element( document.querySelector( '#index-bar-parent' ) );
                     var parentWidth = parentEl.width();
                     myEl.addClass('index-fix');
-                    myEl.css('width', parentWidth);
+                    // myEl.css('width', parentWidth);
                 } else {
                     var myEl = angular.element( document.querySelector( '#indexBar' ) );
                     myEl.removeAttr('width');

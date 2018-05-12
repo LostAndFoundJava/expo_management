@@ -22,7 +22,7 @@ var footerLink = [
 //TODO 修改成对象
 var topbarList =  [
     {
-        firstMenu : { title: '首页', link: 'home'}
+        firstMenu : { title: '首页', link: 'home.view'}
     },
     {
         firstMenu : { title: '展会全览', link :'list' },
@@ -80,6 +80,7 @@ function getDateObjList(num) {
 
 var alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
 
+var basePath = "";
 
 
 function calDate(startTime, endTime) {

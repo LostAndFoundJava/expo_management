@@ -53,7 +53,7 @@
                                                                                        placeholder="请输入联系人姓名"
                                                                                        ng-class="{'has-error' : ticket.form.clientName == '' || !ticket.form.clientName}"
                                                                                        class="form-control"></div>
-            <div ng-show="ticket.showPhone" class="form-group"><label>手机 <small class="has-error" ng-if="ticket.form.mobileNo != '' && ticket.formStatus.numberInvalid">号码有误</small></label> <input type="text"
+            <div ng-show="ticket.showPhone" class="form-group"><label>联系电话 <small class="has-error" ng-if="ticket.form.mobileNo != '' && ticket.formStatus.numberInvalid">号码有误</small></label> <input type="text"
                                                                                         class="form-control"
                                                                                         ng-keyup="checkPhoneNumber(ticket.form.mobileNo)"
                                                                                         ng-class="{'has-error' : ticket.form.mobileNo == '' || ticket.formStatus.numberInvalid}"
@@ -78,7 +78,7 @@
 
 
             <div ng-click="submitTicket()" ng-show="ticket.showSubmitButton" class="ticket-button-d">
-                <button class="btn-primary button-height">免费预约</button>
+                <button class="btn-primary button-height">立即预约</button>
             </div>
             <div ng-click="updateTicket()"
                  ng-show="ticket.showUpdateButton" class="ticket-button-d">

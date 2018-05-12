@@ -109,7 +109,7 @@
     list-style: none;
 }
 
-.index-fix {
+.ibox-content .index-fix {
     position: fixed;
     top: 0;
     z-index: 100;
@@ -180,3 +180,4 @@
 
     }
 }
+

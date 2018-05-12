@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="wrapper wrapper-content animated fadeInRight no-top-padding">
+    <div class="wrapper wrapper-content animated fadeInRight mobile-small-margin">
 
         <div class="col-sm-3">
             <div id="visaContinent" class="ibox float-e-margins small-margin menu-list">
@@ -34,7 +34,8 @@
                                ng-click="gotoAnchor(al.params)"
                                ng-repeat="al in indexBar">{{al.title}}</a>
                         </div>
-                        <div class="country-list">
+                    </div>
+                    <div class="country-list">
                             <dl id="anchor{{countries.letter}}" class="clearfix" name="A"
                                 ng-repeat="countries in visa.seletedContinentCountries">
                                 <dt>{{countries.letter}}</dt>
@@ -51,7 +52,6 @@
                                 </dd>
                             </dl>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

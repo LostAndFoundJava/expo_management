@@ -24,13 +24,13 @@ controller('FooterController',['$rootScope', '$scope', '$state', '$resource', 'T
             } else {
                 $state.go('contact.aboutCompany');
             }
-        }
+        };
 
         $scope.imgUrl = function(url) {
             if (!url) {
                 return;
             }
-            return url + '!180-70'
+            return url + '!180-70' + '.jpeg'
         }
 
     }
