@@ -43,11 +43,11 @@ public class FlowSrcController {
         String exhibitionId = flowSrc.getExhibition();
 
         if(mobileNo == null || exhibitionId == null)
-            return ResponseJSON.error("手机号码或者展会不存在");
+            return ResponseJSON.error("号码或者展会不存在");
 
         boolean f = flowSrcService.isMobileUnique(mobileNo, exhibitionId);
         if (f) {
-            return ResponseJSON.error("此手机号码已预订过当前展会，请勿重复预定，谢谢！");
+            return ResponseJSON.error("此号码已预订过当前展会");
         }
 
 
