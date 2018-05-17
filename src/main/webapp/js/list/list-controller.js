@@ -33,7 +33,7 @@ controller('ListController',['$rootScope', '$scope', '$state', 'ListService', '$
             totalNum : 0,
         };
 
-        $scope.list = {pageInfo : pageInfo};
+        $scope.list = {pageInfo : pageInfo, type : '条件'};
         $scope.list.condition = {};
         $scope.list.dateCollapse = true;
         $scope.list.countryCollapse = true;
@@ -50,6 +50,7 @@ controller('ListController',['$rootScope', '$scope', '$state', 'ListService', '$
         };
 
         $scope.query = function (str) {
+            $scope.list.condition = {};
             let param = {
                 query : str,
                 page : 1
@@ -71,6 +72,9 @@ controller('ListController',['$rootScope', '$scope', '$state', 'ListService', '$
         function init() {
             //加载日期
             $scope.list.dateList = getDateObjList(36);
+
+            $scope.getTops();
+
 
             //加载国家
             if ($state.is('list.condition.params')) {
@@ -112,6 +116,8 @@ controller('ListController',['$rootScope', '$scope', '$state', 'ListService', '$
 
 
             if ($state.is('list.condition.hot')) {
+                $scope.list.type = "热门";
+
                 if ($stateParams.hot) {
                     ListService.expoService().getHotExpos(function (data) {
                         if (data.code) {
@@ -137,7 +143,6 @@ controller('ListController',['$rootScope', '$scope', '$state', 'ListService', '$
                 });
             }
 
-            $scope.getTops();
         }
 
 
@@ -482,6 +487,7 @@ controller('ListController',['$rootScope', '$scope', '$state', 'ListService', '$
         };
 
         $scope.search = function (str) {
+            $scope.list.condition = {};
             $scope.query(str);
         };
 

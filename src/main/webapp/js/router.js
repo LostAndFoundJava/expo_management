@@ -1,5 +1,5 @@
 
-function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, $provide) {
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, $provide, $locationProvider) {
     IdleProvider.idle(5); // in seconds
     IdleProvider.timeout(120); // in seconds
 
@@ -422,13 +422,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
 
-        })
+        });
+    // $locationProvider.html5Mode(true);
 }
 
 webapp.config(config)
     .run(function ($rootScope, $state, $location, $anchorScroll) {
         $rootScope.$state = $state;
-        $rootScope.footerLink = footerLink;
         $rootScope.telephone = tele;
         if ($state.is('home.view')) {
             $rootScope.inhome = true;

@@ -41,7 +41,7 @@ controller('VisaController',['$rootScope', '$scope', '$anchorScroll', '$location
                 if (data.code) {
                     countries = data.result;
                 } else {
-                    countries = country;
+                    countries = [];
                 }
                 const resultList = [];
                 countries.forEach(item => {

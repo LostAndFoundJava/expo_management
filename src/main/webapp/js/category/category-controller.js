@@ -113,7 +113,7 @@ controller('CategoryController',['$rootScope', '$scope', '$state', 'HomeService'
         if (!imgUrl) {
             return null;
         }
-        return imgUrl  + '!' + mobile.w + '-' + mobile.h;
+        return imgUrl  + '!' + mobile.w + '-' + mobile.h + '.jpeg';
 
     };
 

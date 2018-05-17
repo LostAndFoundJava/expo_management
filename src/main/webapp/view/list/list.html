@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="wrapper wrapper-content animated fadeInRight mobile-page-top-10">
+    <div class="wrapper wrapper-content animated fadeInRight mobile-small-margin">
         <div ng-include="'view/list/mobile-condition.html'" ng-init="mobile.selectedCondition='category'"></div>
 
         <div class="col-sm-12">
@@ -91,17 +91,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-9 mobile-no-left-right-padding">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    搜索结果
+                    {{list.type}} 搜索结果
                 </div>
                 <div class="ibox-content no-padding">
                     <div class="result-item" ng-repeat="expo in list.expoes">
                         <div class="row">
-                            <div class="col-xs-5" ng-click="getDetail(expo, expo.isCarousel)">
-                                <img  ng-src="{{imgUrl(expo.exhibition.thumbnail)}}"
-                                      class="img-responsive cursor">
+                            <div class="col-xs-5 " ng-click="getDetail(expo, expo.isCarousel)">
+                                <img ng-src="{{imgUrl(expo.exhibition.thumbnail)}}"
+                                      class="img-responsive cursor list-small-padding">
                             </div>
                             <div class="col-xs-7 result-info">
                                 <div class="result-title">
@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="detail-button">
                                     <div class="col-xs-6">
-                                        <button ng-click="getTicket(expo)" type="button" class="btn btn-block btn-success">预约</button>
+                                        <button ng-click="getTicket(expo)" type="button" class="btn btn-block btn-primary">预约</button>
                                     </div>
                                     <div class="col-xs-6">
                                         <button ng-click="getDetail(expo, expo.isCarousel)" type="button" class="btn btn-block btn-default" style="white-space: normal;">了解更多</button>

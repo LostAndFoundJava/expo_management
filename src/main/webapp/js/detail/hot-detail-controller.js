@@ -77,11 +77,12 @@ controller('HotDetailController',['$rootScope', '$scope','DetailService','$state
             })
         }
 
-
-        $scope.ticket = {
-            form  : {},
-        };
         $scope.getTicket = function() {
+            const src = getCookie('src');
+            const uid = getCookie('uid');
+            $scope.detail.form.src = src == null ? '' : src;
+            $scope.detail.form.uid = uid == null ? '' : uid;
+
             if ($scope.detail.form.applicationType === 0) {
                 if (!$scope.detail.form.mobileNo || $scope.detail.form.mobileNo == '' || $scope.detail.formStatus.numberInvalid
                     || !$scope.detail.form.clientName || $scope.detail.form.clientName == '') {
@@ -104,8 +105,9 @@ controller('HotDetailController',['$rootScope', '$scope','DetailService','$state
             $scope.detail.form.exhibition = $scope.ticket.id;
             let form = $scope.detail.form;
             TicketService.saveTicket($scope.detail.form, function (data) {
-                form.id = data.result.id;
+
                 if (data.code) {
+                    form.id = data.result.id;
                     var modalInstance = $uibModal.open({
                         templateUrl: 'view/common/ticket.html',
                         resolve: {

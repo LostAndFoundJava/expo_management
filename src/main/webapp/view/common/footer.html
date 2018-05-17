@@ -17,8 +17,9 @@
             服务热线：{{telephone}}
         </div>
         <div class="footer-text">
+            <div><a href="http://www.miibeian.gov.cn/" target="_blank">沪ICP备18010043号-1</a></div>
 
-            <strong>Copyright</strong> Example Company &copy; 2015-2018
+            <strong>Copyright</strong> 上海鸿侃投资咨询有限公司 &copy; 2018
         </div>
     </div>
     <div class="footer-middle">
@@ -34,16 +35,13 @@
         </ul>
     </div>
     <div class="nav-item footer-right">
-        <h3>关于我们</h3>
+        <h3><a ui-sref="contact.aboutCompany">关于我们</a></h3>
         <ul>
-            <li>
-                <a href="">公司介绍</a>
+            <li ng-repeat=" i in footer.about">
+                <a href="javascript:void(0)" ng-click="goAbout(i)">{{i.title}}</a>
             </li>
             <li>
-                <a href="">联系我们</a>
-            </li>
-            <li>
-                <a href="">后台管理</a>
+                <a href="http://management.hongerzl.com" target="_blank">后台管理</a>
             </li>
 
         </ul>
@@ -62,7 +60,7 @@
 
     <div class="footer-text">
 
-        <strong>Copyright</strong> Example Company &copy; 2015-2018
+        <strong>Copyright</strong> 上海鸿侃投资咨询有限公司 &copy; 2018
     </div>
     <div class="emty" style="padding-bottom: 70px">
 

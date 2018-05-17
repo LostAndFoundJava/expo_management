@@ -4,9 +4,11 @@ import com.honger.expo.dto.HomePageConfig;
 import com.honger.expo.dto.response.home.CategoryListResponse;
 import com.honger.expo.dto.response.status.ResponseJSON;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
+import com.honger.expo.pojo.Link;
 import com.honger.expo.service.CategoryService;
 import com.honger.expo.service.ExhibitionService;
 import com.honger.expo.service.HomePageConfigService;
+import com.honger.expo.utils.CacheUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
 @RequestMapping(value = "/home")
@@ -33,7 +36,14 @@ public class HomeController {
     public ResponseJSON categories() {
         List<CategoryListResponse> mapping = null;
         try {
-            mapping = categoryService.getHomePageCategory();
+            ConcurrentHashMap<String, Object> concurrentHashMap = CacheUtils.getCacheSingleton().getConcurrentHashMap();
+            boolean b = concurrentHashMap.containsKey("home.categories");
+            if(b){
+                mapping = (List<CategoryListResponse>)concurrentHashMap.get("home.categories");
+            }else{
+                mapping = categoryService.getHomePageCategory();
+                concurrentHashMap.put("home.categories",mapping);
+            }
         } catch (Exception e) {
             return ResponseJSON.error();
         }
@@ -45,10 +55,20 @@ public class HomeController {
     public ResponseJSON getHomePageExhibtion() {
         Map<String, List<ExhibitionSearchVO>> map = null;
         try {
-            map = exhibitionService.getHomePage();
-            Set<Map.Entry<String, List<ExhibitionSearchVO>>> entries = map.entrySet();
-            for(Map.Entry<String, List<ExhibitionSearchVO>> entry : entries){
-                dealWithStatus(entry.getValue());
+            CacheUtils cacheSingleton = CacheUtils.getCacheSingleton();
+            ConcurrentHashMap<String, Object> concurrentHashMap = cacheSingleton.getConcurrentHashMap();
+            boolean link = concurrentHashMap.containsKey("home.exhibition");
+            if(link){
+                map = (Map<String, List<ExhibitionSearchVO>>)concurrentHashMap.get("home.exhibition");
+//                System.out.println("===from cache");
+            } else{
+                map = exhibitionService.getHomePage();
+                Set<Map.Entry<String, List<ExhibitionSearchVO>>> entries = map.entrySet();
+                for(Map.Entry<String, List<ExhibitionSearchVO>> entry : entries){
+                    dealWithStatus(entry.getValue());
+                }
+                concurrentHashMap.put("home.exhibition",map);
+//                System.out.println("===from db");
             }
         } catch (Exception e) {
             return ResponseJSON.error();

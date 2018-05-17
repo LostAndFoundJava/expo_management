@@ -1,23 +1,5 @@
 const tele = '400-6188-555';
 
-var footerLink = [
-    {
-        title : '首页',
-        link : '/home'
-    },
-    {
-        title : '关于我们',
-        link : '/aboutus'
-    },
-    {
-        title : '联系我们',
-        link : '/contact'
-    },
-    {
-        title : '后台管理',
-        link : '/admin'
-    },
-];
 
 //TODO 修改成对象
 var topbarList =  [
@@ -25,11 +7,11 @@ var topbarList =  [
         firstMenu : { title: '首页', link: 'home.view'}
     },
     {
-        firstMenu : { title: '展会全览', link :'list' },
+        firstMenu : { title: '展会全览', link :'list.condition' },
         secondMenu: [],
     },
     {
-        firstMenu : { title : '展会资讯', link: 'news' },
+        firstMenu : { title : '展会资讯', link: 'news.list' },
     },
 ];
 
@@ -135,6 +117,12 @@ function checkPhoneNumber(number) {
     } else {
         return false;
     }
+}
+
+
+function getCookie(name) {
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
 }
 
 

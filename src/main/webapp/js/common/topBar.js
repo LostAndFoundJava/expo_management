@@ -52,8 +52,13 @@ controller('TopBarController',['$rootScope', '$scope', '$state', 'TopbarService'
         }
     };
 
+    $scope.reload = function (stateName) {
+        $state.go(stateName, {}, {reload: true});
+
+    };
+
     $scope.searchExpos = function (query) {
-        if ($state.is('list.condition.query')) {
+        if ($state.includes('list')) {
             $rootScope.$broadcast('querying', {query : query});
         } else {
             $state.go('list.condition.query', {query : query});

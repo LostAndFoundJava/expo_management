@@ -78,17 +78,21 @@ controller('TicketController',['$rootScope', '$scope', '$uibModal','$uibModalIns
 
 
         $scope.submitTicket = function () {
+            const src = getCookie('src');
+            const uid = getCookie('uid');
+            $scope.ticket.form.src = src == null ? '' : src;
+            $scope.ticket.form.uid = uid == null ? '' : uid;
 
             if ($scope.ticket.form.applicationType === 0) {
                 if (!$scope.ticket.form.mobileNo || $scope.ticket.form.mobileNo == '' || $scope.ticket.formStatus.numberInvalid
-                    || !$scope.ticket.form.name || $scope.ticket.form.name == '') {
+                    || !$scope.ticket.form.clientName || $scope.ticket.form.clientName == '') {
                     $scope.ticket.showGetFailed = true;
                     $scope.ticket.formStatus.msg = '输入信息有误';
                     return;
                 }
             } else {
                 if (!$scope.ticket.form.mobileNo || $scope.ticket.form.mobileNo == '' || $scope.ticket.formStatus.numberInvalid
-                    || !$scope.ticket.form.name || $scope.ticket.form.name == ''
+                    || !$scope.ticket.form.clientName || $scope.ticket.form.clientName == ''
                     || !$scope.ticket.form.company || $scope.ticket.form.company == '') {
                     $scope.ticket.showGetFailed = true;
                     $scope.ticket.formStatus.msg = '输入信息有误';

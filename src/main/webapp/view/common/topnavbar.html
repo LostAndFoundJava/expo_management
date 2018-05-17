@@ -49,7 +49,8 @@
                     <a aria-expanded="false"
                        id="{{menu.firstMenu.link}}"
                        role="button"
-                       href="#/{{menu.firstMenu.link}}"
+                       href="javascript:void(0);"
+                       ng-click="reload(menu.firstMenu.link)"
                        class="dropdown-toggle nav-title"
                        data-toggle="dropdown"> {{menu.firstMenu.title}} </a>
                     <ul role="menu"

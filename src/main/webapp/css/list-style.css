@@ -6,7 +6,11 @@
 }
 
 .small-margin {
-margin-bottom: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.list-small-padding {
+    padding: 10px;
 }
 
 .filter-section {
@@ -159,8 +163,8 @@ margin-bottom: 10px !important;
 }
 
 .result-item img {
-    width: 357px;
-    height: 201px;
+    width: 315px;
+    height: 200px;
 }
 
 .tags, .result-text {

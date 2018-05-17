@@ -264,7 +264,7 @@
         display: none;
     }
 
-    .body-small .mobile-no-padding {
+    .body-small .home-mobile-tiny-padding {
         padding: 1px;
     }
 
@@ -287,8 +287,9 @@
         padding: 4px;
     }
 
-    .body-small .mobile-left-no-padding {
+    .body-small .mobile-left-right-no-padding {
         padding-right: 0px;
+        padding-left: 0px;
     }
 
     .body-small .home-mobile-no-margin-bottom {

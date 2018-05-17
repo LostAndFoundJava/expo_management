@@ -81,13 +81,17 @@ angular.module('app').
                 h:800,
             },
 
-        }
+        };
 
         $scope.imgUrl = function(imgUrl){
             if (!imgUrl) {
                 return null;
             }
-            return imgUrl  + '!' + imgSize.carousel.w + '-' + imgSize.carousel.h;
+            if ($('body').hasClass('body-small')) {
+                return imgUrl + '!630-400' + '.jpeg'
+            } else {
+                return imgUrl  + '!' + imgSize.carousel.w + '-' + imgSize.carousel.h + '.jpeg';
+            }
         };
 
         $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
