@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Controller
-@RequestMapping(value = "/expos")
+@RequestMapping(value = "/api/expos")
 @Slf4j
 public class ExhibitionController {
     final static private int pageSize = 3;

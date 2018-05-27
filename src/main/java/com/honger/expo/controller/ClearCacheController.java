@@ -13,7 +13,7 @@ import java.util.HashMap;
  * Created by chenjian on 2018/5/12.
  */
 @Controller
-@RequestMapping(value = "/clearing")
+@RequestMapping(value = "/api/clearing")
 public class ClearCacheController {
     @ResponseBody
     @RequestMapping(value = "",method = RequestMethod.GET)

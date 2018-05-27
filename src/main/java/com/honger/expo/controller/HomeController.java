@@ -21,7 +21,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
-@RequestMapping(value = "/home")
+@RequestMapping(value = "/api/home")
 public class HomeController {
 
     @Autowired

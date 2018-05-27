@@ -20,6 +20,7 @@ public class FlowSrc {
     private String email;
     private String mobileNo;
     private String srcType;
+    private String material;
     private String applicationType;
     private String exhibition;
 
@@ -135,5 +136,11 @@ public class FlowSrc {
         this.mobileNo = mobileNo;
     }
 
+    public String getMaterial() {
+        return material;
+    }
 
+    public void setMaterial(String material) {
+        this.material = material;
+    }
 }

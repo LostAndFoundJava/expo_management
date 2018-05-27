@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/news")
+@RequestMapping(value = "/api/news")
 public class NewsController {
     private final static int pageSize = 3;
 

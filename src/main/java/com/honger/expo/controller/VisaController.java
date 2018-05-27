@@ -28,7 +28,7 @@ import java.net.URLConnection;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/visa")
+@RequestMapping(value = "/api/visa")
 public class VisaController {
     @Autowired
     private VisaService visaService;

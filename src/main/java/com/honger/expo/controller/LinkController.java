@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
-@RequestMapping(value = "/link")
+@RequestMapping(value = "/api/link")
 public class LinkController {
     @Autowired
     private LinkService linkService;

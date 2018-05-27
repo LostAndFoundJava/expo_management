@@ -20,10 +20,25 @@
         select A.* from exhibition A
         left join exhibition_detail B
         on A.id = B.exhibition_id
-        where (A.title like CONCAT('%',#{condition},'%')
-        or B.`description` like CONCAT('%',#{condition},'%')
-        or B.`brief_info` like CONCAT('%',#{condition},'%'))
-        and A.`delete` = 0 and B.`delete` = 0 order by start_time
+        where (A.title like CONCAT('%',#{condition},'%'))
+        and A.`delete` = 0 and B.`delete` = 0
+
+        union
+
+        select A.* from exhibition A
+        left join exhibition_detail B
+        on A.id = B.exhibition_id
+        where (B.`brief_info` like CONCAT('%',#{condition},'%'))
+        and A.`delete` = 0 and B.`delete` = 0
+
+        union
+
+        select A.* from exhibition A
+        left join exhibition_detail B
+        on A.id = B.exhibition_id
+        where (B.`description` like CONCAT('%',#{condition},'%'))
+        and A.`delete` = 0 and B.`delete` = 0
+
     </select>
 
     <select id="getTotalNumByConditon" resultType="java.lang.Integer">

@@ -62,7 +62,7 @@ function getDateObjList(num) {
 
 var alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
 
-var basePath = "";
+var basePath = "/api";
 
 
 function calDate(startTime, endTime) {

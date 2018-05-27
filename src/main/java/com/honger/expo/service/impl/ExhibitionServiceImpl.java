@@ -65,6 +65,9 @@ public class ExhibitionServiceImpl implements ExhibitionService{
     @Override
     public ExhibitionDetailResponse getDetail(String exhibitionId) throws InvocationTargetException, IllegalAccessException {
         List<ExhibitionAndDetailVO> detial = exhibitionMapper.getDetial(exhibitionId);
+        if(detial.size() == 0)
+            return null;
+
         ExhibitionAndDetailVO exhibitionAndDetailVO = detial.get(0);
         ExhibitionDetailResponse edr = new ExhibitionDetailResponse();
 

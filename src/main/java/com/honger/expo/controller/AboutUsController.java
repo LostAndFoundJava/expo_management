@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
-@RequestMapping(value = "/aboutUs")
+@RequestMapping(value = "/api/aboutUs")
 public class AboutUsController {
     @Autowired
     private AboutUsService aboutUsService;

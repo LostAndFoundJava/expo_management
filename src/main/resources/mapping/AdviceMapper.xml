@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honger.expo.dao.AdviceMapper">
+    <insert id="insert" parameterType="com.honger.expo.pojo.Advice" >
+        insert into advice (`id`,`create_time`, `update_time`, `company`,
+        `client_name`,`mobile_no`,`material`,`delete`)
+        values
+        (#{id},#{createTime},#{updateTime},#{company},#{clientName},#{mobileNo},#{material},#{delete})
+    </insert>
+</mapper>
+

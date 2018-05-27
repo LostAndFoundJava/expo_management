@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/countries")
+@RequestMapping(value = "/api/countries")
 public class CountryController {
 
     @Autowired

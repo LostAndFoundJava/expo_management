@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 @Controller
-@RequestMapping(value = "/flowSrc")
+@RequestMapping(value = "/api/flowSrc")
 @Slf4j
 public class FlowSrcController {
     @Autowired
@@ -85,9 +85,7 @@ public class FlowSrcController {
                     }
                 }).start();
 
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
             return ResponseJSON.ok(result);
@@ -120,8 +118,8 @@ public class FlowSrcController {
         month = calendar.get(Calendar.MONTH) + 1;
         lhm.put("endTime", calendar.get(Calendar.YEAR) + "." + month
                 + "." + calendar.get(Calendar.DATE));
-        lhm.put("countryName", countryName);
-        lhm.put("cityName", cityName);
+        //lhm.put("countryName", countryName);
+        //lhm.put("cityName", cityName);
         if(location.length()<=20){
             lhm.put("location", location);
 //            lhm.put("location1","");

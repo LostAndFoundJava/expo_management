@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/categories")
+@RequestMapping(value = "/api/categories")
 public class CategoryController {
 
     @Autowired

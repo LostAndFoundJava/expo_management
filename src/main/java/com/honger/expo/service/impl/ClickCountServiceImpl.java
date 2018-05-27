@@ -3,16 +3,19 @@ package com.honger.expo.service.impl;
 import com.honger.expo.dao.ClickCountMapper;
 import com.honger.expo.dao.ExhibitionMapper;
 import com.honger.expo.dao.NewsMapper;
+import com.honger.expo.dto.response.exhibition.ExhibitionDetailResponse;
 import com.honger.expo.dto.vo.ClickCountVO;
 import com.honger.expo.dto.vo.NewsCategoryVO;
 import com.honger.expo.pojo.ClickCount;
 import com.honger.expo.pojo.Exhibition;
 import com.honger.expo.service.ClickCountService;
+import com.honger.expo.service.ExhibitionService;
 import com.honger.expo.utils.CountType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,9 +31,16 @@ public class ClickCountServiceImpl implements ClickCountService {
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Autowired
+    private ExhibitionService exhibitionService;
+
     @Override
-    public void insertOrUpdateExhibitionCount(String exhibitionId,Integer type) {
+    public void insertOrUpdateExhibitionCount(String exhibitionId,Integer type) throws InvocationTargetException, IllegalAccessException {
         Integer integer = clickCountMapper.selectExistByExhibitionId(exhibitionId,type);
+        ExhibitionDetailResponse detail = exhibitionService.getDetail(exhibitionId);
+        if(detail == null){
+            return;
+        }
         if(integer.equals(0)){
             ClickCount ec = new ClickCount();
             UUID uuid = UUID.randomUUID();
