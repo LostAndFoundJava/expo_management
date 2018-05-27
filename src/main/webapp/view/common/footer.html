@@ -5,12 +5,12 @@
         </div>
         <div class="footer-icon">
             <div style="    padding-right: 20px;">
-                <span class="footer-weixin" popover-placement="bottom" popover-trigger="mouseenter" uib-popover-template="top.weChat">
+                <span class="footer-weixin" popover-placement="right" popover-trigger="mouseenter" uib-popover-template="footer.weChat">
                     <span ><i class="fab fa-weixin"></i></span>
                 </span>
             </div>
             <div style="    padding-right: 20px;">
-                <span class="footer-weibo"><i class="fab fa-weibo"></i></span>
+                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=578135034&site=qq&menu=yes"><span class="footer-qq"><i class="fab fa-qq"></i></span></a>
             </div>
         </div>
         <div class="footer-contact">
@@ -20,13 +20,14 @@
             <div><a href="http://www.miibeian.gov.cn/" target="_blank">沪ICP备18010043号-1</a></div>
 
             <strong>Copyright</strong> 上海鸿侃投资咨询有限公司 &copy; 2018
+            <div>上海速赞信息科技事务所</div>
         </div>
     </div>
     <div class="footer-middle">
         <h3><a ng-click="goLinks()">友情连接</a></h3>
         <ul>
             <li>
-                <a ng-repeat="link in footer.links" ng-href="{{link.url}}" target="_blank">
+                <a ng-repeat="link in footer.links | limitTo: 12" ng-href="{{link.url}}" target="_blank">
                     <img ng-src="{{imgUrl(link.logo)}}" alt="" ng-if="link.logo">
                     <span ng-if="!link.logo">{{link.title}}</span>
                 </a>
@@ -40,10 +41,6 @@
             <li ng-repeat=" i in footer.about">
                 <a href="javascript:void(0)" ng-click="goAbout(i)">{{i.title}}</a>
             </li>
-            <li>
-                <a href="http://management.hongerzl.com" target="_blank">后台管理</a>
-            </li>
-
         </ul>
     </div>
 </div>
@@ -67,3 +64,10 @@
     </div>
 
 </div>
+
+
+<script type="text/ng-template" id="weChat.html">
+    <div>
+        <img class="img-responsive" src="assets/img/QRCode.png" alt="">
+    </div>
+</script>

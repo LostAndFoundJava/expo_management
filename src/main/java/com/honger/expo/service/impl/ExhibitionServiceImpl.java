@@ -83,6 +83,7 @@ public class ExhibitionServiceImpl implements ExhibitionService{
         ExhibitionDetailWithBLOBs exhibitionDetail = new ExhibitionDetailWithBLOBs();
         exhibitionDetail.setBriefInfo(exhibitionAndDetailVO.getBriefInfo());
         exhibitionDetail.setDescription(exhibitionAndDetailVO.getDescription());
+        exhibitionDetail.setApplyEndTime(exhibitionAndDetailVO.getApplyEndTime());
 
         //处理多个关联的图片列表
         List<FileResource> fr = new ArrayList<>();

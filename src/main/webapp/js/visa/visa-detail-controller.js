@@ -1,9 +1,9 @@
 angular.module('app').
-controller('VisaDetailController',['$rootScope', '$scope', '$stateParams', '$state', 'VisaService', function ($rootScope, $scope,$stateParams, $state, VisaService) {
+controller('VisaDetailController',['$rootScope', '$scope', '$stateParams', '$state', 'VisaService', 'pageInfoService', function ($rootScope, $scope,$stateParams, $state, VisaService, pageInfoService) {
     $scope.visaDetail = {
         content : {}
     };
-
+    pageInfoService.setTitle('签证详情');
     init();
 
     function init() {
@@ -15,7 +15,9 @@ controller('VisaDetailController',['$rootScope', '$scope', '$stateParams', '$sta
         VisaService.getVisaContent(visaId, function (data) {
             if (data.code) {
                 $scope.visaDetail.content = data.result;
+                pageInfoService.setTitle($scope.visaDetail.content.country.title,['签证详情']);
             }
+
         })
 
 

@@ -12,10 +12,66 @@
         <!-- Main view  -->
         <div ui-view></div>
 
+        <div class="fl_open_wrap animated fadeInRight" ng-show="hideFileAdvice">
+            <div class="fl_open_wrap_cntr" id="float_101_open" style="left: 0%;" ng-click="openFileAdvice()">
+                <span class="open-click"><i class="fas fa-chevron-right"></i></span>
+            </div>
+        </div>
 
+        <div class="fl_pop_wrap animated fadeInRight" ng-show="!hideFileAdvice">
+            <div class="aside aside-1">
+                <img src="assets/img/text.png" style="
+    width: 90%;
+    margin-top: 20px;" alt="">
+            </div>
+            <div class="main">
+                <div>
+                    <p></p>
+                    <div class="col-sm-5">
+                        <input class="form-control input_style" ng-model="advice.form.clientName" placeholder="您的称呼" type="text">
+                        <input class="form-control input_style" ng-model="advice.form.mobileNo"
+                               ng-keyup="checkAdviceNumber(advice.form.mobileNo)"
+                               placeholder="您的联系方式" type="number">
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control input_style" ng-model="advice.form.company" placeholder="您的公司名字" type="text">
+                        <input class="form-control input_style" ng-model="advice.form.material" placeholder="需要资料 : 展会信息 / 贴补政策 / 买家信息 / 行业数据" type="text">
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div style="margin-top: 10px;" ng-hide="advice.status.success">
+                            <a ng-hide="advice.status.numberInvalid || advice.status.isWrong" class="input_button" ng-click="saveAdvice()">立即提交</a>
+                            <a ng-hide="!advice.status.numberInvalid && !advice.status.isWrong" class="error_msg" >{{advice.status.msg}}{{advice.status.timer}}</a>
+                        </div>
+                        <div style="margin-top: 10px;" ng-show="advice.status.success">
+                            <p>信息已提交，是否立即联系客服？{{advice.status.timer}}</p>
+                            <a href="{{qqUrl}}" target="_blank" class="contact-us">联系客服</a>
+                            <a ng-click="cancelConnect()" class="close-contact">不，谢谢</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="aside aside-2">
+                <a href="javascript:;" ng-click="closeFileAdvice()" class="fl_wrap_close" title="关闭" id="float_101_close">×</a>
+            </div>
+        </div>
         <!-- Footer -->
-        <div class="right-nav" scroll hide-element-id="top-nav" show-status="showJumpNav" ng-hide="!showJumpNav || inhome">
-            <div class="right-floating-layer min">
+        <div class="right-nav" scroll hide-element-id="top-nav" show-status="showJumpNav" ng-show="showJumpNav && !inhome">
+            <div class="right-floating-layer min"  ng-init="mouseInQQ = false">
+                <div class="layer-box return-top" style="height: unset" ng-mouseenter="mouseInQQ = true" ng-mouseleave="mouseInQQ =false">
+                    <a target="_blank" href="{{qqUrl}}" style="color: #ffffff">
+                    <span ng-show="!mouseInQQ"><i class="fab fa-qq"></i></span>
+                    <span ng-show="mouseInQQ">咨询</span>
+                    </a>
+                </div>
+
+                <div class="layer-box return-top" ng-click="openFileAdvice()" id="getFileAdvice">
+                    <span>获取资料</span>
+                </div>
+
                 <div class="layer-box return-top" ng-click="jumpToHead('top-nav')">
                     <span><i class="fas fa-chevron-up"></i><br>顶部</span>
                 </div>

@@ -3,7 +3,17 @@
 
    <!--右侧导航栏-->
    <div class="right-nav" scroll hide-element-id="top-nav" show-status="showJumpNav" ng-hide="!showJumpNav">
-      <div class="right-floating-layer min">
+
+      <div class="right-floating-layer min" ng-init="mouseInQQ = false">
+         <div class="layer-box return-top" style="height: unset" ng-mouseenter="mouseInQQ = true" ng-mouseleave="mouseInQQ =false">
+            <a target="_blank" href="{{qqUrl}}" style="color: #ffffff">
+               <span ng-show="!mouseInQQ"><i class="fab fa-qq"></i></span>
+               <span ng-show="mouseInQQ">咨询</span>
+            </a>
+         </div>
+         <div class="layer-box return-top" ng-click="openFileAdvice()" id="getFileAdvice">
+            <span>获取资料</span>
+         </div>
          <div class="layer-box unfold-all" ng-show="home.showCategoryNav" ng-click="foldAllCategoryNav()">
             <span><i class="fas fa-chevron-down"></i></span>
          </div>
@@ -120,14 +130,14 @@
                         <div class="ibox-content expo-box">
                            <div class="expo-imitation">
                               <img  ng-src="{{imgUrl(expo.exhibition.thumbnail, false)}}" ng-click="getDetails(expo.exhibition.id, expo.isCarousel)"
-                                    class="img-responsive cursor">
+                                    class="img-responsive cursor" title="{{expo.exhibition.title}}">
                            </div>
                            <div class="expo-info">
-                             <span class="expo-tag">
-                                 {{expo.exhibition.tag}}
-                             </span>
+                             <!--<span class="expo-tag">-->
+                                 <!--{{expo.exhibition.tag}}-->
+                             <!--</span>-->
                               <div class="expo-name expo-title">
-                                 <a ng-click="getDetails(expo.exhibition.id, expo.isCarousel)">
+                                 <a ng-click="getDetails(expo.exhibition.id, expo.isCarousel)" title="{{expo.exhibition.title}}">
                                     {{expo.exhibition.title}}
                                  </a>
                               </div>
@@ -190,14 +200,14 @@
                      <div class="ibox-content expo-box">
                         <div class="expo-imitation">
                            <img  ng-src="{{imgUrl(item.exhibition.thumbnail, false)}}" ng-click="getDetails(item.exhibition.id, item.isCarousel)"
-                                 class="img-responsive cursor">
+                                 class="img-responsive cursor" title="{{item.exhibition.title}}">
                         </div>
                         <div class="expo-info">
-                             <span class="expo-tag">
-                                 {{item.exhibition.tag}}
-                             </span>
+                             <!--<span class="expo-tag" >-->
+                                 <!--{{item.exhibition.tag}}-->
+                             <!--</span>-->
                            <div class="expo-name expo-title">
-                              <a ng-click="getDetails(item.exhibition.id, item.isCarousel)">
+                              <a ng-click="getDetails(item.exhibition.id, item.isCarousel)" title="{{item.exhibition.title}}">
                                  {{item.exhibition.title}}
                               </a>
                            </div>
@@ -227,7 +237,7 @@
 
                               </div>
                               <div class="action-row-right">
-                                 <a ng-click="getTicket(expo)" title="预约">
+                                 <a ng-click="getTicket(item)" title="预约">
                                     <i class="fas fa-ticket-alt"></i>
                                  </a>
                               </div>

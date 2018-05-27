@@ -122,7 +122,7 @@
             <h2 >
                 {{desc.detailTitle}}
             </h2>
-            <div class="hot-detail-content">
+            <div class="hot-detail-content ql-editor">
                 <div ng-bind-html="desc.detailContent | trust"></div>
             </div>
         </div>
@@ -182,7 +182,9 @@
     background-color: #F44336;">
                         <div class="hot_item_link_skew_wrap">
                             <i class="hot_item_link_skew_info">
-                                立即预约
+                                <span ng-show="!detail.ticketStatus" ng-if="!detail.formStatus.msg || detail.formStatus.msg == ''">预约失败</span>
+                                <span ng-show="!detail.ticketStatus" ng-if="detail.formStatus.msg != ''">{{ detail.formStatus.msg}}</span>
+                                <span ng-show="detail.ticketStatus">立即预约</span>
                             </i>
                         </div>
                     </div>

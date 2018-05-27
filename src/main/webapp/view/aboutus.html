@@ -28,7 +28,7 @@
                     </strong></h5>
                 </div>
                 <div class="ibox-content" >
-                    <div class="about-us-content" ng-bind-html="aboutus.selected.content |trust"></div>
+                    <div class="about-us-content ql-editor" ng-bind-html="aboutus.selected.content |trust"></div>
                     <ul class="friend-link" ng-if="aboutus.selected.title == '友情链接'">
                         <li class="item" ng-repeat="link in aboutus.links">
                             <a class="one-item" ng-href="{{link.url}}" target="_blank">

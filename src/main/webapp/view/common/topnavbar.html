@@ -11,7 +11,9 @@
             <div class="search-bar">
                 <div class="search-container">
                     <div class="input-group">
-                        <input type="text" placeholder="搜索" name="search" ng-model="query" class="form-control input-md">
+                        <form ng-submit="searchExpos(query)">
+                            <input type="text" placeholder="搜索" name="search" ng-model="query" class="form-control input-md">
+                        </form>
 
                         <div class="input-group-btn" >
                             <button class="btn btn-md btn-primary" type="submit" ng-click="searchExpos(query)">
@@ -30,17 +32,17 @@
 
                 </div>
                 <div>
-                    <span class="weibo"><i class="fab fa-weibo"></i></span>
-
+                    <span class="qq"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=578135034&site=qq&menu=yes">
+                        <i class="fab fa-qq"></i></a></span>
                 </div>
             </div>
         </div>
     </div>
     <nav class="navbar navbar-static-top" role="navigation" >
         <div class="navbar-header" >
-            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="btn btn-outline navbar-toggle collapsed" type="button">
+            <a aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                 <i class="fa fa-align-justify"></i>
-            </button>
+            </a>
             <a href="#" class="navbar-brand mobile"><img src="assets/img/logo.jpeg" alt=""></a>
         </div>
         <div class="navbar-collapse collapse barss" id="navbar">

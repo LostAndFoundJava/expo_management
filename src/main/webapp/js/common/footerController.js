@@ -10,7 +10,8 @@ controller('FooterController',['$rootScope', '$scope', '$state', '$resource', 'T
                     'id' : 2,
                     'title' : '联系我们'
                 }
-            ]
+            ],
+            weChat : 'weChat.html'
         };
         let url = basePath + '/link';
         var rest = $resource(url, {});
@@ -20,6 +21,7 @@ controller('FooterController',['$rootScope', '$scope', '$state', '$resource', 'T
             }
         }, function (error) {
         });
+
         
         $scope.goLinks = function () {
             TopbarService.setSelectedAboutusChoice({
@@ -33,6 +35,10 @@ controller('FooterController',['$rootScope', '$scope', '$state', '$resource', 'T
                 $state.go('contact.aboutCompany');
             }
         };
+        if ($state.is('hot.detail')) {
+            $('.footer').css('margin-bottom', '30px')
+        }
+
 
         $scope.goAbout = function (i) {
             TopbarService.setSelectedAboutusChoice(i);

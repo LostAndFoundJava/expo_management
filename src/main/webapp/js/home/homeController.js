@@ -1,6 +1,10 @@
 angular.module('app').
-    controller('HomeController',['$scope', '$state', '$window', 'HomeService','$uibModal', '$location', '$anchorScroll',
-    function ($scope, $state, $window, HomeService, $uibModal, $location, $anchorScroll) {
+    controller('HomeController',['$rootScope', '$scope', '$state', '$window', 'HomeService','$uibModal', '$location', '$anchorScroll', 'pageInfoService',
+    function ($rootScope, $scope, $state, $window, HomeService, $uibModal, $location, $anchorScroll, pageInfoService) {
+        pageInfoService.setTitle('首页');
+
+        $rootScope.inhome = true;
+
         const mobile = {
             w : 250,
             h : 158
@@ -55,6 +59,7 @@ angular.module('app').
         
         
         function init() {
+
             HomeService.getCategory(function (data) {
                 if (data.code) {
                     $scope.home.category = data.result;
@@ -245,15 +250,18 @@ angular.module('app').
             }
             if (param.mainElementId) {
                 let elem = '#' + param.mainElementId;
-                var elemTop = $(elem).offset().top - $(window).scrollTop();
-                let offset = param.mainElementIdOffset ? param.mainElementIdOffset : 0;
-                let minusOffSet = param.mainElementIdMinusOffset ? -param.mainElementIdMinusOffset : 0;
-                if (elemTop <= offset && elemTop >= minusOffSet) {
-                    $scope.home.navBarStatusActive[param.mainElementId] = true;
-                } else {
-                    $scope.home.navBarStatusActive[param.mainElementId] = false;
+                if ($(elem).offset()) {
+                    var elemTop = $(elem).offset().top - $(window).scrollTop();
+                    let offset = param.mainElementIdOffset ? param.mainElementIdOffset : 0;
+                    let minusOffSet = param.mainElementIdMinusOffset ? -param.mainElementIdMinusOffset : 0;
+                    if (elemTop <= offset && elemTop >= minusOffSet) {
+                        $scope.home.navBarStatusActive[param.mainElementId] = true;
+                    } else {
+                        $scope.home.navBarStatusActive[param.mainElementId] = false;
 
+                    }
                 }
+
             }
 
         })

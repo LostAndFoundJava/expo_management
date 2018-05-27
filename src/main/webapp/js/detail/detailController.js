@@ -1,8 +1,10 @@
 angular.module('app').
-    controller('DetailController',['$rootScope', '$scope', 'DetailService', '$state', '$stateParams', '$sce', '$uibModal',
-    function ($rootScope, $scope, DetailService, $state, $stateParams, $sce, $uibModal) {
+    controller('DetailController',['$rootScope', '$scope', 'DetailService', '$state', '$stateParams', '$sce', '$uibModal', 'pageInfoService',
+    function ($rootScope, $scope, DetailService, $state, $stateParams, $sce, $uibModal, pageInfoService) {
 
     $('#mobile-nav-bar').attr('display', 'none');
+    pageInfoService.setTitle('展会详情');
+
     init();
     $scope.detail = {
         slideInterval : 5000,
@@ -18,6 +20,7 @@ angular.module('app').
         DetailService.getExpoDetail($stateParams.id, function (data) {
             if (data.code) {
                 $scope.detail.content = data.result;
+                pageInfoService.setTitle($scope.detail.content.exhibition.exhibition.title,['展会详情']);
 
                 $scope.detail.expoStatus = calDate($scope.detail.content.exhibition.exhibition.startTime, $scope.detail.content.exhibition.exhibition.endTime);
 

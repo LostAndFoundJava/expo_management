@@ -1,6 +1,7 @@
 angular.module('app').
-controller('NewsDetailController',['$rootScope', '$scope', '$state', 'NewsService', '$stateParams',
-    function ($rootScope, $scope, $state, NewsService, $stateParams) {
+controller('NewsDetailController',['$rootScope', '$scope', '$state', 'NewsService', '$stateParams', 'pageInfoService',
+    function ($rootScope, $scope, $state, NewsService, $stateParams, pageInfoService) {
+        pageInfoService.setTitle('资讯详情');
         $scope.newDetail = {
             content : {},
             topNews : [],
@@ -22,6 +23,8 @@ controller('NewsDetailController',['$rootScope', '$scope', '$state', 'NewsServic
                     if (tmp.length > 0) {
                         $scope.newDetail.content = tmp[0];
                     }
+                    pageInfoService.setTitle($scope.newDetail.content.title, ['资讯详情']);
+
                 } else {
                     $state.go('news.list');
                     //TODO 加载出错

@@ -1,6 +1,7 @@
 angular.module('app').
-controller('AboutusController',['$rootScope', '$scope', '$state','AboutusService', 'TopbarService',
-    function ($rootScope, $scope, $state, AboutusService, TopbarService) {
+controller('AboutusController',['$rootScope', '$scope', '$state','AboutusService', 'TopbarService', 'pageInfoService',
+    function ($rootScope, $scope, $state, AboutusService, TopbarService, pageInfoService) {
+        pageInfoService.setTitle("关于我们");
         $scope.aboutus = {
             content : {},
             selected : {},
@@ -50,6 +51,8 @@ controller('AboutusController',['$rootScope', '$scope', '$state','AboutusService
                 } else {
                     $scope.aboutus.selected = $scope.aboutus.content[initId];
                 }
+                pageInfoService.setTitle($scope.aboutus.selected.title ,['关于我们']);
+
             })
         }
 
@@ -62,6 +65,8 @@ controller('AboutusController',['$rootScope', '$scope', '$state','AboutusService
                     }
                 })
             }
+            pageInfoService.setTitle($scope.aboutus.selected.title ,['关于我们']);
+
         };
 
         $scope.imgUrl = function(url) {

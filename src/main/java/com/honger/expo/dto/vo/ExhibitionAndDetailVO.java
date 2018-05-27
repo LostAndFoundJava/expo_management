@@ -35,6 +35,8 @@ public class ExhibitionAndDetailVO extends ExhibitionSearchVO {
 
     private Date endTime;
 
+    private Date applyEndTime;
+
     private String location;
 
     private String categoryId;
@@ -229,5 +231,13 @@ public class ExhibitionAndDetailVO extends ExhibitionSearchVO {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Date getApplyEndTime() {
+        return applyEndTime;
+    }
+
+    public void setApplyEndTime(Date applyEndTime) {
+        this.applyEndTime = applyEndTime;
     }
 }

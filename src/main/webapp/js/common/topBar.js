@@ -5,6 +5,11 @@ controller('TopBarController',['$rootScope', '$scope', '$state', 'TopbarService'
         weChat : 'weChat.html'
     };
 
+    if (!$state.is('home.view')) {
+        $rootScope.inhome = false;
+
+    }
+
     $scope.aboutus = {
         firstMenu : { title: '关于我们', id: 'about'},
         secondMenu : []
@@ -58,11 +63,8 @@ controller('TopBarController',['$rootScope', '$scope', '$state', 'TopbarService'
     };
 
     $scope.searchExpos = function (query) {
-        if ($state.includes('list')) {
-            $rootScope.$broadcast('querying', {query : query});
-        } else {
-            $state.go('list.condition.query', {query : query});
-        }
+
+        $state.go('list.condition.query', {query : query}, {reload: true});
     }
 
 

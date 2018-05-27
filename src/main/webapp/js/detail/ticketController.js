@@ -9,7 +9,7 @@ controller('TicketController',['$rootScope', '$scope', '$uibModal','$uibModalIns
             updateSuccess : false,
             showName : true,
             showPhone : true,
-            showCompany : false,
+            showCompany : true,
             showQQ : false,
             showAddress : false,
             showUpdateButton : false,
@@ -83,7 +83,7 @@ controller('TicketController',['$rootScope', '$scope', '$uibModal','$uibModalIns
             $scope.ticket.form.src = src == null ? '' : src;
             $scope.ticket.form.uid = uid == null ? '' : uid;
 
-            if ($scope.ticket.form.applicationType === 0) {
+            if ($scope.ticket.form.applicationType == 0) {
                 if (!$scope.ticket.form.mobileNo || $scope.ticket.form.mobileNo == '' || $scope.ticket.formStatus.numberInvalid
                     || !$scope.ticket.form.clientName || $scope.ticket.form.clientName == '') {
                     $scope.ticket.showGetFailed = true;
@@ -109,7 +109,7 @@ controller('TicketController',['$rootScope', '$scope', '$uibModal','$uibModalIns
                     $scope.ticket.showSubmitButton = false;
                     $scope.ticket.showGetSuccess = true;
                     $scope.ticket.showGetFailed = false;
-                    $scope.ticket.showCompany  = true;
+                    $scope.ticket.showCompany  = false;
                     $scope.ticket.showQQ = true;
                     $scope.ticket.showAddress = true;
                     $scope.ticket.showUpdateSuccess = false;
@@ -126,7 +126,7 @@ controller('TicketController',['$rootScope', '$scope', '$uibModal','$uibModalIns
                     $scope.ticket.showGetSuccess = false;
                     $scope.ticket.showGetFailed = true;
 
-                    $scope.ticket.showCompany  = false;
+                    $scope.ticket.showCompany  = true;
                     $scope.ticket.showQQ = false;
                     $scope.ticket.showAddress = false;
                     $scope.ticket.showUpdateSuccess = false;

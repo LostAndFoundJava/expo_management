@@ -1,5 +1,6 @@
 angular.module('app').
-controller('NewsController',['$rootScope', '$scope', '$state', 'NewsService', function ($rootScope, $scope, $state, NewsService) {
+controller('NewsController',['$rootScope', '$scope', '$state', 'NewsService', 'pageInfoService', function ($rootScope, $scope, $state, NewsService, pageInfoService) {
+    pageInfoService.setTitle('资讯列表');
     $scope.news = {
         categories : [],
         mobileCategories : [],

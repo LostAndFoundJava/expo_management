@@ -1,7 +1,9 @@
 angular.module('app').
-controller('HotDetailController',['$rootScope', '$scope','DetailService','$stateParams', '$uibModal', '$state', '$location', '$anchorScroll', 'TicketService',
-    function ($rootScope, $scope, DetailService, $stateParams, $uibModal, $state, $location, $anchorScroll, TicketService) {
-        init();
+controller('HotDetailController',['$rootScope', '$scope','DetailService','$stateParams', '$uibModal', '$state', '$location', '$anchorScroll', 'TicketService', 'pageInfoService',
+    function ($rootScope, $scope, DetailService, $stateParams, $uibModal, $state, $location, $anchorScroll, TicketService, pageInfoService) {
+
+        pageInfoService.setTitle('热门展会详情');
+
         let tmpform = {
                 id : '',
                 applicationType : 0,
@@ -27,10 +29,16 @@ controller('HotDetailController',['$rootScope', '$scope','DetailService','$state
             showTicketBar : true,
         };
 
+        init();
+
 
         function init() {
             if (!$stateParams.id) {
                 $state.go('home.view')
+            }
+
+            if ($state.is('hot.detail')) {
+                $('#page-wrapper').css('padding', '0px');
             }
 
             $scope.ticket = { id : $stateParams.id};
@@ -38,6 +46,7 @@ controller('HotDetailController',['$rootScope', '$scope','DetailService','$state
             DetailService.getExpoDetail($stateParams.id, function (data) {
                 if (data.code) {
                     $scope.detail.content = data.result;
+                    pageInfoService.setTitle($scope.detail.content.exhibition.exhibition.title,['热门展会详情']);
 
                     let tmpp = '';
 
@@ -213,7 +222,7 @@ controller('HotDetailController',['$rootScope', '$scope','DetailService','$state
             if (!imgUrl) {
                 return null;
             }
-            return imgUrl  + '!2590-1080' + '.jpeg' ;
+            return imgUrl  + '!1260-800' + '.jpeg' ;
 
         };
 

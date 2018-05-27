@@ -1,7 +1,5 @@
 
-#page-wrapper {
-    padding: 0px;
-}
+
 .hot-bg .container {
     width: 1241px;
     margin: 0 auto;
@@ -19,7 +17,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 50px; text-align: center;"
+    height: 50px; text-align: center;
 }
 
 .hot-info {
@@ -66,12 +64,12 @@
     .hot-date    { order: 1; }
     .hot-location { order: 1; }
     .hot-bg-img  {
-        height: 652px;
+        height: 100%;
         width: 100%;
     }
 
     .hot-bg {
-        height: 652px;
+        /*height: 652px;*/
     }
 
     .hot-detail-bar {

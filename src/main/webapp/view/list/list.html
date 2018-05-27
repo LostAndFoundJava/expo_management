@@ -105,7 +105,7 @@
                             </div>
                             <div class="col-xs-7 result-info">
                                 <div class="result-title">
-                                    <span> <a >{{expo.exhibition.title}}</a></span>
+                                    <span> <a ng-click="getDetail(expo, expo.isCarousel)">{{expo.exhibition.title}}</a></span>
                                     <div class="result-subtitle" ng-if="expo.exhibition.subtitle"><small>{{expo.exhibition.subtitle}}</small></div>
                                 </div>
                                 <div class="tags" ng-if="expo.tag">

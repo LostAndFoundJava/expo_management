@@ -1,17 +1,4 @@
 angular.module('app')
-    .directive('checkWidth', ['$window', function ($window) {
-        return {
-            link: link,
-            restrict: 'A'
-        };
-        function link(scope, element, attrs){
-
-            angular.element($window).bind('resize', function(){
-                console.log($window.innerWidth)
-                scope.windowWidth = $window.innerWidth;
-            });
-        }
-    }])
     .directive('onErrorSrc', function() {
         return {
             link: function(scope, element, attrs) {

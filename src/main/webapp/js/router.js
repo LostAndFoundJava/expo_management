@@ -19,6 +19,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('home.view', {
             url: "",
+            title : '首页_鸿尔展览',
             templateUrl: "view/home.html",
             controller: "HomeController",
             resolve: {
@@ -85,6 +86,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                                 '../bower_components/icheck/icheck.js',
                                 'css/detail-style.css',
                                 'css/ticket-style.css',
+                                'assets/css/quill/quill.snow.css',
                             ]
                         },
                         {
@@ -173,6 +175,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             serie: true,
                             files: [
                                 'css/about-us-style.css',
+                                'assets/css/quill/quill.snow.css',
                             ]
                         },
                         {
@@ -234,6 +237,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             serie: true,
                             files: [
                                 'css/visa-detail-style.css',
+                                'assets/css/quill/quill.snow.css',
                             ]
                         },
                         {
@@ -275,21 +279,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                                 'js/news/newService.js',
                                 'js/news/news-controller.js'
                             ]
-                        },
-                        {
-                            serie: true,
-                            files: [
-                                'assets/css/plugin/slick/slick.css',
-                                'assets/css/plugin/slick/slick-theme.css',
-                                'assets/js/slick.min.js',
-                            ]
-                        },
-                        {
-                            serie: true,
-                            name : 'slick',
-                            files: [
-                                'assets/js/angular-slick.min.js'
-                            ]
                         }
                     ]);
 
@@ -307,6 +296,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             serie: true,
                             files: [
                                 'css/news-detail.css',
+                                'assets/css/quill/quill.snow.css',
                             ]
                         },
                         {
@@ -316,21 +306,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                                 'js/news/news-detail-controller.js'
                             ]
                         },
-                        {
-                            serie: true,
-                            files: [
-                                'assets/css/plugin/slick/slick.css',
-                                'assets/css/plugin/slick/slick-theme.css',
-                                'assets/js/slick.min.js',
-                            ]
-                        },
-                        {
-                            serie: true,
-                            name : 'slick',
-                            files: [
-                                'assets/js/angular-slick.min.js'
-                            ]
-                        }
                     ]);
 
                 }
@@ -353,9 +328,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             files: [
                                 '../bower_components/icheck/skins/square/green.css',
                                 '../bower_components/icheck/icheck.js',
-                                'assets/css/plugin/slick/slick.css',
-                                'assets/css/plugin/slick/slick-theme.css',
-                                'assets/js/slick.min.js',
                             ]
                         },
                         {
@@ -363,6 +335,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             files: [
                                 'css/hot-detail-style.css',
                                 'css/ticket-style.css',
+                                'assets/css/quill/quill.snow.css',
                             ]
                         },
                         {
@@ -374,14 +347,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                                 'js/detail/hot-detail-controller.js'
                             ]
                         },
-                        {
-                            serie: true,
-                            name : 'slick',
-                            files: [
-                                'assets/js/angular-slick.min.js'
-                            ]
-                        }
-
                     ]);
 
                 }
@@ -423,16 +388,53 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
 
         });
-    // $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
 }
 
 webapp.config(config)
-    .run(function ($rootScope, $state, $location, $anchorScroll) {
+    .run(function ($rootScope, $state, $location, $anchorScroll, $http, $interval) {
         $rootScope.$state = $state;
         $rootScope.telephone = tele;
-        if ($state.is('home.view')) {
-            $rootScope.inhome = true;
+        $rootScope.inhome = false;
+        $rootScope.hideFileAdvice = true;
+        $rootScope.qqUrl = qqUrl;
+
+        var form = {
+            company : '',
+            clientName : '',
+            mobileNo : '',
+            material : '',
         }
+
+        $rootScope.advice = {
+            form : angular.copy(form),
+            status : {
+                numberInvalid : false,
+                isWrong: false,
+                msg : '',
+                timer : '',
+                success : false,
+            }
+        };
+
+        function startClock(time) {
+            var seconds = time;
+            $rootScope.advice.status.timer = "(" + seconds + ") ";
+            var interval = $interval(function(){
+                seconds--;
+                $rootScope.advice.status.timer = "(" + seconds + ") ";
+                if (seconds === 0) {
+                    $rootScope.advice.status.timer = "";
+                    $rootScope.advice.status.numberInvalid = false;
+                    $rootScope.advice.status.isWrong = false;
+                    $interval.cancel(interval);  // clear interval
+                }
+            },1000);
+        }
+
+
+
+
         $rootScope.jumpToHead = function(x) {
             let newHash = 'top-nav';
             if ($location.hash() !== newHash) {
@@ -442,6 +444,73 @@ webapp.config(config)
             }
 
         };
+
+        $rootScope.checkAdviceNumber = function (number) {
+            if (!number || !checkPhoneNumber(number)) {
+                $rootScope.advice.status.numberInvalid = true;
+                $rootScope.advice.status.msg = '号码有误';
+                startClock(3);
+
+            } else {
+                $rootScope.advice.status.numberInvalid = false;
+            }
+        }
+
+        $rootScope.openFileAdvice = function () {
+            $rootScope.hideFileAdvice = false
+        };
+
+        $rootScope.closeFileAdvice = function () {
+            $rootScope.hideFileAdvice = true;
+        };
+
+        $rootScope.saveAdvice = function () {
+            if (!$rootScope.advice.form.material || $rootScope.advice.form.material == '' ) {
+                $rootScope.advice.status.isWrong = true;
+                $rootScope.advice.status.msg = '请填写所需要的资料';
+                startClock(3);
+                return;
+            }
+
+            if ($rootScope.advice.status.numberInvalid) {
+                $rootScope.advice.status.isWrong = true;
+                $rootScope.advice.status.msg = '号码填写有误';
+                startClock(3);
+                return;
+            }
+
+            $http({
+                method: 'POST',
+                url: basePath + "/advice/insert",
+                data: $rootScope.advice.form
+            }).then(function (response ) {
+                if (response.data.code) {
+                    $rootScope.advice.status.success= true;
+                    var seconds = 8;
+                    $rootScope.advice.status.timer = "(" + seconds + ") ";
+                    var interval = $interval(function(){
+                        seconds--;
+                        $rootScope.advice.status.timer = "(" + seconds + ") ";
+                        if (seconds === 0) {
+                            $rootScope.advice.status.timer = "";
+                            $rootScope.advice.status.success = false;
+                            $interval.cancel(interval);  // clear interval
+                        }
+                    },1000);
+                } else {
+                    $rootScope.advice.status.isWrong = true;
+                    $rootScope.advice.status.msg = '获取失败了';
+                    startClock(3);
+                }
+            })
+        };
+
+        $rootScope.cancelConnect = function () {
+            $rootScope.advice.status.success = false;
+            $rootScope.advice.form = angular.copy(form);
+
+        };
+
 
 
         $rootScope.$on('scrolling', function (event, param) {
@@ -457,15 +526,16 @@ webapp.config(config)
                 }
             }
 
-            function isScrolledIntoView(elem)
-            {
-                var docViewTop = $(window).scrollTop();
-                var docViewBottom = docViewTop + $(window).height();
+            function isScrolledIntoView(elem) {
+                if ($(elem).offset()) {
+                    var docViewTop = $(window).scrollTop();
+                    var docViewBottom = docViewTop + $(window).height();
 
-                var elemTop = $(elem).offset().top;
-                var elemBottom = elemTop + $(elem).height();
+                    var elemTop = $(elem).offset().top;
+                    var elemBottom = elemTop + $(elem).height();
 
-                return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+                    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+                }
             }
 
         })

@@ -1,6 +1,7 @@
 angular.module('app').
-controller('ListController',['$rootScope', '$scope', '$state', 'ListService', '$window', '$stateParams', '$uibModal',
-    function ($rootScope, $scope, $state, ListService, $window, $stateParams, $uibModal) {
+controller('ListController',['$rootScope', '$scope', '$state', 'ListService', '$window', '$stateParams', '$uibModal', 'pageInfoService',
+    function ($rootScope, $scope, $state, ListService, $window, $stateParams, $uibModal, pageInfoService) {
+        pageInfoService.setTitle('展会列表');
         $scope.indexBar = [{title : '全部', params : 'all'}];
 
         $scope.mobile = {
@@ -292,12 +293,31 @@ controller('ListController',['$rootScope', '$scope', '$state', 'ListService', '$
             if (!obj) {
                 return;
             }
+
             let objKeys = Object.keys(obj);
             let objKey = objKeys[0];
             $scope.list.condition[objKey] = obj[objKey];
 
             let pagePojo = getSearchCondition($scope.list.condition.country_id, $scope.list.condition.date,
                 $scope.list.condition.category_id, 1);
+
+            if (!$state.is("list.condition.params")) {
+                let x = {}
+                for ( key in pagePojo) {
+                    if (pagePojo.hasOwnProperty('categories')) {
+                        x.category_id = pagePojo['categories'];
+                    }
+
+                    if (pagePojo.hasOwnProperty('date')) {
+                        x.date = pagePojo['date'];
+                    }
+
+                    if (pagePojo.hasOwnProperty('country')) {
+                        x.country_id = pagePojo['country'];
+                    }
+                }
+                $state.go("list.condition.params", x, {reload : true});
+            }
             ListService.expoService().getExpoesByCondition(pagePojo, function (data) {
                 if (data.code) {
                     $scope.list.expoes = data.result.content;
@@ -397,6 +417,7 @@ controller('ListController',['$rootScope', '$scope', '$state', 'ListService', '$
                     page : $scope.list.pageInfo.pageNum + 1,
                 };
                 ListService.expoService().getQueryExpos(param,function (data) {
+                    $scope.list.loadMoreLoading = false;
                     if (data.code) {
                         $scope.list.expoes.push.apply($scope.list.expoes,data.result.content);
                         let tmp = data.result;

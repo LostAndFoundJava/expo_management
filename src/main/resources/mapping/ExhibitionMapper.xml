@@ -67,7 +67,7 @@
     </select>
 
     <select id="getDetial" resultType="com.honger.expo.dto.vo.ExhibitionAndDetailVO">
-        select A.*,B.id,description,brief_info,C.file_url,C.file_name from exhibition A
+        select A.*,B.id,description,brief_info,apply_end_time,C.file_url,C.file_name from exhibition A
         left join exhibition_detail B
         on A.id = B.`exhibition_id`
         left join file C

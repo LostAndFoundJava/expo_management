@@ -1,6 +1,8 @@
 angular.module('app').
-controller('VisaController',['$rootScope', '$scope', '$anchorScroll', '$location', 'TopbarService', 'VisaService', '$state',
-    function ($rootScope, $scope, $anchorScroll, $location, TopbarService, VisaService, $state) {
+controller('VisaController',['$rootScope', '$scope', '$anchorScroll', '$location', 'TopbarService', 'VisaService', '$state', 'pageInfoService',
+    function ($rootScope, $scope, $anchorScroll, $location, TopbarService, VisaService, $state, pageInfoService) {
+        pageInfoService.setTitle('签证列表');
+
         $scope.visa = {
             list : visaMenu.secondMenu,
             selectedMenu : {},
@@ -30,6 +32,7 @@ controller('VisaController',['$rootScope', '$scope', '$anchorScroll', '$location
             } else {
                 $scope.visa.selectedMenu =  $scope.visa.list[0];
             }
+            pageInfoService.setTitle($scope.visa.selectedMenu.title,['签证列表']);
 
             getCountries($scope.visa.selectedMenu)
 
@@ -70,6 +73,7 @@ controller('VisaController',['$rootScope', '$scope', '$anchorScroll', '$location
 
         $scope.chooseContinent = function (continent) {
             $scope.visa.selectedMenu = continent;
+            pageInfoService.setTitle($scope.visa.selectedMenu.title,['签证列表']);
             getCountries($scope.visa.selectedMenu)
         };
 
