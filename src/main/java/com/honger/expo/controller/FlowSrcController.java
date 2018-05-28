@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.exceptions.ClientException;
 import com.honger.expo.dto.response.exhibition.ExhibitionDetailResponse;
 import com.honger.expo.dto.response.status.ResponseJSON;
+import com.honger.expo.pojo.Exhibition;
 import com.honger.expo.pojo.FlowSrc;
 import com.honger.expo.service.ExhibitionService;
 import com.honger.expo.service.FlowSrcService;
@@ -44,6 +45,17 @@ public class FlowSrcController {
 
         if(mobileNo == null || exhibitionId == null)
             return ResponseJSON.error("号码或者展会不存在");
+
+        Exhibition exhibition = exhibitionService.getExhibitionById(exhibitionId);
+
+        if(exhibition == null)
+            return ResponseJSON.error("不存在的展会");
+
+
+        if((new Date().compareTo(exhibition.getApplyEndTime())) == -1){
+            return ResponseJSON.error("超过了展会预定的截止的时间");
+        }
+
 
         boolean f = flowSrcService.isMobileUnique(mobileNo, exhibitionId);
         if (f) {
