@@ -35,8 +35,6 @@ public class ExhibitionAndDetailVO extends ExhibitionSearchVO {
 
     private Date endTime;
 
-    private Date applyEndTime;
-
     private String location;
 
     private String categoryId;
@@ -56,6 +54,8 @@ public class ExhibitionAndDetailVO extends ExhibitionSearchVO {
     private Date createTime;
 
     private Date updateTime;
+
+    private Date applyEndTime;
 
     public String getDescription() {
         return description;

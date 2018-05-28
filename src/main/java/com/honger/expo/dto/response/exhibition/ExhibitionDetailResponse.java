@@ -11,7 +11,7 @@ import java.util.List;
  * Created by chenjian on 2018/4/16.
  */
 public class ExhibitionDetailResponse {
-    private com.honger.expo.pojo.ExhibitionDetail exhibitionDetail;
+    private ExhibitionDetail exhibitionDetail;
     private List<FileResource> fileResource;
     private ExhibitionSearchVO exhibition;
 

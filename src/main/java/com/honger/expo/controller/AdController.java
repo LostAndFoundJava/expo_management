@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by chenjian on 2018/5/9.
  */
 @Controller
-@RequestMapping(value = "/api/ad")
+@RequestMapping(value = "/ad")
 public class AdController {
     @RequestMapping(value = "",method = RequestMethod.GET)
     public String getAdHomepage(HttpServletRequest httpServletRequest,

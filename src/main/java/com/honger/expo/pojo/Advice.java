@@ -14,6 +14,7 @@ public class Advice {
     private String mobileNo;
     private String material;
     private String delete;
+    private String status;
 
     public String getId() {
         return id;
@@ -77,5 +78,13 @@ public class Advice {
 
     public void setDelete(String delete) {
         this.delete = delete;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

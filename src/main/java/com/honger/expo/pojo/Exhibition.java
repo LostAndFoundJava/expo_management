@@ -35,6 +35,8 @@ public class Exhibition {
 
     private Date updateTime;
 
+    private Date applyEndTime;
+
     private String carousel;
 
     public Exhibition() {
@@ -177,6 +179,14 @@ public class Exhibition {
         this.carousel = carousel;
     }
 
+    public Date getApplyEndTime() {
+        return applyEndTime;
+    }
+
+    public void setApplyEndTime(Date applyEndTime) {
+        this.applyEndTime = applyEndTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -208,6 +218,8 @@ public class Exhibition {
             return false;
         if (getUpdateTime() != null ? !getUpdateTime().equals(that.getUpdateTime()) : that.getUpdateTime() != null)
             return false;
+        if (getApplyEndTime() != null ? !getApplyEndTime().equals(that.getApplyEndTime()) : that.getApplyEndTime() != null)
+            return false;
         return getCarousel() != null ? getCarousel().equals(that.getCarousel()) : that.getCarousel() == null;
     }
 
@@ -229,6 +241,7 @@ public class Exhibition {
         result = 31 * result + (getDelete() != null ? getDelete().hashCode() : 0);
         result = 31 * result + (getCreateTime() != null ? getCreateTime().hashCode() : 0);
         result = 31 * result + (getUpdateTime() != null ? getUpdateTime().hashCode() : 0);
+        result = 31 * result + (getApplyEndTime() != null ? getApplyEndTime().hashCode() : 0);
         result = 31 * result + (getCarousel() != null ? getCarousel().hashCode() : 0);
         return result;
     }
