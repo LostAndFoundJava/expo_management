@@ -4,12 +4,14 @@ import com.honger.expo.dao.ClickCountMapper;
 import com.honger.expo.dao.ExhibitionMapper;
 import com.honger.expo.dao.NewsMapper;
 import com.honger.expo.dto.response.exhibition.ExhibitionDetailResponse;
+import com.honger.expo.dto.response.news.NewsCategoryResponse;
 import com.honger.expo.dto.vo.ClickCountVO;
 import com.honger.expo.dto.vo.NewsCategoryVO;
 import com.honger.expo.pojo.ClickCount;
 import com.honger.expo.pojo.Exhibition;
 import com.honger.expo.service.ClickCountService;
 import com.honger.expo.service.ExhibitionService;
+import com.honger.expo.service.NewService;
 import com.honger.expo.utils.CountType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -26,21 +28,27 @@ public class ClickCountServiceImpl implements ClickCountService {
     @Autowired
     private ClickCountMapper clickCountMapper;
 
-//    @Autowired
-//    private ExhibitionMapper exhibitionMapper;
     @Autowired
     private ApplicationContext applicationContext;
 
     @Autowired
     private ExhibitionService exhibitionService;
 
+    @Autowired
+    private NewService newService;
+
     @Override
-    public void insertOrUpdateExhibitionCount(String exhibitionId,Integer type) throws InvocationTargetException, IllegalAccessException {
+    public void insertOrUpdateClickCount(String exhibitionId, Integer type) throws InvocationTargetException, IllegalAccessException {
         Integer integer = clickCountMapper.selectExistByExhibitionId(exhibitionId,type);
         ExhibitionDetailResponse detail = exhibitionService.getDetail(exhibitionId);
-        if(detail == null){
+
+        //为了兼容采取的list列表
+        List<NewsCategoryResponse> newsCategoryResponses = newService.newsById(exhibitionId);
+
+        if(detail == null && newsCategoryResponses.size() == 0 && exhibitionId.length() == 32){
             return;
         }
+
         if(integer.equals(0)){
             ClickCount ec = new ClickCount();
             UUID uuid = UUID.randomUUID();
@@ -57,8 +65,8 @@ public class ClickCountServiceImpl implements ClickCountService {
     }
 
     @Override
-    public Integer selectCountByExhibitionId(String exhibitionId) {
-        Integer integer = clickCountMapper.selectCountByExhibitionId(exhibitionId);
+    public Integer selectCountByExhibitionId(String exhibitionId,CountType type) {
+        Integer integer = clickCountMapper.selectCountByExhibitionId(exhibitionId,Integer.valueOf(type.getType()));
         return  integer;
     }
 
@@ -86,5 +94,10 @@ public class ClickCountServiceImpl implements ClickCountService {
             list.add(clickCountVO);
         }
         return list;
+    }
+
+    @Override
+    public int getAllCount() {
+        return clickCountMapper.getAllCount();
     }
 }

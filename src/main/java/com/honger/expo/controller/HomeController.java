@@ -1,11 +1,14 @@
 package com.honger.expo.controller;
 
+import com.honger.expo.annotation.CountAnnotation;
 import com.honger.expo.dto.HomePageConfig;
 import com.honger.expo.dto.response.home.CategoryListResponse;
 import com.honger.expo.dto.response.status.ResponseJSON;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
+import com.honger.expo.pojo.ClickCount;
 import com.honger.expo.pojo.Link;
 import com.honger.expo.service.CategoryService;
+import com.honger.expo.service.ClickCountService;
 import com.honger.expo.service.ExhibitionService;
 import com.honger.expo.service.HomePageConfigService;
 import com.honger.expo.utils.CacheUtils;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,6 +34,8 @@ public class HomeController {
     private ExhibitionService exhibitionService;
     @Autowired
     private HomePageConfigService homePageConfigService;
+    @Autowired
+    private ClickCountService clickCountService;
 
     @ResponseBody
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
@@ -52,6 +58,7 @@ public class HomeController {
 
     @ResponseBody
     @RequestMapping(value = "/exhibition", method = RequestMethod.GET)
+    @CountAnnotation
     public ResponseJSON getHomePageExhibtion() {
         Map<String, List<ExhibitionSearchVO>> map = null;
         try {
@@ -70,6 +77,19 @@ public class HomeController {
                 concurrentHashMap.put("home.exhibition",map);
 //                System.out.println("===from db");
             }
+        } catch (Exception e) {
+            return ResponseJSON.error();
+        }
+        return ResponseJSON.ok(map);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/allCount", method = RequestMethod.GET)
+    public ResponseJSON getAllCount() {
+        Map map = new HashMap();
+        try {
+            int allCount = clickCountService.getAllCount();
+            map.put("allCount",allCount);
         } catch (Exception e) {
             return ResponseJSON.error();
         }

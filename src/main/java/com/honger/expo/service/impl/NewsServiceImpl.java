@@ -7,14 +7,13 @@ import com.honger.expo.dto.response.news.NewsCategoryResponse;
 import com.honger.expo.dto.vo.CategoryExhibitionRegionVO;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
 import com.honger.expo.dto.vo.NewsCategoryVO;
-import com.honger.expo.pojo.Category;
-import com.honger.expo.pojo.Exhibition;
-import com.honger.expo.pojo.News;
-import com.honger.expo.pojo.RegionData;
+import com.honger.expo.pojo.*;
 import com.honger.expo.service.CategoryService;
+import com.honger.expo.service.ClickCountService;
 import com.honger.expo.service.ExhibitionService;
 import com.honger.expo.service.NewService;
 import com.honger.expo.utils.BeanReflectUtil;
+import com.honger.expo.utils.CountType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +31,8 @@ public class NewsServiceImpl implements NewService {
     @Autowired
     private ExhibitionService exhibitionService;
 
+    @Autowired
+    private ClickCountService clickCountService;
 
     @Override
     public List<NewsCategoryResponse> getAllNews() throws InvocationTargetException, IllegalAccessException {
@@ -43,9 +44,13 @@ public class NewsServiceImpl implements NewService {
 
     private void transform(List<NewsCategoryVO> allNews, List<NewsCategoryResponse> list) throws InvocationTargetException, IllegalAccessException {
         for(NewsCategoryVO ncv : allNews){
+            Integer integer = clickCountService.selectCountByExhibitionId(ncv.getId(), CountType.news);
+
             NewsCategoryResponse ncr = new NewsCategoryResponse();
 
             BeanReflectUtil.beanSet(ncv,ncr);
+
+            ncr.setClickCount(integer.toString());
 
             Category category = new Category();
             category.setId(ncv.getCategoryId());
@@ -72,6 +77,10 @@ public class NewsServiceImpl implements NewService {
     @Override
     public List<NewsCategoryResponse> newsById(String id) throws InvocationTargetException, IllegalAccessException {
         NewsCategoryVO newsById = newsMapper.getNewsById(id);
+
+        if(newsById == null){
+            return new ArrayList<>();
+        }
 
         List<NewsCategoryVO> newsList = new ArrayList<>();
         newsList.add(newsById);

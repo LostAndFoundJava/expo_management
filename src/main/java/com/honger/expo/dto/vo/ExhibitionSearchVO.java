@@ -2,6 +2,8 @@ package com.honger.expo.dto.vo;
 
 import com.honger.expo.pojo.Exhibition;
 
+import java.util.Objects;
+
 /**
  * Created by chenjian on 2018/4/15.
  */
@@ -17,6 +19,8 @@ public class ExhibitionSearchVO{
     private String isChoice;
     private String isCarousel;
     private String isHot;
+
+    private String clickCount;
 
     public String getIsChoice() {
         return isChoice;
@@ -108,18 +112,36 @@ public class ExhibitionSearchVO{
         this.cityName = cityName;
     }
 
+    public String getClickCount() {
+        return clickCount;
+    }
+
+    public void setClickCount(String clickCount) {
+        this.clickCount = clickCount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ExhibitionSearchVO)) return false;
-
+        if (o == null || getClass() != o.getClass()) return false;
         ExhibitionSearchVO that = (ExhibitionSearchVO) o;
-
-        return exhibition.equals(that.exhibition);
+        return Objects.equals(categroy, that.categroy) &&
+                Objects.equals(countryName, that.countryName) &&
+                Objects.equals(countryEnName, that.countryEnName) &&
+                Objects.equals(countryPinyin, that.countryPinyin) &&
+                Objects.equals(cityName, that.cityName) &&
+                Objects.equals(cityEnName, that.cityEnName) &&
+                Objects.equals(cityPinyin, that.cityPinyin) &&
+                Objects.equals(isChoice, that.isChoice) &&
+                Objects.equals(isCarousel, that.isCarousel) &&
+                Objects.equals(isHot, that.isHot) &&
+                Objects.equals(clickCount, that.clickCount) &&
+                Objects.equals(exhibition, that.exhibition);
     }
 
     @Override
     public int hashCode() {
-        return exhibition.hashCode();
+
+        return Objects.hash(categroy, countryName, countryEnName, countryPinyin, cityName, cityEnName, cityPinyin, isChoice, isCarousel, isHot, clickCount, exhibition);
     }
 }

@@ -8,9 +8,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public interface ClickCountService {
-    void insertOrUpdateExhibitionCount(String exhibitionId,Integer type) throws InvocationTargetException, IllegalAccessException;
+    void insertOrUpdateClickCount(String exhibitionId, Integer type) throws InvocationTargetException, IllegalAccessException;
 
-    Integer selectCountByExhibitionId(String exhibitionId);
+    Integer selectCountByExhibitionId(String exhibitionId,CountType countType);
 
     List<ClickCountVO> getTopClickExhibition(String top, CountType conuntType);
+
+    int getAllCount();
 }

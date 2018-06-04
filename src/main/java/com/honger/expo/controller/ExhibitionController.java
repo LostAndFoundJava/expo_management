@@ -27,7 +27,7 @@ import java.util.*;
 @RequestMapping(value = "/api/expos")
 @Slf4j
 public class ExhibitionController {
-    final static private int pageSize = 3;
+    final static private int pageSize = 5;
     @Autowired
     private ExhibitionService exhibitionService;
 
@@ -49,8 +49,7 @@ public class ExhibitionController {
             @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
         List<ExhibitionSearchVO> exhibitions = null;
         Page<List<ExhibitionSearchVO>> rPage = null;
-        try {
-            PageHelper.startPage(Integer.valueOf(page), pageSize);
+        try { PageHelper.startPage(Integer.valueOf(page), pageSize);
             exhibitions = exhibitionService.getExhibitionByCondition(country, categories, date);
             dealWithStatus(exhibitions);
             Integer totalNum = exhibitionService.getTotalNumByConditon(country, categories, date);
@@ -143,18 +142,6 @@ public class ExhibitionController {
             return ResponseJSON.error();
         }
         return ResponseJSON.ok(detail);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/count/{exhibitionId}", method = RequestMethod.GET)
-    public ResponseJSON getExhibitionCount(@PathVariable("exhibitionId") String exhibitionId) {
-        HashMap<String,Integer> num = new HashMap<>();
-        try {
-            num.put("count",clickCountService.selectCountByExhibitionId(exhibitionId));
-        } catch (Exception e) {
-            return ResponseJSON.error();
-        }
-        return ResponseJSON.ok(num);
     }
 
     @ResponseBody

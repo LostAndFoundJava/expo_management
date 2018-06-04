@@ -26,4 +26,8 @@
             limit #{top}
         </if>
     </select>
+
+    <select id="getAllCount" resultType="java.lang.Integer">
+        select sum(count) from click_count;
+    </select>
 </mapper>

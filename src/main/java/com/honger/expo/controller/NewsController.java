@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/api/news")
 public class NewsController {
-    private final static int pageSize = 3;
+    private final static int pageSize = 5;
 
     @Autowired
     private NewService newService;

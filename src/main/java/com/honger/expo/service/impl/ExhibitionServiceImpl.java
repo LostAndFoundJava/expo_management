@@ -7,9 +7,11 @@ import com.honger.expo.dto.vo.ExhibitionHomePage;
 import com.honger.expo.dto.vo.ExhibitionSearchVO;
 import com.honger.expo.pojo.*;
 import com.honger.expo.service.CategoryService;
+import com.honger.expo.service.ClickCountService;
 import com.honger.expo.service.ExhibitionService;
 import com.honger.expo.service.RegionService;
 import com.honger.expo.utils.BeanReflectUtil;
+import com.honger.expo.utils.CountType;
 import com.honger.expo.utils.DateTransformUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,9 @@ public class ExhibitionServiceImpl implements ExhibitionService{
 
     @Autowired
     private RegionService regionService;
+
+    @Autowired
+    private ClickCountService clickCountService;
 
     @Override
     public List<ExhibitionSearchVO> getExhibitionByCondition(String country, String categories, String date) {
@@ -151,6 +156,10 @@ public class ExhibitionServiceImpl implements ExhibitionService{
             Category c = categoryService.getCategoryById(e.getCategoryId());
             RegionData rCity = regionService.getRegionCityById(e.getCity());
             RegionData rCountry = regionService.getRegionCountryById(e.getCountry());
+
+            Integer integer = clickCountService.selectCountByExhibitionId(e.getId(),CountType.exhibition);
+
+            evo.setClickCount(integer.toString());
 
             evo.setExhibition(e);
 

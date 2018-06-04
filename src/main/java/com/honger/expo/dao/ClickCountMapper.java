@@ -17,10 +17,12 @@ public interface ClickCountMapper {
     void updateExhibitionIdCount(@Param("exhibitionId") String exhibitionId,@Param("type") Integer type);
     
     //查询展会访问的次数
-    Integer selectCountByExhibitionId(@Param("exhibitionId") String ExhibitionId);
+    Integer selectCountByExhibitionId(@Param("exhibitionId") String ExhibitionId,@Param("type") Integer type);
 
     //返回top个排序的展会
     List<ClickCount> getTopClickExhibition(@Param("top") Integer top,@Param("type") Integer type);
 
     Exhibition selectExhibtionById(@Param("ExhibitionId") String ExhibitionId);
+
+    int getAllCount();
 }
